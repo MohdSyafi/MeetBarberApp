@@ -1,0 +1,171 @@
+package com.example.MeetBarber;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+
+public class History extends AppCompatActivity implements reviewClickInterface{
+
+    private RecyclerView HistoryRecyclerView;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
+    private ArrayList<Section> sectionList = new ArrayList<>();
+    private ArrayList<apnmtDetails> apnmntList = new ArrayList<>();
+    private MainRecyclerAdapter HistorymainRecyclerAdapter = new MainRecyclerAdapter(sectionList,this);
+    private Section section = new Section();
+    private String UserId,userType;
+    private Button backButton;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
+        setContentView(R.layout.activity_history);
+
+        backButton = findViewById(R.id.HistoryBackButton);
+        HistoryRecyclerView = findViewById(R.id.HistoryMainContainer);
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        UserId = mAuth.getCurrentUser().getUid();
+
+        LinearLayoutManager manager = new LinearLayoutManager(History.this);
+        HistoryRecyclerView.setLayoutManager(manager);
+        HistoryRecyclerView.setAdapter(HistorymainRecyclerAdapter);
+        initdata();
+        checkUserType();
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+    }
+
+    private void checkUserType() {
+        DocumentReference docRef = db.collection("Users").document(UserId);
+        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (value.exists()) {
+                    userType = "Users";
+                } else {
+                    userType = "Barbers";
+                }
+            }
+        });
+    }
+
+    private void initdata() {
+
+        db.collection("HistoryColl").document(UserId)
+                .collection("Date")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                        for(QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()){
+
+                            db.collection("HistoryColl").document(UserId)
+                                    .collection("Date").document(queryDocumentSnapshot .getId())
+                                    .collection("appointmentsID")
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                                            apnmntList = new ArrayList();
+                                            for (DocumentSnapshot querysnapshot: task.getResult()){
+                                                apnmtDetails details = new apnmtDetails(
+                                                        querysnapshot.getString("customer name"),
+                                                        querysnapshot.getString("barberID"),
+                                                        querysnapshot.getString("shop name"),
+                                                        querysnapshot.getString("name"),
+                                                        querysnapshot.getString("type"),
+                                                        querysnapshot.getString("status"),
+                                                        querysnapshot.getString("price"),
+                                                        querysnapshot.getString("time slot"),
+                                                        querysnapshot.getString("date"),
+                                                        querysnapshot.getString("customerID"),
+                                                        userType,
+                                                        querysnapshot.getId(),
+                                                        querysnapshot.getString("review")
+                                                );
+                                                ///adding appointmnets into an arraylist
+                                                apnmntList.add(details);
+                                                ///saving the value of the section title and the appointments arraylist inside one object
+                                                section = new Section(queryDocumentSnapshot .getString("date"),apnmntList);
+                                            }
+
+                                            Log.i("SectionList",sectionList.toString());
+
+                                            if(section.getSectionItem() == null){
+                                                section.setSectionName(null);
+
+
+                                            }else{
+                                                ////initializing a new array list with the section's objects
+                                                sectionList.add(section);
+                                                ///initializes the main recyclerview
+
+                                                HistorymainRecyclerAdapter.notifyDataSetChanged();
+                                            }
+                                        }
+                                    });
+
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void onReviewClick(int position, String documentid,String documentDate,String barberid,String customerid) {
+        Intent a = new Intent(this, Review.class);
+        Bundle extras = new Bundle();
+
+        extras.putString("DETAILDOCUNENTID",documentid);
+        extras.putString("DETAIILDOCUMENTDATE",documentDate);
+        extras.putString("DETAILBARBERID",barberid);
+        extras.putString("DETAILCUSTOMERID",customerid);
+
+        a.putExtras(extras);
+        this.startActivity(a);
+    }
+
+    @Override
+    public void onDetailClick(int position, String documentid,String documentDate,String barberid,String customerid) {
+        Intent a = new Intent(this,Detail.class);
+        Bundle extras = new Bundle();
+
+        extras.putString("DETAILDOCUNENTID",documentid);
+        extras.putString("DETAIILDOCUMENTDATE",documentDate);
+        extras.putString("DETAILBARBERID",barberid);
+        extras.putString("DETAILCUSTOMERID",customerid);
+        extras.putString("DETAILCOLLECTION","HistoryColl");
+
+        a.putExtras(extras);
+        this.startActivity(a);
+    }
+}

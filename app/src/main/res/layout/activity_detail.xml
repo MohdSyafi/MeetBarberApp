@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    tools:context=".Detail">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/LinearDetail"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/CLdetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/DetailBarberPic"
+                android:layout_width="106dp"
+                android:layout_height="91dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="44dp"
+                android:src="@drawable/upload"
+                app:civ_border_color="#FFEB3B"
+                app:civ_border_width="2dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/DetailBarberTitle" />
+
+            <TextView
+                android:id="@+id/DetailServiceName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="68dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/tienne"
+                android:text="Service Name"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/detailServiceNameTV"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/detailBarberName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="44dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/tienne"
+                android:text="Shope Name"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/DetailBarberPic"
+                app:layout_constraintTop_toBottomOf="@+id/DetailBarberTitle" />
+
+            <TextView
+                android:id="@+id/detailBarberEmail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="44dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/tienne"
+                android:text="barber@gmail.com"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/DetailBarberPic"
+                app:layout_constraintTop_toBottomOf="@+id/detailBarberName" />
+
+            <TextView
+                android:id="@+id/detailBarberPhone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="44dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/tienne"
+                android:text="000-000000"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/DetailBarberPic"
+                app:layout_constraintTop_toBottomOf="@+id/detailBarberEmail" />
+
+            <TextView
+                android:id="@+id/detailBarberAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="44dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="43dp"
+                android:fontFamily="@font/tienne"
+                android:text="Street, postcode, city"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/DetailBarberPic"
+                app:layout_constraintTop_toBottomOf="@+id/detailBarberPhone" />
+
+            <TextView
+                android:id="@+id/detailServicePrice"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="88dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/tienne"
+                android:text="RM 0.00"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/detailServicePriceTV"
+                app:layout_constraintTop_toBottomOf="@+id/DetailServiceName" />
+
+            <TextView
+                android:id="@+id/detailServiceTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="88dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/tienne"
+                android:text="00:00 - 00:00"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/detailServiceTimeTV"
+                app:layout_constraintTop_toBottomOf="@+id/detailServicePrice" />
+
+            <TextView
+                android:id="@+id/detailServiceDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="92dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/tienne"
+                android:text="00/00/0000"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/detailServiceDateTV"
+                app:layout_constraintTop_toBottomOf="@+id/detailServiceTime" />
+
+            <TextView
+                android:id="@+id/detailServiceType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="88dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/tienne"
+                android:text="Normal/Home"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/detailServiceTypeTV"
+                app:layout_constraintTop_toBottomOf="@+id/detailServiceDate" />
+
+            <TextView
+                android:id="@+id/detailServiceStatus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/tienne"
+                android:text="On Hold/Accepted"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/detailServiceStatusTV"
+                app:layout_constraintTop_toBottomOf="@+id/detailServiceType" />
+
+            <TextView
+                android:id="@+id/detailServiceStatusTV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/tienne"
+                android:text="Status"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detailServiceTypeTV" />
+
+            <TextView
+                android:id="@+id/detailServiceTypeTV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/tienne"
+                android:text="Type:"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detailServiceDateTV" />
+
+            <TextView
+                android:id="@+id/detailServiceDateTV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/tienne"
+                android:text="Date:"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detailServiceTimeTV" />
+
+            <TextView
+                android:id="@+id/detailServiceTimeTV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/tienne"
+                android:text="Time:"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detailServicePriceTV" />
+
+            <TextView
+                android:id="@+id/detailServicePriceTV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/tienne"
+                android:text="Price:"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detailServiceNameTV" />
+
+            <TextView
+                android:id="@+id/detailServiceNameTV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/tienne"
+                android:text="Service:"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/DetailBarberTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/topborder"
+                android:fontFamily="@font/tienne"
+                android:paddingStart="32dp"
+                android:paddingTop="8dp"
+                android:text="Barber"
+                android:textAlignment="viewStart"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detailServiceStatus" />
+
+            <TextView
+                android:id="@+id/DetailCustomerTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/topborder"
+                android:fontFamily="@font/tienne"
+                android:paddingStart="32dp"
+                android:paddingTop="8dp"
+                android:text="Customer"
+                android:textAlignment="viewStart"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detailBarberAddress" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/DetailCustomerPic"
+                android:layout_width="106dp"
+                android:layout_height="91dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="44dp"
+                android:src="@drawable/upload"
+                app:civ_border_color="#FFEB3B"
+                app:civ_border_width="2dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/DetailCustomerTitle" />
+
+            <TextView
+                android:id="@+id/detailCustomerName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="44dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/tienne"
+                android:text="Customer Name"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/DetailCustomerPic"
+                app:layout_constraintTop_toBottomOf="@+id/DetailCustomerTitle" />
+
+            <TextView
+                android:id="@+id/detailCustomerEmail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="44dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/tienne"
+                android:text="customer@gmail.com"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/DetailCustomerPic"
+                app:layout_constraintTop_toBottomOf="@+id/detailCustomerName" />
+
+            <TextView
+                android:id="@+id/detailCustomerPhone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="44dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/tienne"
+                android:text="000-000000"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/DetailCustomerPic"
+                app:layout_constraintTop_toBottomOf="@+id/detailCustomerEmail" />
+
+            <TextView
+                android:id="@+id/detailCustomerAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="44dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="43dp"
+                android:layout_marginBottom="32dp"
+                android:fontFamily="@font/tienne"
+                android:text="Street, postcode, city"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/DetailCustomerPic"
+                app:layout_constraintTop_toBottomOf="@+id/detailCustomerPhone" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/LinearDetail">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back"
+            android:padding="8dp"
+            android:id="@+id/DetailBackBttn"/>
+        <TextView
+            android:id="@+id/DetailTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/tienne"
+            android:paddingTop="8dp"
+            android:text="Details"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

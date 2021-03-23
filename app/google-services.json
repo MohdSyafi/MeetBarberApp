@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "483221648175",
+    "project_id": "homebarber-57f45",
+    "storage_bucket": "homebarber-57f45.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:483221648175:android:94049440968c629dcb67da",
+        "android_client_info": {
+          "package_name": "com.example.MeetBarber"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "483221648175-r0etdfu22j4bbpj06hljfds5ejln0ud6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoYkWiS90vDUwmJrcjR5qm81PlWPlShlU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "483221648175-r0etdfu22j4bbpj06hljfds5ejln0ud6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

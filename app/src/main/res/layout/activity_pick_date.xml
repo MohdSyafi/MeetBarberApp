@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    tools:context=".PickDate">
+
+    <LinearLayout
+        android:id="@+id/PickDateTopBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottomborder"
+        android:paddingBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/PickDateScrollView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/PickDateBackButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingTop="16dp"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/tienne"
+            android:paddingStart="120dp"
+            android:paddingTop="16dp"
+            android:text="Booking"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp">
+
+        </TextView>
+
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/PickDateScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/PickDateTopBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/tienne"
+                android:layout_marginStart="32dp"
+                android:paddingTop="16dp"
+                android:text="Pick a date:"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp">
+
+            </TextView>
+
+            <CalendarView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/PickDateCalendar"
+                android:layout_gravity="center"
+                android:dateTextAppearance="@style/CalenderViewDateCustomText"
+                android:theme="@style/CalenderViewCustom"
+                android:weekDayTextAppearance="@style/CalenderViewWeekCustomText">
+
+            </CalendarView>
+
+            <androidx.gridlayout.widget.GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                app:columnCount="2"
+                android:background="@drawable/topborder"
+                android:paddingBottom="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/tienne"
+                    android:layout_marginStart="32dp"
+                    android:paddingTop="16dp"
+                    android:text="Service:"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/PickDateServiceName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/tienne"
+                    android:layout_marginStart="16dp"
+                    android:paddingTop="16dp"
+                    android:text="Service"
+                    android:textColor="#FFEB3B"
+                    android:textSize="18sp">
+
+                </TextView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/tienne"
+                    android:paddingTop="16dp"
+                    android:layout_marginStart="32dp"
+                    android:text="Price:"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/PickDateServicePrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/tienne"
+                    android:layout_marginStart="16dp"
+                    android:paddingTop="16dp"
+                    android:text="RM 0.00"
+                    android:textColor="#FFEB3B"
+                    android:textSize="18sp">
+
+                </TextView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/tienne"
+                    android:paddingTop="16dp"
+                    android:text="Date Selected:"
+                    android:layout_marginStart="32dp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/PickDateServiceDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/tienne"
+                    android:layout_marginStart="16dp"
+                    android:paddingTop="16dp"
+                    android:text="00/00/00"
+                    android:textColor="#FFEB3B"
+                    android:textSize="18sp">
+
+                </TextView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/tienne"
+                    android:paddingTop="16dp"
+                    android:text="Type:"
+                    android:layout_marginStart="32dp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/PickDateServiceType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/tienne"
+                    android:layout_marginStart="16dp"
+                    android:paddingTop="16dp"
+                    android:text="Home/Normal"
+                    android:textColor="#FFEB3B"
+                    android:textSize="18sp">
+
+                </TextView>
+
+            </androidx.gridlayout.widget.GridLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#000000"
+                android:id="@+id/PDContinueButton"
+                android:fontFamily="@font/tienne"
+                android:paddingTop="16dp"
+                android:paddingEnd="32dp"
+                android:layout_gravity="end"
+                android:text="Continue"
+                android:textColor="#FFFFFF"
+                android:textSize="18dp">
+            </Button>
+
+        </LinearLayout>
+
+
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
