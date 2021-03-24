@@ -64,7 +64,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/BOheader"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -90,9 +90,9 @@
                 android:ems="10"
                 android:inputType="time"
                 android:textColor="#000000"
-                app:layout_constraintEnd_toStartOf="@+id/textView13"
+                app:layout_constraintEnd_toStartOf="@+id/BOheader3"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView12" />
+                app:layout_constraintTop_toBottomOf="@+id/BOheader2" />
 
             <Spinner
                 android:id="@+id/durationSpinner"
@@ -105,10 +105,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView14" />
+                app:layout_constraintTop_toBottomOf="@+id/BOheader4" />
 
             <TextView
-                android:id="@+id/textView14"
+                android:id="@+id/BOheader4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -124,7 +124,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/startTimeET" />
 
             <TextView
-                android:id="@+id/textView13"
+                android:id="@+id/BOheader3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -137,7 +137,7 @@
                 android:textSize="14sp"
                 app:layout_constraintEnd_toStartOf="@+id/endTimeET"
                 app:layout_constraintStart_toEndOf="@+id/startTimeET"
-                app:layout_constraintTop_toBottomOf="@id/textView12" />
+                app:layout_constraintTop_toBottomOf="@id/BOheader2" />
 
             <EditText
                 android:id="@+id/endTimeET"
@@ -151,11 +151,11 @@
                 android:inputType="time"
                 android:textColor="#000000"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView13"
-                app:layout_constraintTop_toBottomOf="@id/textView12" />
+                app:layout_constraintStart_toEndOf="@+id/BOheader3"
+                app:layout_constraintTop_toBottomOf="@id/BOheader2" />
 
             <TextView
-                android:id="@+id/textView12"
+                android:id="@+id/BOheader2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -168,7 +168,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+                app:layout_constraintTop_toBottomOf="@+id/BOheader" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/container"
@@ -214,6 +214,7 @@
                 android:id="@+id/ConfirmButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="200dp"
                 android:layout_marginEnd="28dp"
                 android:layout_marginBottom="38dp"
                 android:background="#000000"
@@ -222,7 +223,7 @@
                 android:textColor="#FFEB3B"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/durationSpinner" />
+                app:layout_constraintTop_toBottomOf="@+id/HScontainer" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

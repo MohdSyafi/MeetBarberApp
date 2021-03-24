@@ -159,6 +159,17 @@ public class Booking extends AppCompatActivity implements BookClickInterface, Ad
             }
         });
 
+        bookAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String address = bookAddress.getText().toString();
+
+                Intent a = new Intent(Intent.ACTION_VIEW);
+                a.setData(Uri.parse("geo:0,0?q="+address));
+                Intent chooser = Intent.createChooser(a,"Launch Map");
+                startActivity(chooser);
+            }
+        });
     }
 
     private void getReviewData() {

@@ -107,7 +107,7 @@ public class registerBarber extends AppCompatActivity {
                         updateimgtofirebase(ImageUri);
                         Toast.makeText(registerBarber.this,"uploaded",Toast.LENGTH_SHORT).show();
                     }else{
-
+                        UpdateProfile(UserId);
                     }
                 }
             });
@@ -217,6 +217,7 @@ public class registerBarber extends AppCompatActivity {
                                     }
                                 });
                                 Intent i = new Intent(registerBarber.this, registerServices.class);
+                                i.putExtra("EDIT","FALSE");
                                 startActivity(i);
 
                             }else{
@@ -298,7 +299,10 @@ public class registerBarber extends AppCompatActivity {
         DocumentReference ref = db.collection("Barbers").document(id);
         ref.update(profile);
 
+        Toast.makeText(registerBarber.this,"Edit ", Toast.LENGTH_LONG).show();
+
         Intent i = new Intent(registerBarber.this, registerServices.class);
+        i.putExtra("EDIT","TRUE");
         startActivity(i);
     }
 

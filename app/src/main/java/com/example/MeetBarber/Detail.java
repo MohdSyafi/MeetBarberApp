@@ -90,6 +90,32 @@ public class Detail extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        barberaddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String address = barberaddress.getText().toString();
+
+                Intent a = new Intent(Intent.ACTION_VIEW);
+                a.setData(Uri.parse("geo:0,0?q="+address));
+                Intent chooser = Intent.createChooser(a,"Launch Map");
+                startActivity(chooser);
+            }
+        });
+
+        customeraddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String address = customeraddress.getText().toString();
+
+                Intent a = new Intent(Intent.ACTION_VIEW);
+                a.setData(Uri.parse("geo:0,0?q="+address));
+                Intent chooser = Intent.createChooser(a,"Launch Map");
+                startActivity(chooser);
+            }
+        });
     }
 
     private void getCustomerDetail() {

@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -59,15 +60,20 @@ public class registerServices extends AppCompatActivity implements AdapterView.O
     private FirebaseAuth mAuth;
     private String UserId,StartTimeS,EndTimeS,OperationHours,choice;
     public String spinnerposition;
+    private  String edit = "FALSE";
     private Spinner durations;
     private int TPDhour,TPDminute;
     public static String currentCont = null;
+    private TextView header1,header2,header3,header4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.registerservices);
+
+        Intent intent = getIntent();
+        edit = intent.getExtras().getString("EDIT");
 
         durationsarray = new String[]{"30 minutes","45 minutes","1 hour","1 hour 30 minutes","2 hour"};
 
@@ -90,26 +96,42 @@ public class registerServices extends AppCompatActivity implements AdapterView.O
         startTimeET = findViewById(R.id.startTimeET);
         endTimeET = findViewById(R.id.endTimeET);
         ConfirmButton = findViewById(R.id.ConfirmButton);
+        header1 = findViewById(R.id.BOheader);
+        header2 = findViewById(R.id.BOheader2);
+        header3 = findViewById(R.id.BOheader3);
+        header4 = findViewById(R.id.BOheader4);
 
         startTimeET.setInputType(InputType.TYPE_NULL);
         endTimeET.setInputType(InputType.TYPE_NULL);
 
+        Toast.makeText(registerServices.this,"Edit " + edit, Toast.LENGTH_LONG).show();
 
-        startTimeET.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openTimePickerDialog(startTimeET);
+        if(edit.equalsIgnoreCase("TRUE")){
+            startTimeET.setVisibility(View.GONE);
+            endTimeET.setVisibility(View.GONE);
+            durations.setVisibility(View.GONE);
+            header1.setVisibility(View.GONE);
+            header2.setVisibility(View.GONE);
+            header3.setVisibility(View.GONE);
+            header4.setVisibility(View.GONE);
 
-            }
-        });
+        }else{
+            startTimeET.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    openTimePickerDialog(startTimeET);
 
-        endTimeET.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openTimePickerDialog(endTimeET);
+                }
+            });
 
-            }
-        });
+            endTimeET.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    openTimePickerDialog(endTimeET);
+
+                }
+            });
+        }
 
         ConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -404,7 +426,6 @@ public class registerServices extends AppCompatActivity implements AdapterView.O
                 picker.updateTime(TPDhour,TPDminute);
                 picker.show();
     }
-
 
     private void setAdapter() {
         recyclerAdapter adapter= new recyclerAdapter(registerServices.this,serviceList);
