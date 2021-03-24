@@ -3,8 +3,10 @@ package com.example.MeetBarber;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,6 +43,7 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<ReviewRecyclerAd
         String date = reviewDetails.getReviewDate();
         String comm = reviewDetails.getReviewComments();
         String uri = reviewDetails.getReviewImageUrl();
+        holder.setPic(uri);
         float i = Float.parseFloat(reviewDetails.getRecviewRatingValue());
 
         holder.customername.setText(customername);
@@ -68,9 +71,13 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<ReviewRecyclerAd
             customername = itemView.findViewById(R.id.reviewlistcustomername);
             Date = itemView.findViewById(R.id.reviewlistDate);
             comments = itemView.findViewById(R.id.reviewlistComments);
-            img = itemView.findViewById(R.id.reviewlistimage);
+            ///img = itemView.findViewById(R.id.reviewlistimage);
 
+        }
 
+        public void setPic(String link){
+            img = mView.findViewById(R.id.reviewlistimage);
+            Picasso.get().load(link).into(img);
         }
     }
 

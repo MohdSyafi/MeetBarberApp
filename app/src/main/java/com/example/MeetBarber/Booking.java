@@ -82,7 +82,7 @@ public class Booking extends AppCompatActivity implements BookClickInterface, Ad
     private DatePickerDialog datePickerDialog;
     private String StartHour, EndHour, Duration;
     private Spinner BookTimeSpinner;
-    private String SlotChoice , appointmentId , UserId;
+    private String SlotChoice , appointmentId , UserId,userType;
     private ProgressBar pBar;
     private Handler mHandler;
     private APIService apiService;
@@ -137,6 +137,7 @@ public class Booking extends AppCompatActivity implements BookClickInterface, Ad
         mAuth = FirebaseAuth.getInstance();
 
         ////methods to initialize and fill the activity with barber details
+        checkUserType();
         getBarberProfile("Barbers");
         getBarberImage();
         setNSRAdapter();
@@ -192,6 +193,8 @@ public class Booking extends AppCompatActivity implements BookClickInterface, Ad
 
                                         String Cname =doc.getString("username");
                                         String imgUri = doc.getString("piclink");
+
+
 
                                         ReviewDetails reviewDetails = new ReviewDetails(
                                                 imgUri,
@@ -407,7 +410,6 @@ public class Booking extends AppCompatActivity implements BookClickInterface, Ad
 
     }
 
-
     private void sendNotifications(String usertoken, String title, String message) {
         Data data = new Data(title, message);
         NotificationSender sender = new NotificationSender(data, usertoken);
@@ -428,61 +430,81 @@ public class Booking extends AppCompatActivity implements BookClickInterface, Ad
         });
     }
 
+    private void checkUserType() {
+        DocumentReference docRef = db.collection("Users").document(UserId);
+        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (value.exists()) {
+                    userType = "Users";
+                } else {
+                    userType = "Barbers";
+                }
+            }
+        });
+
+    }
 
     @Override
     public void onItemClick(int position) {
-        String type = "N";
 
+        if(userType!="Barbers") {
+            String type = "N";
 
-        String name, price,barber,customer,status;
+            String name, price,barber,customer,status;
 
-        name = serviceList.get(position).getServicename();
-        price = serviceList.get(position).getPrice();
-        barber = barberId;
-        customer = UserId;
-        status = "On hold";
+            name = serviceList.get(position).getServicename();
+            price = serviceList.get(position).getPrice();
+            barber = barberId;
+            customer = UserId;
+            status = "On hold";
 
-        Intent a = new Intent(this,PickDate.class);
-        Bundle extras = new Bundle();
+            Intent a = new Intent(this,PickDate.class);
+            Bundle extras = new Bundle();
 
-        extras.putString("PDSERVICENAME",name);
-        extras.putString("PDSERVICEPRICE",price);
-        extras.putString("PDBARBERID",barber);
-        extras.putString("PDCUSTOMERID",customer);
-        extras.putString("PDSERVICESTATUS",status);
-        extras.putString("PDSERVICETYPE","Normal");
-        extras.putString("PDSHOPNAME",bookShopName.getText().toString());
-        extras.putString("PDCUSTOMERNAME",customername);
+            extras.putString("PDSERVICENAME",name);
+            extras.putString("PDSERVICEPRICE",price);
+            extras.putString("PDBARBERID",barber);
+            extras.putString("PDCUSTOMERID",customer);
+            extras.putString("PDSERVICESTATUS",status);
+            extras.putString("PDSERVICETYPE","Normal");
+            extras.putString("PDSHOPNAME",bookShopName.getText().toString());
+            extras.putString("PDCUSTOMERNAME",customername);
 
-        a.putExtras(extras);
-        this.startActivity(a);
+            a.putExtras(extras);
+            this.startActivity(a);
+        }
+
     }
 
     @Override
     public void onHomeClick(int position) {
-        String type = "H";
-        ///openDialog(position,type);
-        String name, price,barber,customer,status;
 
-        name = HSserviceList.get(position).getServicename();
-        price = HSserviceList.get(position).getPrice();
-        barber = barberId;
-        customer = UserId;
-        status = "On hold";
+        if(userType!="Barbers"){
+            String type = "H";
 
-        Intent a = new Intent(this,PickDate.class);
-        Bundle extras = new Bundle();
+            String name, price,barber,customer,status;
 
-        extras.putString("PDSERVICENAME",name);
-        extras.putString("PDSERVICEPRICE",price);
-        extras.putString("PDBARBERID",barber);
-        extras.putString("PDCUSTOMERID",customer);
-        extras.putString("PDSERVICESTATUS",status);
-        extras.putString("PDSERVICETYPE", "Home");
+            name = HSserviceList.get(position).getServicename();
+            price = HSserviceList.get(position).getPrice();
+            barber = barberId;
+            customer = UserId;
+            status = "On hold";
 
-        a.putExtras(extras);
-        this.startActivity(a);
-    }
+            Intent a = new Intent(this,PickDate.class);
+            Bundle extras = new Bundle();
+
+            extras.putString("PDSERVICENAME",name);
+            extras.putString("PDSERVICEPRICE",price);
+            extras.putString("PDBARBERID",barber);
+            extras.putString("PDCUSTOMERID",customer);
+            extras.putString("PDSERVICESTATUS",status);
+            extras.putString("PDSERVICETYPE", "Home");
+
+            a.putExtras(extras);
+            this.startActivity(a);
+        }
+        }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
