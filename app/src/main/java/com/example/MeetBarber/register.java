@@ -262,10 +262,10 @@ public class register  extends AppCompatActivity  {
                         Map<String, Object> picuri = new HashMap<>();
                         picuri.put("uri",FBuri);
                         imagref.set(picuri);
-                        Toast.makeText(register.this,"uri: " + FBuri,Toast.LENGTH_SHORT).show();
+
                     }
                 });
-                Toast.makeText(register.this,"Profile image uploaded",Toast.LENGTH_SHORT).show();
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
