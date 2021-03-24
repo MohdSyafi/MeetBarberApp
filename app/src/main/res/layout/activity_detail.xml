@@ -22,17 +22,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/DetailBarberPic"
-                android:layout_width="106dp"
-                android:layout_height="91dp"
-                android:layout_marginStart="22dp"
-                android:layout_marginTop="44dp"
-                android:src="@drawable/upload"
-                app:civ_border_color="#FFEB3B"
-                app:civ_border_width="2dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/DetailBarberTitle" />
 
             <TextView
                 android:id="@+id/DetailServiceName"
@@ -46,60 +35,6 @@
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@+id/detailServiceNameTV"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/detailBarberName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="44dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/tienne"
-                android:text="Shope Name"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/DetailBarberPic"
-                app:layout_constraintTop_toBottomOf="@+id/DetailBarberTitle" />
-
-            <TextView
-                android:id="@+id/detailBarberEmail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="44dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/tienne"
-                android:text="barber@gmail.com"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/DetailBarberPic"
-                app:layout_constraintTop_toBottomOf="@+id/detailBarberName" />
-
-            <TextView
-                android:id="@+id/detailBarberPhone"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="44dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/tienne"
-                android:text="000-000000"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/DetailBarberPic"
-                app:layout_constraintTop_toBottomOf="@+id/detailBarberEmail" />
-
-            <TextView
-                android:id="@+id/detailBarberAddress"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="44dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="43dp"
-                android:fontFamily="@font/tienne"
-                android:text="Street, postcode, city"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/DetailBarberPic"
-                app:layout_constraintTop_toBottomOf="@+id/detailBarberPhone" />
 
             <TextView
                 android:id="@+id/detailServicePrice"
@@ -276,76 +211,264 @@
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detailBarberAddress" />
+                app:layout_constraintTop_toBottomOf="@+id/BarberLinearLayout" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/DetailCustomerPic"
-                android:layout_width="106dp"
-                android:layout_height="91dp"
-                android:layout_marginStart="22dp"
-                android:layout_marginTop="44dp"
-                android:src="@drawable/upload"
-                app:civ_border_color="#FFEB3B"
-                app:civ_border_width="2dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/DetailCustomerTitle" />
 
-            <TextView
-                android:id="@+id/detailCustomerName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="44dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/tienne"
-                android:text="Customer Name"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/DetailCustomerPic"
-                app:layout_constraintTop_toBottomOf="@+id/DetailCustomerTitle" />
-
-            <TextView
-                android:id="@+id/detailCustomerEmail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="44dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/tienne"
-                android:text="customer@gmail.com"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/DetailCustomerPic"
-                app:layout_constraintTop_toBottomOf="@+id/detailCustomerName" />
-
-            <TextView
-                android:id="@+id/detailCustomerPhone"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="44dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/tienne"
-                android:text="000-000000"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/DetailCustomerPic"
-                app:layout_constraintTop_toBottomOf="@+id/detailCustomerEmail" />
-
-            <TextView
-                android:id="@+id/detailCustomerAddress"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="44dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="43dp"
+            <LinearLayout
+                app:layout_constraintTop_toBottomOf="@id/DetailCustomerTitle"
+                android:layout_width="match_parent"
                 android:layout_marginBottom="32dp"
-                android:fontFamily="@font/tienne"
-                android:text="Street, postcode, city"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/DetailCustomerPic"
-                app:layout_constraintTop_toBottomOf="@+id/detailCustomerPhone" />
+                android:orientation="horizontal"
+                android:id="@+id/CustomerLinearLayout"
+                android:layout_height="wrap_content">
 
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/DetailCustomerPic"
+                    android:layout_marginStart="16dp"
+                    android:layout_width="106dp"
+                    android:layout_height="91dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/upload"
+                    app:civ_border_color="#FFEB3B"
+                    app:civ_border_width="2dp"  />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="16dp"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="30dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_person">
+                        </ImageView>
+
+                        <TextView
+                            android:id="@+id/detailCustomerName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:fontFamily="@font/tienne"
+                            android:text="Customer Name"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="16dp"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="30dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_mail">
+                        </ImageView>
+
+                        <TextView
+                            android:id="@+id/detailCustomerEmail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:fontFamily="@font/tienne"
+                            android:text="customer@gmail.com"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="16dp"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="30dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_contact">
+                        </ImageView>
+
+                        <TextView
+                            android:id="@+id/detailCustomerPhone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:fontFamily="@font/tienne"
+                            android:text="000-000000"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="16dp"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="30dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_map">
+                        </ImageView>
+
+                        <TextView
+                            android:id="@+id/detailCustomerAddress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:fontFamily="@font/tienne"
+                            android:text="Street, postcode, city"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                app:layout_constraintTop_toBottomOf="@id/DetailBarberTitle"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:id="@+id/BarberLinearLayout"
+                android:layout_height="wrap_content">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/DetailBarberPic"
+                    android:layout_marginStart="16dp"
+                    android:layout_width="106dp"
+                    android:layout_height="91dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/upload"
+                    app:civ_border_color="#FFEB3B"
+                    app:civ_border_width="2dp" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="16dp"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="30dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_person">
+                        </ImageView>
+
+                        <TextView
+                            android:id="@+id/detailBarberName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:fontFamily="@font/tienne"
+                            android:text="Shope Name"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="16dp"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="30dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_mail">
+                        </ImageView>
+
+                        <TextView
+                            android:id="@+id/detailBarberEmail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:fontFamily="@font/tienne"
+                            android:text="barber@gmail.com"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="16dp"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="30dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_contact">
+                        </ImageView>
+
+                        <TextView
+                            android:id="@+id/detailBarberPhone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:fontFamily="@font/tienne"
+                            android:text="000-000000"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="16dp"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="30dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_map">
+                        </ImageView>
+
+                        <TextView
+                            android:id="@+id/detailBarberAddress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:fontFamily="@font/tienne"
+                            android:text="Street, postcode, city"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

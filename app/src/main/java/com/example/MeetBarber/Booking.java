@@ -73,7 +73,7 @@ public class Booking extends AppCompatActivity implements BookClickInterface, Ad
     private FirebaseAuth mAuth;
     private TextView bookEmail,bookPhone,bookAddress,bookShopName;
     private TextView bookserviceName, bookservicePrice,bookreviewnotice;
-    private ImageView bookpic,BookingBackButton;
+    private ImageView bookpic,BookingBackButton,BAdress;
     private RecyclerView bookrecyclerView,bookHSrecyclerview,Reviewrecyclerview;
     private int from = 0;
     private Dialog Bdialog , resultDialog;
@@ -122,6 +122,7 @@ public class Booking extends AppCompatActivity implements BookClickInterface, Ad
 
         UserId = mAuth.getCurrentUser().getUid();
 
+        BAdress = findViewById(R.id.BAddress);
         bookEmail =findViewById(R.id.bookmail);
         bookPhone = findViewById(R.id.bookPhone);
         bookAddress = findViewById(R.id.bookAddress);
@@ -170,7 +171,20 @@ public class Booking extends AppCompatActivity implements BookClickInterface, Ad
                 startActivity(chooser);
             }
         });
+
+        BAdress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String address = bookAddress.getText().toString();
+
+                Intent a = new Intent(Intent.ACTION_VIEW);
+                a.setData(Uri.parse("geo:0,0?q="+address));
+                Intent chooser = Intent.createChooser(a,"Launch Map");
+                startActivity(chooser);
+            }
+        });
     }
+
 
     private void getReviewData() {
 
