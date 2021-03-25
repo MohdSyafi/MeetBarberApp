@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Dialog;
 ///import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.Spinner;
@@ -87,6 +89,7 @@ public class Booking extends AppCompatActivity implements BookClickInterface, Ad
     private Handler mHandler;
     private APIService apiService;
     private RatingBar BookRatingBar;
+    private LinearLayout BookContactLayout,BookAdressLayout,BookEmailLayout;
     private String ServiceType, holdername,customername,shopname,field,holderid;
     DatePickerDialog datePickerDialogtest ;
     TimePickerDialog timePickerDialog ;
@@ -134,6 +137,9 @@ public class Booking extends AppCompatActivity implements BookClickInterface, Ad
         BookingBackButton = findViewById(R.id.BookingBackButton);
         bookreviewnotice = findViewById(R.id.bookreviewnotice);
         BookRatingBar = findViewById(R.id.BookingRattingBar);
+        BookContactLayout = findViewById(R.id.BookContactLayout);
+        BookAdressLayout = findViewById(R.id.BookAddressLayout);
+        BookEmailLayout = findViewById(R.id.BookEmailLayout);
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
@@ -153,6 +159,33 @@ public class Booking extends AppCompatActivity implements BookClickInterface, Ad
         Reviewrecyclerview.setLayoutManager(manager);
         Reviewrecyclerview.setAdapter(reviewRecyclerAdapter);
 
+        BookEmailLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("mailto:" + bookEmail.getText().toString()));
+                intent.putExtra(Intent.EXTRA_TEXT, "Hello "+ bookShopName.getText().toString());
+                startActivity(intent);
+            }
+        });
+
+        BookContactLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String num = "+60"+bookPhone.getText().toString();
+                String text = "Hello " + bookShopName.getText().toString();
+
+                boolean installed = isAppInstalled("com.whatsapp");
+
+                if(installed){
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse("http://api.whatsapp.com/send?phone="+num+"&text="+text));
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(Booking.this,"Whatsapp is not installed",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         BookingBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -160,7 +193,7 @@ public class Booking extends AppCompatActivity implements BookClickInterface, Ad
             }
         });
 
-        bookAddress.setOnClickListener(new View.OnClickListener() {
+        BookAdressLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String address = bookAddress.getText().toString();
@@ -172,17 +205,22 @@ public class Booking extends AppCompatActivity implements BookClickInterface, Ad
             }
         });
 
-        BAdress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String address = bookAddress.getText().toString();
 
-                Intent a = new Intent(Intent.ACTION_VIEW);
-                a.setData(Uri.parse("geo:0,0?q="+address));
-                Intent chooser = Intent.createChooser(a,"Launch Map");
-                startActivity(chooser);
-            }
-        });
+    }
+
+    private boolean isAppInstalled(String s) {
+        PackageManager packageManager = getPackageManager();
+        boolean is_installed;
+
+        try {
+            packageManager.getPackageInfo(s,PackageManager.GET_ACTIVITIES);
+            is_installed = true;
+        } catch (PackageManager.NameNotFoundException e) {
+            is_installed = false;
+            e.printStackTrace();
+        }
+
+        return is_installed;
     }
 
 

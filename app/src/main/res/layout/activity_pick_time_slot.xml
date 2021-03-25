@@ -40,8 +40,9 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/PickTimeSlotTopBar"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="0dp">
 
         <LinearLayout
@@ -210,18 +211,38 @@
 
             </androidx.gridlayout.widget.GridLayout>
 
-            <Button
-                android:id="@+id/PickTimeSlotContinueButton"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_gravity="end"
-                android:background="#000000"
-                android:fontFamily="@font/tienne"
-                android:paddingTop="16dp"
-                android:paddingEnd="32dp"
-                android:text="Confirm"
-                android:textColor="#FFFFFF"
-                android:textSize="18dp"></Button>
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/PickTimeSlotContinueButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:background="#000000"
+                    android:fontFamily="@font/tienne"
+                    android:text="Confirm"
+                    android:textColor="#FFEB3B"
+                    android:textSize="18dp">
+
+                </Button>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_next">
+                </ImageView>
+
+            </LinearLayout>
+
+
 
         </LinearLayout>
 

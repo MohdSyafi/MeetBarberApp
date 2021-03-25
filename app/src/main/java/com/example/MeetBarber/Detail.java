@@ -5,12 +5,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +44,7 @@ public class Detail extends AppCompatActivity {
     private  TextView barbershopname, barberemail, barbercontact, barberaddress;
     private  TextView customername, customeremail,customercontact, customeraddress;
     private CircleImageView barberprofileImage, customerprofileImage;
+    private LinearLayout DetailCEmailLayout,DetailCContactLayout,DetailCAddressLayout,DetailBEmailLayout,DetailBContactLayout,DetailBAddressLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,12 @@ public class Detail extends AppCompatActivity {
         CustomerID = details.getString("DETAILCUSTOMERID");
         collection = details.getString("DETAILCOLLECTION");
 
+        DetailCEmailLayout = findViewById(R.id.DetailCEmailLayout);
+        DetailCContactLayout = findViewById(R.id.DetailCContactLayout);
+        DetailCAddressLayout = findViewById(R.id.DetailCAddresslayout);
+        DetailBEmailLayout = findViewById(R.id.DetailBEmailLayout);
+        DetailBContactLayout = findViewById(R.id.DetailBContactLayout);
+        DetailBAddressLayout = findViewById(R.id.DetailBAddressLayout);
         serviceName = findViewById(R.id.DetailServiceName);
         serviceDate = findViewById(R.id.detailServiceDate);
         servicePrice = findViewById(R.id.detailServicePrice);
@@ -91,7 +100,61 @@ public class Detail extends AppCompatActivity {
             }
         });
 
-        barberaddress.setOnClickListener(new View.OnClickListener() {
+        DetailCContactLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String num = "+60"+customercontact.getText().toString();
+                String text = "Hello " + customername.getText().toString();
+
+                boolean installed = isAppInstalled("com.whatsapp");
+
+                if(installed){
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse("http://api.whatsapp.com/send?phone="+num+"&text="+text));
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(Detail.this,"Whatsapp is not installed",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        DetailBContactLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String num = "+60"+barbercontact.getText().toString();
+                String text = "Hello " + barbershopname.getText().toString();
+
+                boolean installed = isAppInstalled("com.whatsapp");
+
+                if(installed){
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse("http://api.whatsapp.com/send?phone="+num+"&text="+text));
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(Detail.this,"Whatsapp is not installed",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        DetailCEmailLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("mailto:" +  customeremail.getText().toString()));
+                intent.putExtra(Intent.EXTRA_TEXT, "Hello "+ customername.getText().toString());
+                startActivity(intent);
+            }
+        });
+
+        DetailBEmailLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("mailto:" +  barberemail.getText().toString()));
+                intent.putExtra(Intent.EXTRA_TEXT, "Hello "+ barbershopname.getText().toString());
+                startActivity(intent);
+            }
+        });
+
+        DetailBAddressLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -104,7 +167,7 @@ public class Detail extends AppCompatActivity {
             }
         });
 
-        customeraddress.setOnClickListener(new View.OnClickListener() {
+        DetailCAddressLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -116,6 +179,21 @@ public class Detail extends AppCompatActivity {
                 startActivity(chooser);
             }
         });
+    }
+
+    private boolean isAppInstalled(String s) {
+        PackageManager packageManager = getPackageManager();
+        boolean is_installed;
+
+        try {
+            packageManager.getPackageInfo(s,PackageManager.GET_ACTIVITIES);
+            is_installed = true;
+        } catch (PackageManager.NameNotFoundException e) {
+            is_installed = false;
+            e.printStackTrace();
+        }
+
+        return is_installed;
     }
 
     private void getCustomerDetail() {

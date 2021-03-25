@@ -95,9 +95,11 @@
             </RatingBar>
 
             <LinearLayout
-               android:layout_width="wrap_content"
+               android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="start"
+                android:clickable="true"
+                android:id="@+id/BookContactLayout"
                 android:padding="8dp"
                 android:orientation="horizontal">
 
@@ -106,6 +108,7 @@
                     android:layout_width="24dp"
                     android:layout_height="22dp"
                     android:layout_gravity="center"
+                    android:clickable="false"
                     android:src="@drawable/ic_contact"
                     />
 
@@ -115,17 +118,27 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/tienne"
                     android:layout_marginStart="16dp"
+                    android:clickable="false"
                     android:text="phone"
                     android:textColor="#FFFFFF"
+                    android:layout_weight="1"
                     android:textSize="18sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:src="@drawable/ic_next">
+                </ImageView>
             </LinearLayout>
 
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:orientation="horizontal"
-                android:layout_gravity="center"
+                android:layout_gravity="start"
                 android:padding="8dp"
+                android:id="@+id/BookEmailLayout"
                 android:layout_height="wrap_content">
 
                 <ImageView
@@ -140,21 +153,30 @@
                     android:id="@+id/bookmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:fontFamily="@font/tienne"
                     android:layout_gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/tienne"
                     android:text="Email"
-                    android:textAlignment="center"
                     android:textColor="#FFFFFF"
                     android:textSize="18sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:src="@drawable/ic_next">
+                </ImageView>
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_gravity="center"
+                android:id="@+id/BookAddressLayout"
+                android:clickable="true"
+                android:layout_gravity="start"
                 android:padding="8dp">
 
                 <ImageView
@@ -162,6 +184,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:clickable="false"
                     android:elevation="10dp"
                     android:src="@drawable/ic_map">
 
@@ -175,9 +198,18 @@
                     android:fontFamily="@font/tienne"
                     android:padding="8dp"
                     android:text="Address"
-                    android:textAlignment="center"
+                    android:clickable="false"
                     android:textColor="#FFFFFF"
+                    android:layout_weight="1"
                     android:textSize="18sp" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:clickable="false"
+                    android:gravity="end"
+                    android:src="@drawable/ic_next">
+                </ImageView>
 
             </LinearLayout>
 

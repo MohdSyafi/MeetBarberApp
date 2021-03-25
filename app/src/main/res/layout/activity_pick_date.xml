@@ -188,19 +188,36 @@
 
             </androidx.gridlayout.widget.GridLayout>
 
-            <Button
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#000000"
-                android:id="@+id/PDContinueButton"
-                android:fontFamily="@font/tienne"
-                android:paddingTop="16dp"
-                android:paddingEnd="32dp"
+                android:orientation="horizontal"
                 android:layout_gravity="end"
-                android:text="Continue"
-                android:textColor="#FFFFFF"
-                android:textSize="18dp">
-            </Button>
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/PDContinueButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="#000000"
+                    android:fontFamily="@font/tienne"
+                    android:text="Continue"
+                    android:textColor="#FFEB3B"
+                    android:textSize="18dp">
+
+                </Button>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_next">
+                </ImageView>
+            </LinearLayout>
+
 
         </LinearLayout>
 

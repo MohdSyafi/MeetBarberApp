@@ -233,22 +233,23 @@
                     app:civ_border_width="2dp"  />
 
                 <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:orientation="horizontal"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:layout_height="wrap_content">
+                        android:orientation="horizontal">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="30dp"
                             android:layout_gravity="center"
+                            android:layout_marginStart="30dp"
                             android:src="@drawable/ic_person">
+
                         </ImageView>
 
                         <TextView
@@ -264,17 +265,21 @@
 
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:layout_height="wrap_content">
+                        android:clickable="true"
+                        android:id="@+id/DetailCEmailLayout"
+                        android:orientation="horizontal">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="30dp"
                             android:layout_gravity="center"
+                            android:clickable="false"
+                            android:layout_marginStart="30dp"
                             android:src="@drawable/ic_mail">
+
                         </ImageView>
 
                         <TextView
@@ -282,25 +287,41 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
+                            android:clickable="false"
+                            android:layout_weight="1"
                             android:fontFamily="@font/tienne"
                             android:text="customer@gmail.com"
                             android:textColor="#FFFFFF"
                             android:textSize="18sp" />
 
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:clickable="false"
+                            android:gravity="end"
+                            android:src="@drawable/ic_next">
+
+                        </ImageView>
+
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:layout_height="wrap_content">
+                        android:id="@+id/DetailCContactLayout"
+                        android:clickable="true"
+                        android:orientation="horizontal">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="30dp"
                             android:layout_gravity="center"
+                            android:clickable="false"
+                            android:layout_marginStart="30dp"
                             android:src="@drawable/ic_contact">
+
                         </ImageView>
 
                         <TextView
@@ -308,25 +329,42 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
+                            android:clickable="false"
+                            android:layout_weight="1"
                             android:fontFamily="@font/tienne"
                             android:text="000-000000"
                             android:textColor="#FFFFFF"
-                            android:textSize="18sp"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="16dp"
-                        android:layout_height="wrap_content">
+                            android:textSize="18sp" />
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="30dp"
                             android:layout_gravity="center"
+                            android:clickable="false"
+                            android:gravity="end"
+                            android:src="@drawable/ic_next">
+
+                        </ImageView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="32dp"
+                        android:id="@+id/DetailCAddresslayout"
+                        android:clickable="true"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="30dp"
+                            android:clickable="false"
                             android:src="@drawable/ic_map">
+
                         </ImageView>
 
                         <TextView
@@ -334,10 +372,22 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
+                            android:clickable="false"
+                            android:layout_weight="1"
                             android:fontFamily="@font/tienne"
                             android:text="Street, postcode, city"
                             android:textColor="#FFFFFF"
                             android:textSize="18sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:clickable="false"
+                            android:gravity="end"
+                            android:src="@drawable/ic_next">
+
+                        </ImageView>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -361,7 +411,7 @@
 
                 <LinearLayout
                     android:orientation="vertical"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <LinearLayout
@@ -392,15 +442,18 @@
 
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:orientation="horizontal"
                         android:layout_marginTop="16dp"
+                        android:id="@+id/DetailBEmailLayout"
+                        android:clickable="true"
                         android:layout_height="wrap_content">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="30dp"
+                            android:clickable="false"
                             android:layout_gravity="center"
                             android:src="@drawable/ic_mail">
                         </ImageView>
@@ -411,22 +464,36 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:fontFamily="@font/tienne"
+                            android:clickable="false"
+                            android:layout_weight="1"
                             android:text="barber@gmail.com"
                             android:textColor="#FFFFFF"
                             android:textSize="18sp" />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:clickable="false"
+                            android:gravity="end"
+                            android:src="@drawable/ic_next">
+
+                        </ImageView>
 
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:orientation="horizontal"
                         android:layout_marginTop="16dp"
+                        android:clickable="true"
+                        android:id="@+id/DetailBContactLayout"
                         android:layout_height="wrap_content">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="30dp"
+                            android:clickable="false"
                             android:layout_gravity="center"
                             android:src="@drawable/ic_contact">
                         </ImageView>
@@ -436,16 +503,30 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
+                            android:layout_weight="1"
                             android:fontFamily="@font/tienne"
+                            android:clickable="false"
                             android:text="000-000000"
                             android:textColor="#FFFFFF"
                             android:textSize="18sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:clickable="false"
+                            android:gravity="end"
+                            android:src="@drawable/ic_next">
+
+                        </ImageView>
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:orientation="horizontal"
                         android:layout_marginTop="16dp"
+                        android:id="@+id/DetailBAddressLayout"
+                        android:clickable="true"
                         android:layout_height="wrap_content">
 
                         <ImageView
@@ -453,6 +534,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="30dp"
                             android:layout_gravity="center"
+                            android:clickable="false"
                             android:src="@drawable/ic_map">
                         </ImageView>
 
@@ -461,10 +543,22 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
+                            android:layout_weight="1"
                             android:fontFamily="@font/tienne"
+                            android:clickable="false"
                             android:text="Street, postcode, city"
                             android:textColor="#FFFFFF"
                             android:textSize="18sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:clickable="false"
+                            android:gravity="end"
+                            android:src="@drawable/ic_next">
+
+                        </ImageView>
                     </LinearLayout>
 
                 </LinearLayout>
