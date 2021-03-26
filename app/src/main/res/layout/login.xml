@@ -13,13 +13,14 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="300dp"
         android:layout_marginEnd="40dp"
-        android:paddingStart="8dp"
         android:background="#FFFFFF"
         android:ems="10"
         android:fontFamily="@font/tienne"
         android:hint="Email..."
         android:inputType="textEmailAddress"
+        android:paddingStart="8dp"
         android:textColor="#0B0707"
+        android:textColorHint="#000000"
         android:textCursorDrawable="@drawable/cursorstyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,14 +31,15 @@
         android:layout_width="317dp"
         android:layout_height="40dp"
         android:layout_marginStart="40dp"
-        android:paddingStart="8dp"
         android:layout_marginTop="14dp"
         android:layout_marginEnd="40dp"
         android:background="#FFFFFF"
         android:ems="10"
         android:fontFamily="@font/tienne"
-        android:hint="Password..."
+        android:hint="@string/hint_password"
         android:inputType="textPassword"
+        android:paddingStart="8dp"
+        android:textColorHint="#000000"
         android:textCursorDrawable="@drawable/cursorstyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,17 +49,19 @@
         android:id="@+id/regbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
         android:layout_marginEnd="76dp"
         android:layout_marginBottom="51dp"
         android:background="@color/design_default_color_on_secondary"
         android:backgroundTint="#000000"
         android:fontFamily="@font/tienne"
-        android:text="User"
+        android:text="@string/user"
         android:textColor="#FFEB3B"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintStart_toEndOf="@+id/login_or"
+        app:layout_constraintTop_toBottomOf="@+id/login_message" />
 
     <Button
         android:id="@+id/regbuttonB"
@@ -65,6 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="75dp"
         android:layout_marginTop="18dp"
+        android:layout_marginEnd="29dp"
         android:layout_marginBottom="51dp"
         android:background="@color/design_default_color_on_secondary"
         android:fontFamily="@font/tienne"
@@ -72,8 +77,9 @@
         android:textColor="#FFEB3B"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/login_or"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/login_message" />
 
     <Button
         android:id="@+id/login"
@@ -83,7 +89,7 @@
         android:layout_marginEnd="51dp"
         android:background="#000000"
         android:fontFamily="@font/tienne"
-        android:text="Log In"
+        android:text="@string/LogIn_button"
         android:textColor="#FFEB3B"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -102,7 +108,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/login_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="75dp"
@@ -110,7 +116,7 @@
         android:layout_marginEnd="76dp"
         android:layout_marginBottom="17dp"
         android:fontFamily="@font/tienne"
-        android:text="Do not have an account? register as:"
+        android:text="@string/LogIn_message"
         android:textColor="#FFFFFF"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/regbutton"
@@ -119,21 +125,21 @@
         app:layout_constraintTop_toBottomOf="@+id/login" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/login_or"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="42dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="27dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="66dp"
         android:fontFamily="@font/tienne"
-        android:text="or"
+        android:text="@string/LogIn_or"
         android:textColor="#FFFFFF"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/regbutton"
         app:layout_constraintStart_toEndOf="@+id/regbuttonB"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/login_message" />
 
     <TextView
         android:id="@+id/textView5"

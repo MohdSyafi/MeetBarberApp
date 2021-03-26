@@ -43,13 +43,13 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView11"
+                        android:id="@+id/ProfileTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:layout_marginEnd="240dp"
                         android:fontFamily="@font/tienne"
-                        android:text="Profile"
+                        android:text="@string/page_title_profile"
                         android:textColor="#FFFFFF"
                         android:textSize="24sp"
                         app:layout_constraintEnd_toEndOf="@+id/profiletoolbar"
@@ -63,7 +63,7 @@
                         android:layout_marginBottom="4dp"
                         android:background="@drawable/sidebar"
                         app:layout_constraintBottom_toBottomOf="@+id/profiletoolbar"
-                        app:layout_constraintEnd_toStartOf="@+id/textView11"
+                        app:layout_constraintEnd_toStartOf="@+id/AppointmentTitle"
                         app:layout_constraintStart_toStartOf="@+id/profiletoolbar"
                         app:layout_constraintTop_toTopOf="@+id/profiletoolbar"
                         app:layout_constraintVertical_bias="1.0"
@@ -153,7 +153,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:layout_marginStart="30dp"
+                                android:layout_marginStart="16dp"
                                 android:src="@drawable/ic_person">
 
                             </ImageView>
@@ -181,7 +181,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:layout_marginStart="30dp"
+                                android:layout_marginStart="16dp"
                                 android:clickable="false"
                                 android:src="@drawable/ic_mail">
 
@@ -211,7 +211,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:layout_marginStart="30dp"
+                                android:layout_marginStart="16dp"
                                 android:clickable="false"
                                 android:src="@drawable/ic_contact">
 
@@ -241,7 +241,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:layout_marginStart="30dp"
+                                android:layout_marginStart="16dp"
                                 android:clickable="false"
                                 android:src="@drawable/ic_map">
 
@@ -269,11 +269,11 @@
                         android:layout_marginTop="16dp"
                         android:background="@drawable/topborder"
                         android:fontFamily="@font/tienne"
-                        android:paddingStart="45dp"
+                        android:paddingStart="16dp"
                         android:paddingTop="10dp"
-                        android:text="Home Services"
+                        android:text="@string/home_services_title"
                         android:textAlignment="textStart"
-                        android:textColor="#FFFFFF"
+                        android:textColor="#FFEB3B"
                         android:textSize="24sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -286,11 +286,11 @@
                         android:layout_marginTop="32dp"
                         android:background="@drawable/topborder"
                         android:fontFamily="@font/tienne"
-                        android:paddingStart="45dp"
+                        android:paddingStart="16dp"
                         android:paddingTop="10dp"
-                        android:text="Normal Services"
+                        android:text="@string/normal_services_title"
                         android:textAlignment="textStart"
-                        android:textColor="#FFFFFF"
+                        android:textColor="#FFEB3B"
                         android:textSize="24sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

@@ -1,5 +1,19 @@
 <resources>
     <string name="app_name">MeetBarber</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="page_title_Appointments">Appointments</string>
+    <string name="page_title_Search">Search</string>
+    <string name="page_title_profile">Profile</string>
+    <string name="sidebar_signout">Sign out</string>
+    <string name="sidebar_language">Language</string>
+    <string name="sidebar_history">History</string>
+    <string name="normal_services_title">Normal Services</string>
+    <string name="home_services_title">Home Services</string>
+    <string name="LogIn_button">Log In</string>
+    <string name="LogIn_message">Do not have an account? register as:</string>
+    <string name="LogIn_or">or</string>
+    <string name="user">User</string>
+    <string name="hint_password">Password...</string>
+
+
 </resources>

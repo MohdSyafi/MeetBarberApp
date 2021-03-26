@@ -9,10 +9,15 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +28,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -42,13 +48,17 @@ public class Profile extends AppCompatActivity {
     private ArrayList<HSservice> HSserviceList;
     private FirebaseFirestore db;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();;
-    private String UserId;
-    private TextView profileName,profileEmail,profilePhone,profileAddress,titleNS,titleHS,profileShopName;
+    private String UserId,lang;
+    private TextView profileName,profileEmail,profilePhone,profileAddress,titleNS,titleHS,profileShopName,pageTitle;
+    private TextView drawer_logout,drawer_language,drawer_history;
     private ImageView profilepic;
     private RecyclerView recyclerView,HSrecyclerview;
     private Button profileEditButton;
     private int from = 1;
     private DrawerLayout drawerLayout;
+    private Context context;
+    private Resources resources;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +107,39 @@ public class Profile extends AppCompatActivity {
         titleHS =  findViewById(R.id.titleHS);
         titleNS = findViewById(R.id.TitleNS);
         profileEditButton =findViewById(R.id.profileEditButton);
+        pageTitle = findViewById(R.id.ProfileTitle);
+        drawer_history = findViewById(R.id.drawer_history);
+        drawer_language = findViewById(R.id.drawer_language);
+        drawer_logout = findViewById(R.id.drawer_logout);
+
+        SharedPreferences sh = PreferenceManager.getDefaultSharedPreferences(this);
+
+        lang = sh.getString("Locale.Helper.Selected.Language","");
+
+        if(lang.equalsIgnoreCase("ms")){
+
+            context = LocaleHelper.setLocale(Profile.this, "ms");
+            resources =  context.getResources();
+            pageTitle.setText(resources.getString(R.string.page_title_profile));
+            overridePendingTransition(0, 0);
+            drawer_logout.setText(resources.getString(R.string.sidebar_signout));
+            drawer_language.setText(resources.getString(R.string.sidebar_language));
+            drawer_history.setText(resources.getString(R.string.sidebar_history));
+            titleNS.setText(resources.getString(R.string.normal_services_title));
+            titleHS.setText(resources.getString(R.string.home_services_title));
+
+        }else{
+
+            context = LocaleHelper.setLocale(Profile.this, "en");
+            resources =  context.getResources();
+            pageTitle.setText(resources.getString(R.string.page_title_profile));
+            overridePendingTransition(0, 0);
+            drawer_logout.setText(resources.getString(R.string.sidebar_signout));
+            drawer_language.setText(resources.getString(R.string.sidebar_language));
+            drawer_history.setText(resources.getString(R.string.sidebar_history));
+            titleNS.setText(resources.getString(R.string.normal_services_title));
+            titleHS.setText(resources.getString(R.string.home_services_title));
+        }
 
         ///determining current user is barber or normal user
         DocumentReference docRef = db.collection("Users").document(UserId);
@@ -137,8 +180,41 @@ public class Profile extends AppCompatActivity {
             }
         });
 
+
+
     }
 
+    public  void ClickLanguage(View view ){
+        final String[] Language = {"ENGLISH", "MELAYU"};
+        final int checkedItem;
+
+
+        Dialog languageDialog = new Dialog(this);
+        Button english, melayu;
+        languageDialog.setContentView(R.layout.languagepopup);
+        languageDialog.show();
+        english = languageDialog.findViewById(R.id.languageEngBttn);
+        melayu = languageDialog.findViewById(R.id.languageMYBttn);
+
+        melayu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context = LocaleHelper.setLocale(Profile.this, "ms");
+                resources = context.getResources();
+                recreate();
+            }
+        });
+        english.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context = LocaleHelper.setLocale(Profile.this, "en");
+                resources = context.getResources();
+                languageDialog.dismiss();
+                recreate();
+            }
+        });
+
+    }
     public void ClickSideBarProfile(View view){
         openDrawer(drawerLayout);
     }

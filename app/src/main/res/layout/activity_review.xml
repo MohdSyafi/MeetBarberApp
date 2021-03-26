@@ -99,7 +99,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView11"
+                android:id="@+id/AppointmentTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -125,7 +125,7 @@
                 android:background="@drawable/ic_back"
                 android:onClick="ReviewBackClick"
                 app:layout_constraintBottom_toBottomOf="@+id/profiletoolbar"
-                app:layout_constraintEnd_toStartOf="@+id/textView11"
+                app:layout_constraintEnd_toStartOf="@+id/AppointmentTitle"
                 app:layout_constraintStart_toStartOf="@+id/profiletoolbar"
                 app:layout_constraintTop_toTopOf="@+id/profiletoolbar"
                 app:layout_constraintVertical_bias="1.0" />

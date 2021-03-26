@@ -7,9 +7,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +31,7 @@ import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -36,18 +42,23 @@ import com.squareup.picasso.Picasso;
 public class Search extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private EditText searchField;
+    private TextView pageTitle;
+    private TextView drawer_logout,drawer_language,drawer_history;
     private Button searchButton;
     private String[] categoryarray;
     private RecyclerView searchRecyclerview;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private FirestoreRecyclerAdapter<User, UsersViewHolder> adapter;
-    private String searchText;
+    private String searchText,lang;
     private String CatChoice;
     private Spinner category;
+    private Context context;
+    private Resources resources;
     private DrawerLayout drawerLayout;
     static {
         FirebaseFirestore.setLoggingEnabled(true);
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +73,11 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
         searchButton = findViewById(R.id.SearchButton);
         searchRecyclerview = findViewById(R.id.SearchContainer);
         category = findViewById(R.id.catspinner);
+        pageTitle = findViewById(R.id.SearchTitle);
+        drawer_history = findViewById(R.id.drawer_history);
+        drawer_language = findViewById(R.id.drawer_language);
+        drawer_logout = findViewById(R.id.drawer_logout);
+
 
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setReverseLayout(true);
@@ -95,6 +111,29 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
         });
 
 
+        SharedPreferences sh = PreferenceManager.getDefaultSharedPreferences(this);
+
+        lang = sh.getString("Locale.Helper.Selected.Language","");
+
+        if(lang.equalsIgnoreCase("ms")){
+
+            context = LocaleHelper.setLocale(Search.this, "ms");
+            resources =  context.getResources();
+            pageTitle.setText(resources.getString(R.string.page_title_Search));
+            drawer_logout.setText(resources.getString(R.string.sidebar_signout));
+            drawer_language.setText(resources.getString(R.string.sidebar_language));
+            drawer_history.setText(resources.getString(R.string.sidebar_history));
+
+        }else{
+
+            context = LocaleHelper.setLocale(Search.this, "en");
+            resources =  context.getResources();
+            pageTitle.setText(resources.getString(R.string.page_title_Search));
+            drawer_logout.setText(resources.getString(R.string.sidebar_signout));
+            drawer_language.setText(resources.getString(R.string.sidebar_language));
+            drawer_history.setText(resources.getString(R.string.sidebar_history));
+        }
+
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,9 +161,39 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
                 Toast.makeText(Search.this,"choice : " + CatChoice,Toast.LENGTH_LONG).show();
             }
         });
-
     }
 
+    public  void ClickLanguage(View view ){
+        final String[] Language = {"ENGLISH", "MELAYU"};
+        final int checkedItem;
+
+
+        Dialog languageDialog = new Dialog(this);
+        Button english, melayu;
+        languageDialog.setContentView(R.layout.languagepopup);
+        languageDialog.show();
+        english = languageDialog.findViewById(R.id.languageEngBttn);
+        melayu = languageDialog.findViewById(R.id.languageMYBttn);
+
+        melayu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context = LocaleHelper.setLocale(Search.this, "ms");
+                resources = context.getResources();
+                recreate();
+            }
+        });
+        english.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context = LocaleHelper.setLocale(Search.this, "en");
+                resources = context.getResources();
+                languageDialog.dismiss();
+                recreate();
+            }
+        });
+
+    }
     public void ClickSideBarSearch(View view){
      openDrawer(drawerLayout);
 

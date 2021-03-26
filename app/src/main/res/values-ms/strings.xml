@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MeetBarber</string>
+    <string name="page_title_Appointments">Temu Janji</string>
+    <string name="page_title_Search">Carian</string>
+    <string name="page_title_profile">Profil</string>
+    <string name="sidebar_signout">Log keluar</string>
+    <string name="sidebar_language">Bahasa</string>
+    <string name="sidebar_history">Temu janji lepas</string>
+    <string name="normal_services_title">Servis Normal</string>
+    <string name="home_services_title">Servis Rumah</string>
+    <string name="LogIn_button">Log Masuk</string>
+    <string name="LogIn_message">Tiada akaun? daftar sebagai:</string>
+    <string name="LogIn_or">atau</string>
+    <string name="user">Pelanggan</string>
+    <string name="hint_password">Kata laluan...</string>
+
+</resources>

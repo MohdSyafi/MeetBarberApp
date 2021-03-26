@@ -1,12 +1,17 @@
 package com.example.MeetBarber;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,8 +26,12 @@ public class Login extends AppCompatActivity {
 
     private Button RegButton,LogIn,regbuttonB;
     private EditText logemail,logpwd;
+    private TextView login_message,login_or;
     private ProgressBar PBar;
     private FirebaseAuth mAuth;
+    private String lang;
+    private Resources resources;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +46,8 @@ public class Login extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         PBar = findViewById(R.id.LogPBar);
         regbuttonB = findViewById(R.id.regbuttonB);
+        login_message = findViewById(R.id.login_message);
+        login_or = findViewById(R.id.login_or);
 
         LogIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +107,33 @@ public class Login extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        SharedPreferences sh = PreferenceManager.getDefaultSharedPreferences(this);
+
+        lang = sh.getString("Locale.Helper.Selected.Language","");
+
+        if(lang.equalsIgnoreCase("ms")){
+
+            context = LocaleHelper.setLocale(Login.this, "ms");
+            resources =  context.getResources();
+            LogIn.setText(resources.getString(R.string.LogIn_button));
+            login_message.setText(resources.getString(R.string.LogIn_message));
+            login_or.setText(resources.getString(R.string.LogIn_or));
+            RegButton.setText(resources.getString(R.string.user));
+            logpwd.setHint(resources.getString(R.string.hint_password));
+
+
+        }else{
+
+            context = LocaleHelper.setLocale(Login.this, "en");
+            resources =  context.getResources();
+            LogIn.setText(resources.getString(R.string.LogIn_button));
+            login_message.setText(resources.getString(R.string.LogIn_message));
+            login_or.setText(resources.getString(R.string.LogIn_or));
+            RegButton.setText(resources.getString(R.string.user));
+            logpwd.setHint(resources.getString(R.string.hint_password));
+
+        }
 
     }
 

@@ -4,13 +4,13 @@
     <item
         android:id = "@+id/appointment"
         android:icon="@drawable/appointmenticon"
-        android:title="Appointments" />
+        android:title="" />
     <item
         android:id = "@+id/search"
         android:icon="@drawable/searchicon"
-        android:title="Search" />
+        android:title="" />
     <item
         android:id = "@+id/profile"
         android:icon="@drawable/profileicon"
-        android:title="Profile" />
+        android:title="" />
 </menu>

@@ -43,13 +43,13 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView11"
+                        android:id="@+id/SearchTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:layout_marginEnd="240dp"
                         android:fontFamily="@font/tienne"
-                        android:text="Search"
+                        android:text="@string/page_title_Search"
                         android:textColor="#FFFFFF"
                         android:textSize="24sp"
                         app:layout_constraintEnd_toEndOf="@+id/profiletoolbar"
@@ -63,7 +63,7 @@
                         android:layout_marginBottom="4dp"
                         android:background="@drawable/sidebar"
                         app:layout_constraintBottom_toBottomOf="@+id/profiletoolbar"
-                        app:layout_constraintEnd_toStartOf="@+id/textView11"
+                        app:layout_constraintEnd_toStartOf="@+id/AppointmentTitle"
                         app:layout_constraintStart_toStartOf="@+id/profiletoolbar"
                         app:layout_constraintTop_toTopOf="@+id/profiletoolbar"
                         app:layout_constraintVertical_bias="1.0"

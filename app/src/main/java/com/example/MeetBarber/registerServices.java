@@ -104,8 +104,6 @@ public class registerServices extends AppCompatActivity implements AdapterView.O
         startTimeET.setInputType(InputType.TYPE_NULL);
         endTimeET.setInputType(InputType.TYPE_NULL);
 
-        Toast.makeText(registerServices.this,"Edit " + edit, Toast.LENGTH_LONG).show();
-
         if(edit.equalsIgnoreCase("TRUE")){
             startTimeET.setVisibility(View.GONE);
             endTimeET.setVisibility(View.GONE);
@@ -504,8 +502,6 @@ public class registerServices extends AppCompatActivity implements AdapterView.O
                 .collection("Homeservices").document(HSserviceList.get(position).getUserId());
 
         String id  = reference.getId();
-
-        Toast.makeText(registerServices.this," " + id, Toast.LENGTH_LONG).show();
 
         db.collection("servicesCollection").document(UserId)
                 .collection("Homeservices").document(id)

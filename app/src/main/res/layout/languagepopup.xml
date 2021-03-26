@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_centerInParent="true"
+    android:background="@drawable/customborder"
+    android:orientation="vertical">
+
+    <TextView
+
+        android:text="Pick a language:"
+        android:textColor="#FFFFFF"
+        android:textSize="18dp"
+        android:fontFamily="@font/tienne"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </TextView>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/languageEngBttn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:background="@color/colorBlack"
+            android:fontFamily="@font/tienne"
+            android:text="English"
+            android:textColor="#FFEB3B"
+            android:textSize="12dp">
+
+        </Button>
+
+        <Button
+            android:id="@+id/languageMYBttn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBlack"
+            android:fontFamily="@font/tienne"
+            android:text="Melayu"
+            android:textColor="@color/colorYellow"
+            android:textSize="12dp">
+
+        </Button>
+
+    </LinearLayout>
+
+
+</LinearLayout>

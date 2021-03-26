@@ -1,14 +1,21 @@
 package com.example.MeetBarber;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
+import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,6 +35,7 @@ import com.example.MeetBarber.SendNotificationPack.NotificationSender;
 import com.example.MeetBarber.SendNotificationPack.Token;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -62,7 +70,7 @@ private Button SignoutButton,addServicesB, yesbutton,nobutton,acceptbutton,rejec
 private FirebaseAuth mAuth;
 private FirebaseFirestore db;
 public FirebaseStorage storageRef;
-public String UserId,placeholder,userType;
+public String UserId,placeholder,userType,lang;
 private RecyclerView MainRecyclerView;
 private ArrayList<Section> sectionList = new ArrayList<>();
 private ArrayList<String> Datelist  = new ArrayList<>();
@@ -74,7 +82,12 @@ private BroadcastReceiver currentActivityReceiver;
 private Dialog UserStatusDialog,signoutDialog,updateDialog;
 private APIService apiService;
 private DrawerLayout drawerLayout;
+private Context context;
+private Resources resources;
 private Handler mHandler;
+private Boolean lang_selected;
+private TextView pagetitle , drawer_logout,drawer_language,drawer_history;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +114,10 @@ private Handler mHandler;
         bottomNavigationView.setSelectedItemId(R.id.appointment);
         drawerLayout = findViewById(R.id.drawer_layout);
         MainRecyclerView = findViewById(R.id.MainContainer);
+        pagetitle = findViewById(R.id.AppointmentTitle);
+        drawer_history = findViewById(R.id.drawer_history);
+        drawer_language = findViewById(R.id.drawer_language);
+        drawer_logout = findViewById(R.id.drawer_logout);
 
         ///check for customer or barber
         checkUserType();
@@ -134,8 +151,62 @@ private Handler mHandler;
         MainRecyclerView.setAdapter(mainRecyclerAdapter);
 
         initdata();
+
+        SharedPreferences sh = PreferenceManager.getDefaultSharedPreferences(this);
+
+        lang = sh.getString("Locale.Helper.Selected.Language","");
+
+        if(lang.equalsIgnoreCase("ms")){
+
+            context = LocaleHelper.setLocale(HomePage.this, "ms");
+            resources =  context.getResources();
+            pagetitle.setText(resources.getString(R.string.page_title_Appointments));
+            drawer_logout.setText(resources.getString(R.string.sidebar_signout));
+            drawer_language.setText(resources.getString(R.string.sidebar_language));
+            drawer_history.setText(resources.getString(R.string.sidebar_history));
+
+        }else{
+
+            context = LocaleHelper.setLocale(HomePage.this, "en");
+            resources =  context.getResources();
+            pagetitle.setText(resources.getString(R.string.page_title_Appointments));
+            drawer_logout.setText(resources.getString(R.string.sidebar_signout));
+            drawer_language.setText(resources.getString(R.string.sidebar_language));
+            drawer_history.setText(resources.getString(R.string.sidebar_history));
+        }
     }
 
+    public  void ClickLanguage(View view ){
+        final String[] Language = {"ENGLISH", "MELAYU"};
+        final int checkedItem;
+
+
+        Dialog languageDialog = new Dialog(this);
+        Button english, melayu;
+        languageDialog.setContentView(R.layout.languagepopup);
+        languageDialog.show();
+        english = languageDialog.findViewById(R.id.languageEngBttn);
+        melayu = languageDialog.findViewById(R.id.languageMYBttn);
+
+        melayu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context = LocaleHelper.setLocale(HomePage.this, "ms");
+                resources = context.getResources();
+                recreate();
+            }
+        });
+        english.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context = LocaleHelper.setLocale(HomePage.this, "en");
+                resources = context.getResources();
+                languageDialog.dismiss();
+                recreate();
+            }
+        });
+
+    }
    public void SideBarOnclick(View view){
         openDrawer(drawerLayout);
     }
