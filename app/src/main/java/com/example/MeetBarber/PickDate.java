@@ -77,17 +77,19 @@ public class PickDate extends AppCompatActivity {
             }
         });
 
-
-
         PickDateCalendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
 
                 String MonthName = getMonthName(i1+1);
 
-                date = i2 + "/" + MonthName + "/" + i;
+                if(i2<10){
+                    date = "0" + i2 + "/" + MonthName + "/" + i;
+                }else{
+                    date = i2 + "/" + MonthName + "/" + i;
+                }
 
-                PDServiceDate.setText(i2 + "/" + MonthName + "/" + i);
+                PDServiceDate.setText(date);
             }
         });
 

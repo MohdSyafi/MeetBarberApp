@@ -17,243 +17,275 @@
         android:src="@drawable/upload"
         app:civ_border_color="#FFEB3B"
         app:civ_border_width="2dp"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.gridlayout.widget.GridLayout
         android:id="@+id/gridLayout2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        app:alignmentMode="alignBounds"
         app:columnCount="2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TitleRU"
+        app:layout_constraintTop_toBottomOf="@+id/profile_image"
         app:rowCount="9">
 
         <TextView
             android:id="@+id/EmailTV"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
             android:fontFamily="@font/tienne"
             android:text=" E-mail:"
             android:textColor="#FFFFFF"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
 
         <EditText
             android:id="@+id/email"
-            android:layout_width="230dp"
-            android:layout_height="35dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:paddingStart="8dp"
             android:background="#FFFFFF"
             android:ems="10"
             android:fontFamily="@font/tienne"
-            android:textCursorDrawable="@drawable/cursorstyle"
             android:hint="name@gmail.com"
             android:inputType="textEmailAddress"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="#000000"
-            android:textSize="18sp" />
+            android:textCursorDrawable="@drawable/cursorstyle"
+            android:textSize="18sp"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
 
         <TextView
             android:id="@+id/PwdTV"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
             android:layout_marginTop="22dp"
             android:fontFamily="@font/tienne"
-            android:text="Password:"
+            android:text="@string/title_password"
             android:textColor="#FFFFFF"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
 
         <EditText
             android:id="@+id/pwd"
-            android:layout_width="230dp"
-            android:layout_height="35dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="22dp"
+            android:paddingStart="8dp"
             android:background="#FFFFFF"
-            android:textCursorDrawable="@drawable/cursorstyle"
             android:ems="10"
             android:fontFamily="@font/tienne"
             android:hint="abcd1234"
             android:inputType="textPassword"
             android:textColor="#000000"
-            android:textSize="18sp" />
+            android:textCursorDrawable="@drawable/cursorstyle"
+            android:textSize="18sp"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
 
         <TextView
             android:id="@+id/CPwdTV"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
             android:fontFamily="@font/tienne"
-            android:text="Confirm\nPassword:"
+            android:text="@string/title_confirm_password"
             android:textColor="#FFFFFF"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
 
         <EditText
             android:id="@+id/Cpwd"
-            android:layout_width="230dp"
-            android:layout_height="35dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="22dp"
+            android:paddingStart="8dp"
             android:background="#FFFFFF"
             android:ems="10"
             android:fontFamily="@font/tienne"
-            android:textCursorDrawable="@drawable/cursorstyle"
             android:hint="abcd1234"
             android:inputType="textPassword"
             android:textColor="#000000"
-            android:textSize="18sp" />
+            android:textCursorDrawable="@drawable/cursorstyle"
+            android:textSize="18sp"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
 
         <TextView
             android:id="@+id/NameTV"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
             android:layout_marginTop="18dp"
             android:fontFamily="@font/tienne"
-            android:text="Name:"
+            android:text="@string/title_name"
             android:textColor="#FFFFFF"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
 
         <EditText
             android:id="@+id/UserName"
-            android:layout_width="230dp"
-            android:layout_height="35dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="22dp"
             android:background="#FFFFFF"
+            android:paddingStart="8dp"
             android:ems="10"
             android:fontFamily="@font/tienne"
-            android:textCursorDrawable="@drawable/cursorstyle"
             android:hint="name..."
             android:inputType="textPersonName"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="#000000"
+            android:textCursorDrawable="@drawable/cursorstyle"
             android:textSize="18sp"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill"
             tools:text="Name..." />
 
         <TextView
             android:id="@+id/PhoneTV"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
             android:layout_marginTop="18dp"
             android:fontFamily="@font/tienne"
-            android:text="Contact:"
+            android:text="@string/title_contact"
             android:textColor="#FFFFFF"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
 
         <EditText
             android:id="@+id/phone"
-            android:layout_width="230dp"
-            android:layout_height="35dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="22dp"
             android:background="#FFFFFF"
+            android:paddingStart="8dp"
             android:ems="10"
             android:fontFamily="@font/tienne"
-            android:textCursorDrawable="@drawable/cursorstyle"
             android:hint="012345678"
             android:inputType="phone"
             android:textColor="#000000"
-            android:textSize="18sp" />
+            android:textCursorDrawable="@drawable/cursorstyle"
+            android:textSize="18sp"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
 
         <TextView
             android:id="@+id/AddressTV"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
             android:layout_marginTop="18dp"
             android:fontFamily="@font/tienne"
-            android:text="Address:"
+            android:text="@string/title_address"
             android:textColor="#FFFFFF"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
 
         <EditText
             android:id="@+id/address"
-            android:layout_width="230dp"
-            android:layout_height="35dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="22dp"
+            android:paddingStart="8dp"
             android:background="#FFFFFF"
             android:ems="10"
             android:fontFamily="@font/tienne"
-            android:textCursorDrawable="@drawable/cursorstyle"
             android:hint="No 32, Sewer street..."
             android:inputType="textPostalAddress"
             android:textColor="#000000"
-            android:textSize="18sp" />
+            android:textCursorDrawable="@drawable/cursorstyle"
+            android:textSize="18sp"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
 
         <TextView
             android:id="@+id/PostcodeTV"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
             android:layout_marginTop="18dp"
             android:fontFamily="@font/tienne"
-            android:text="Postcode:"
+            android:text="@string/title_address"
             android:textColor="#FFFFFF"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
 
         <EditText
             android:id="@+id/Postcode"
-            android:layout_width="230dp"
-            android:layout_height="35dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="22dp"
             android:background="#FFFFFF"
+            android:paddingStart="8dp"
             android:ems="10"
             android:fontFamily="@font/tienne"
-            android:textCursorDrawable="@drawable/cursorstyle"
             android:hint="40040.."
             android:inputType="number"
             android:textColor="#000000"
-            android:textSize="18sp" />
+            android:textCursorDrawable="@drawable/cursorstyle"
+            android:textSize="18sp"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
 
         <TextView
             android:id="@+id/CityTV"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
             android:layout_marginTop="18dp"
             android:fontFamily="@font/tienne"
-            android:text="City:"
+            android:text="@string/title_city"
             android:textColor="#FFFFFF"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
 
         <EditText
             android:id="@+id/city"
-            android:layout_width="230dp"
-            android:layout_height="35dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="22dp"
             android:background="#FFFFFF"
+            android:paddingStart="8dp"
             android:ems="10"
             android:fontFamily="@font/tienne"
-            android:textCursorDrawable="@drawable/cursorstyle"
             android:hint="Los Angeles..."
             android:inputType="textPersonName"
             android:textColor="#000000"
-            android:textSize="18sp" />
+            android:textCursorDrawable="@drawable/cursorstyle"
+            android:textSize="18sp"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
     </androidx.gridlayout.widget.GridLayout>
 
     <Button
         android:id="@+id/SignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="35dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="32dp"
         android:background="#000000"
         android:fontFamily="@font/tienne"
-        android:text="Sign Up"
+        android:text="@string/SignUp_button"
         android:textColor="#FFEB3B"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gridLayout2" />
 
@@ -263,16 +295,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="50dp"
-        android:layout_marginBottom="38dp"
         android:background="#000000"
         android:fontFamily="@font/tienne"
         android:text="Finish"
         android:textColor="#FFEB3B"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gridLayout2"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/gridLayout2" />
 
     <TextView
         android:id="@+id/TitleRU"
@@ -293,13 +322,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="185dp"
-        android:layout_marginBottom="86dp"
+        android:layout_marginTop="98dp"
+        android:layout_marginEnd="178dp"
         android:background="#000000"
         android:progressBackgroundTint="#FFFFFF"
         android:progressDrawable="@color/design_default_color_background"
         android:progressTint="#FFFFFF"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gridLayout2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

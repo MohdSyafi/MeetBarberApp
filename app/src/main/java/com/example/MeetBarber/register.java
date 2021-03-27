@@ -1,9 +1,15 @@
 package com.example.MeetBarber;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
@@ -42,24 +48,32 @@ public class register  extends AppCompatActivity  {
     private DatabaseReference databasereference;
     private EditText Rusername,Remail,Rpwd,RCpwd,Raddress, Rphone, Rpostcode, Rcity;
     private TextView EmailV,CPwdV,PwdV,PageTitle;
+    private TextView pwd_tv,cpwd_tv,name_tv, contact_tv, address_tv,postcode_tv,city_tv,pagetitle_tv;
     private Button SignUp,EditProfileB;
     private ProgressBar PBar;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
-    private String UserId, role, FBuri;
+    private String UserId, role, FBuri,lang;
     private int ImageCode = 2;
     ///private ImageView profile_image;
     private StorageReference storageRef;
     private CircleImageView profile_image;
     private  Uri ImageUri;
     registerBarber registerbarber;
+    private Dialog updateDialog;
+    private Handler mHandler;
     boolean clicked = false;
+    private Resources resources;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.register);
+
+        updateDialog = new Dialog(this);
+        mHandler = new Handler();
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
@@ -81,8 +95,52 @@ public class register  extends AppCompatActivity  {
         PwdV = findViewById(R.id.PwdTV);
         PageTitle = findViewById(R.id.TitleRU);
         EditProfileB = findViewById(R.id.EditProfileBR);
+        pwd_tv = findViewById(R.id.PwdTV);
+        cpwd_tv = findViewById(R.id.CPwdTV);
+        name_tv = findViewById(R.id.NameTV);
+        contact_tv= findViewById(R.id.PhoneTV);
+        address_tv = findViewById(R.id.AddressTV);
+        postcode_tv = findViewById(R.id.PostcodeTV);
+        city_tv = findViewById(R.id.CityTV);
+        pagetitle_tv = findViewById(R.id.TitleRU);
 
         EditProfileB.setVisibility(View.GONE);
+
+        SharedPreferences sh = PreferenceManager.getDefaultSharedPreferences(this);
+
+        lang = sh.getString("Locale.Helper.Selected.Language","");
+
+        if(lang.equalsIgnoreCase("ms")){
+
+            context = LocaleHelper.setLocale(register.this, "ms");
+            resources =  context.getResources();
+            pagetitle_tv.setText(resources.getString(R.string.page_title_register));
+            pwd_tv.setText(resources.getString(R.string.title_password));
+            cpwd_tv.setText(resources.getString(R.string.title_confirm_password));
+            name_tv.setText(resources.getString(R.string.title_name));
+            contact_tv.setText(resources.getString(R.string.title_contact));
+            address_tv.setText(resources.getString(R.string.title_address));
+            postcode_tv.setText(resources.getString(R.string.title_postcode));
+            city_tv.setText(resources.getString(R.string.title_city));
+            SignUp.setText(resources.getString(R.string.SignUp_button));
+            EditProfileB.setText(resources.getString(R.string.Confirm_button));
+
+
+        }else{
+
+            context = LocaleHelper.setLocale(register.this, "en");
+            resources =  context.getResources();
+            pagetitle_tv.setText(resources.getString(R.string.page_title_register));
+            pwd_tv.setText(resources.getString(R.string.title_password));
+            cpwd_tv.setText(resources.getString(R.string.title_confirm_password));
+            name_tv.setText(resources.getString(R.string.title_name));
+            contact_tv.setText(resources.getString(R.string.title_contact));
+            address_tv.setText(resources.getString(R.string.title_address));
+            postcode_tv.setText(resources.getString(R.string.title_postcode));
+            city_tv.setText(resources.getString(R.string.title_city));
+            SignUp.setText(resources.getString(R.string.SignUp_button));
+            EditProfileB.setText(resources.getString(R.string.Confirm_button));
+        }
 
         if(mAuth.getCurrentUser()!=null){
 
@@ -104,12 +162,68 @@ public class register  extends AppCompatActivity  {
             EditProfileB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    UpdateProfile(UserId);
 
-                    Toast.makeText(register.this," " + ImageUri ,Toast.LENGTH_SHORT).show();
+                    if(clicked){
 
-                    if(clicked == true){
                         updateimgtofirebase(ImageUri);
+                        String name,address,city,id;
+                        int phone,postcode;
+
+                        id = mAuth.getCurrentUser().getUid();
+                        name = Rusername.getText().toString();
+                        address = Raddress.getText().toString();
+                        city = Rcity.getText().toString();
+                        phone = Integer.parseInt(Rphone.getText().toString());
+                        postcode = Integer.parseInt(Rpostcode.getText().toString());
+
+                        Map<String, Object> userdata = new HashMap<>();
+                        userdata.put("username",name );
+                        userdata.put("phone",phone);
+                        userdata.put("address", address);
+                        userdata.put("postcode",postcode);
+                        userdata.put("city",city);
+
+                        DocumentReference ref = db.collection("Users").document(id);
+                        ref.update(userdata).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+
+                                finishAffinity();
+                                Intent i = new Intent(register.this, HomePage.class);
+                                startActivity(i);
+
+                            }
+                        });
+                    }else{
+
+                        String name,address,city,id;
+                        int phone,postcode;
+
+                        id = mAuth.getCurrentUser().getUid();
+                        name = Rusername.getText().toString();
+                        address = Raddress.getText().toString();
+                        city = Rcity.getText().toString();
+                        phone = Integer.parseInt(Rphone.getText().toString());
+                        postcode = Integer.parseInt(Rpostcode.getText().toString());
+
+                        Map<String, Object> userdata = new HashMap<>();
+                        userdata.put("username",name );
+                        userdata.put("phone",phone);
+                        userdata.put("address", address);
+                        userdata.put("postcode",postcode);
+                        userdata.put("city",city);
+
+                        DocumentReference ref = db.collection("Users").document(id);
+                        ref.update(userdata).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+
+                                finishAffinity();
+                                Intent i = new Intent(register.this, HomePage.class);
+                                startActivity(i);
+
+                            }
+                        });
                     }
                 }
             });
@@ -297,8 +411,7 @@ public class register  extends AppCompatActivity  {
         DocumentReference ref = db.collection("Users").document(id);
         ref.update(userdata);
 
-        Intent i = new Intent(register.this, MainActivity.class);
-        startActivity(i);
+
     }
 
     private void getProfile(String id) {
@@ -344,6 +457,7 @@ public class register  extends AppCompatActivity  {
                                 if(!document.get("uri").toString().equals("n/a")){
                                     Uri temp = Uri.parse(document.get("uri").toString());
                                     Picasso.get().load(temp).into(profile_image);
+                                    ImageUri = temp;
                                 }else{
                                     profile_image.setImageResource(R.drawable.profileicon);
                                     Toast.makeText(register.this,"failed to load image",Toast.LENGTH_SHORT).show();

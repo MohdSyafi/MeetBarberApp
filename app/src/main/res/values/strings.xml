@@ -10,10 +10,20 @@
     <string name="normal_services_title">Normal Services</string>
     <string name="home_services_title">Home Services</string>
     <string name="LogIn_button">Log In</string>
+    <string name="Confirm_button">Confirm</string>
+    <string name="SignUp_button">Sign Up</string>
     <string name="LogIn_message">Do not have an account? register as:</string>
     <string name="LogIn_or">or</string>
     <string name="user">User</string>
     <string name="hint_password">Password...</string>
+    <string name="page_title_register">Register</string>
+    <string name="title_password">Password:</string>
+    <string name="title_confirm_password">Confirm Password:</string>
+    <string name="title_name">Name:</string>
+    <string name="title_contact">Contact:</string>
+    <string name="title_address">Address:</string>
+    <string name="title_postcode">Postcode:</string>
+    <string name="title_city">City:</string>
 
 
 </resources>

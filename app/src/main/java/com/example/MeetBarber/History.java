@@ -2,11 +2,13 @@ package com.example.MeetBarber;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,7 +25,15 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Set;
 
 public class History extends AppCompatActivity implements reviewClickInterface{
 
@@ -93,6 +103,7 @@ public class History extends AppCompatActivity implements reviewClickInterface{
                                     .collection("appointmentsID")
                                     .get()
                                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @RequiresApi(api = Build.VERSION_CODES.O)
                                         @Override
                                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
@@ -116,7 +127,18 @@ public class History extends AppCompatActivity implements reviewClickInterface{
                                                 ///adding appointmnets into an arraylist
                                                 apnmntList.add(details);
                                                 ///saving the value of the section title and the appointments arraylist inside one object
-                                                section = new Section(queryDocumentSnapshot .getString("date"),apnmntList);
+                                                String tempdate = queryDocumentSnapshot .getString("date");
+
+                                                DateTimeFormatter df = new DateTimeFormatterBuilder()
+                                                        // case insensitive to parse JAN and FEB
+                                                        .parseCaseInsensitive()
+                                                        // add pattern
+                                                        .appendPattern("dd/MMM/yyyy")
+                                                        // create formatter (use English Locale to parse month names)
+                                                        .toFormatter(Locale.ENGLISH);
+                                                LocalDate dateTime = LocalDate.parse(tempdate, df);
+
+                                                section = new Section(queryDocumentSnapshot.getString("date"),dateTime,apnmntList);
                                             }
 
                                             Log.i("SectionList",sectionList.toString());
@@ -129,6 +151,16 @@ public class History extends AppCompatActivity implements reviewClickInterface{
                                                 ////initializing a new array list with the section's objects
                                                 sectionList.add(section);
                                                 ///initializes the main recyclerview
+
+                                                Set<Section> set = new HashSet<>(sectionList);
+                                                sectionList.clear();
+                                                sectionList.addAll(set);
+
+                                                Collections.sort(sectionList, new Comparator<Section>() {
+                                                    public int compare(Section o1, Section o2) {
+                                                        return o1.getSectionDate().compareTo(o2.getSectionDate());
+                                                    }
+                                                });
 
                                                 HistorymainRecyclerAdapter.notifyDataSetChanged();
                                             }

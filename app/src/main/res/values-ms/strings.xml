@@ -10,9 +10,19 @@
     <string name="normal_services_title">Servis Normal</string>
     <string name="home_services_title">Servis Rumah</string>
     <string name="LogIn_button">Log Masuk</string>
+    <string name="Confirm_button">Kemas kini</string>
+    <string name="SignUp_button">Daftar Masuk</string>
     <string name="LogIn_message">Tiada akaun? daftar sebagai:</string>
     <string name="LogIn_or">atau</string>
     <string name="user">Pelanggan</string>
     <string name="hint_password">Kata laluan...</string>
+    <string name="page_title_register">Daftar</string>
+    <string name="title_password">Kata laluan:</string>
+    <string name="title_confirm_password">Sahkan kata laluan:</string>
+    <string name="title_name">Nama:</string>
+    <string name="title_contact">No. Tel.:</string>
+    <string name="title_address">Alamat:</string>
+    <string name="title_postcode">Poskod:</string>
+    <string name="title_city">Bandar:</string>
 
 </resources>

@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -54,9 +56,15 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.storage.FirebaseStorage;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -68,7 +76,7 @@ public class HomePage extends AppCompatActivity implements StatusClickInterface{
 
 private Button SignoutButton,addServicesB, yesbutton,nobutton,acceptbutton,rejectbutton;
 private FirebaseAuth mAuth;
-private FirebaseFirestore db;
+private FirebaseFirestore db = FirebaseFirestore.getInstance();
 public FirebaseStorage storageRef;
 public String UserId,placeholder,userType,lang;
 private RecyclerView MainRecyclerView;
@@ -295,6 +303,7 @@ private TextView pagetitle , drawer_logout,drawer_language,drawer_history;
                                     .collection("appointmentsID")
                                     .get()
                                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @RequiresApi(api = Build.VERSION_CODES.O)
                                         @Override
                                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                             apnmntList = new ArrayList();
@@ -321,7 +330,14 @@ private TextView pagetitle , drawer_logout,drawer_language,drawer_history;
                                                     ///adding appointmnets into an arraylist
                                                     apnmntList.add(details);
                                                     ///saving the value of the section title and the appointments arraylist inside one object
-                                                    section = new Section(queryDocumentSnapshot .getString("date"),apnmntList);
+                                                    String tempdate = queryDocumentSnapshot .getString("date");
+
+                                                    DateTimeFormatter f = new DateTimeFormatterBuilder().parseCaseInsensitive()
+                                                            .append(DateTimeFormatter.ofPattern("dd/MMM/yyyy")).toFormatter();
+
+                                                    LocalDate datetime = LocalDate.parse(tempdate, f);
+
+                                                    section = new Section(queryDocumentSnapshot .getString("date"),datetime,apnmntList);
                                                 }
                                             }
 
@@ -334,13 +350,19 @@ private TextView pagetitle , drawer_logout,drawer_language,drawer_history;
                                                 ////initializing a new array list with the section's objects
                                                 sectionList.add(section);
 
+                                                ///remove duplicates if there are any
                                                 Set<Section> set = new HashSet<>(sectionList);
                                                 sectionList.clear();
                                                 sectionList.addAll(set);
 
-                                                Log.i("checkSectionList", sectionList.toString());
+                                                ///sort according to date
+                                                Collections.sort(sectionList, new Comparator<Section>() {
+                                                    public int compare(Section o1, Section o2) {
+                                                        return o1.getSectionDate().compareTo(o2.getSectionDate());
+                                                    }
+                                                });
+
                                                 ///notify main recyclerview
-                                                Log.i("listen", "set ");
                                                 mainRecyclerAdapter.notifyDataSetChanged();
                                             }
                                         }
@@ -386,6 +408,44 @@ private TextView pagetitle , drawer_logout,drawer_language,drawer_history;
 
         closeDrawer(drawerLayout);
 
+    }
+
+    private String getDateinNumber(String date) {
+
+        String string = date;
+        String[] parts = string.split("/");
+        String part1 = parts[0];
+        String part2 = parts[1];
+        String part3 = parts[2];
+
+        String NumDate = new String();
+
+        if(part2.equalsIgnoreCase("JAN")){
+            NumDate = part1+"/01/"+part3;
+        }else if(part2.equalsIgnoreCase("FEB")){
+            NumDate = part1+"/02/"+part3;
+        }else if(part2.equalsIgnoreCase("MAR")){
+            NumDate = part1+"/03/"+part3;
+        }else if(part2.equalsIgnoreCase("APR")){
+            NumDate = part1+"/04/"+part3;
+        }else if(part2.equalsIgnoreCase("MAY")){
+            NumDate = part1+"/05/"+part3;
+        }else if(part2.equalsIgnoreCase("JUN")){
+            NumDate = part1+"/06/"+part3;
+        }else if(part2.equalsIgnoreCase("JUL")){
+            NumDate = part1+"/07/"+part3;
+        }else if(part2.equalsIgnoreCase("AUG")){
+            NumDate = part1+"/08/"+part3;
+        }else if(part2.equalsIgnoreCase("SEP")){
+            NumDate = part1+"/09/"+part3;
+        }else if(part2.equalsIgnoreCase("OCT")){
+            NumDate = part1+"/10/"+part3;
+        }else if(part2.equalsIgnoreCase("NOV")){
+            NumDate = part1+"/11/"+part3;
+        }else if(part2.equalsIgnoreCase("DEC")){
+            NumDate = part1+"/12/"+part3;
+        }
+        return NumDate;
     }
 
     private void checkUserType() {

@@ -1,13 +1,16 @@
 package com.example.MeetBarber;
 
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapter.MainViewHolder> {
@@ -38,6 +41,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
         return new MainViewHolder(view);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull MainViewHolder holder, int position) {
             Section section = sectionList.get(position);
@@ -45,6 +49,11 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
             String tempp = SectionName.replace("/"," ");
             ArrayList<apnmtDetails> items = section.getSectionItem();
             holder.sectionName.setText(tempp);
+
+           if(section.getSectionDate().equals(LocalDate.now())){
+               holder.sectionName.setText("Today");
+           }
+
             if(clickable.equalsIgnoreCase("no")){
                 childRecyclerAdapter childRecyclerAdapter = new childRecyclerAdapter(items,history,clickable);
                 holder.childRecyclerView.setAdapter(childRecyclerAdapter);
