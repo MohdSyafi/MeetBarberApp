@@ -183,8 +183,7 @@ public class registerServices extends AppCompatActivity implements AdapterView.O
                     BussOperations.put("EndHours",EndTimeS);
 
                     DocumentReference ref = db.collection("OperationDetailsCollection").document(UserId);
-                    ref
-                            .set(BussOperations);
+                    ref.set(BussOperations);
 
                     Intent i = new Intent(registerServices.this, HomePage.class);
                     startActivity(i);
@@ -515,8 +514,6 @@ public class registerServices extends AppCompatActivity implements AdapterView.O
                 .collection("services").document(serviceList.get(position).getUserId());
 
         String id  = reference.getId();
-
-       /// Toast.makeText(registerServices.this," " + id, Toast.LENGTH_LONG).show();
 
         db.collection("servicesCollection").document(UserId)
                 .collection("services").document(id)

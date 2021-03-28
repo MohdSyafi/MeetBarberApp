@@ -190,8 +190,6 @@ public class PickTimeSlot extends AppCompatActivity implements BookClickInterfac
                                         }
                                     });
 
-
-
                                     db.collection("appointmentsColl").document(barberId)
                                             .collection("Date").document(temp)
                                             .collection("appointmentsID").document(appointmentId)

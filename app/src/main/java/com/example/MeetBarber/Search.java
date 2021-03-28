@@ -309,11 +309,8 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
                 holder.setBarberName(model.getUsername());
                 holder.setPic(model.getPiclink());
                 holder.setAddress(model.getAddress() + ", " + model.getPostcode().toString() + ", " + model.getCity());
-
-                    holder.setRating(model.getRating());
-
-                    holder.setUnavailableRating(model.getRating());
-
+                holder.setRating(model.getRating());
+                holder.setUnavailableRating(model.getRating());
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

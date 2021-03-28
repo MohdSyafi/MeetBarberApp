@@ -71,7 +71,8 @@ public class Review extends AppCompatActivity {
                 ReviewDetails.put("comment",comment.getText().toString());
                 ReviewDetails.put("date",DocDate);
 
-                DocumentReference ref = db.collection("ReviewCollection").document(barberID).collection("Reviews").document(appointmentID);
+                DocumentReference ref = db.collection("ReviewCollection").document(barberID)
+                        .collection("Reviews").document(appointmentID);
                 ref.set(ReviewDetails).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -91,7 +92,8 @@ public class Review extends AppCompatActivity {
                                 .collection("appointmentsID").document(appointmentID)
                                 .update(updateReviewStatus);
 
-                        db.collection("Barbers").document(barberID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        db.collection("Barbers").document(barberID).get()
+                                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 

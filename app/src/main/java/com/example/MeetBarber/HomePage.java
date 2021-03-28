@@ -332,6 +332,7 @@ private TextView pagetitle , drawer_logout,drawer_language,drawer_history;
                                                     ///saving the value of the section title and the appointments arraylist inside one object
                                                     String tempdate = queryDocumentSnapshot .getString("date");
 
+
                                                     DateTimeFormatter f = new DateTimeFormatterBuilder().parseCaseInsensitive()
                                                             .append(DateTimeFormatter.ofPattern("dd/MMM/yyyy")).toFormatter();
 
@@ -361,7 +362,6 @@ private TextView pagetitle , drawer_logout,drawer_language,drawer_history;
                                                         return o1.getSectionDate().compareTo(o2.getSectionDate());
                                                     }
                                                 });
-
                                                 ///notify main recyclerview
                                                 mainRecyclerAdapter.notifyDataSetChanged();
                                             }
@@ -802,7 +802,8 @@ private TextView pagetitle , drawer_logout,drawer_language,drawer_history;
                         }
                     });
 
-                    FirebaseDatabase.getInstance().getReference().child("Tokens").child(customerID).child("token").addListenerForSingleValueEvent(new ValueEventListener() {
+                    FirebaseDatabase.getInstance().getReference().child("Tokens").child(customerID)
+                            .child("token").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             String usertoken=snapshot.getValue(String.class);
