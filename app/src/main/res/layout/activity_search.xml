@@ -27,27 +27,29 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
                     android:layout_width="match_parent"
+                    android:background="@drawable/bottomborder"
                     android:layout_height="match_parent">
 
-                    <androidx.appcompat.widget.Toolbar
-                        android:id="@+id/profiletoolbar"
-                        android:layout_width="match_parent"
+                    <ImageView
+                        android:id="@+id/SMenubutton"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bottomborder"
-                        android:minHeight="?attr/actionBarSize"
-                        android:theme="?attr/actionBarTheme"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:layout_marginStart="8dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/ic_hamburger"
+                        app:layout_constraintVertical_bias="1.0"
+                        android:onClick="ClickSideBarSearch"/>
 
                     <TextView
                         android:id="@+id/SearchTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginEnd="240dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginBottom="8dp"
                         android:fontFamily="@font/tienne"
                         android:text="@string/page_title_Search"
                         android:textColor="#FFFFFF"
@@ -55,20 +57,8 @@
                         app:layout_constraintEnd_toEndOf="@+id/profiletoolbar"
                         app:layout_constraintTop_toTopOf="@+id/profiletoolbar" />
 
-                    <Button
-                        android:id="@+id/SMenubutton"
-                        android:layout_width="56dp"
-                        android:layout_height="52dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="4dp"
-                        android:background="@drawable/sidebar"
-                        app:layout_constraintBottom_toBottomOf="@+id/profiletoolbar"
-                        app:layout_constraintEnd_toStartOf="@+id/AppointmentTitle"
-                        app:layout_constraintStart_toStartOf="@+id/profiletoolbar"
-                        app:layout_constraintTop_toTopOf="@+id/profiletoolbar"
-                        app:layout_constraintVertical_bias="1.0"
-                        android:onClick="ClickSideBarSearch"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
 
             </com.google.android.material.appbar.AppBarLayout>
 

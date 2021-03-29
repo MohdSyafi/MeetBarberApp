@@ -332,9 +332,8 @@ private TextView pagetitle , drawer_logout,drawer_language,drawer_history;
                                                     ///saving the value of the section title and the appointments arraylist inside one object
                                                     String tempdate = queryDocumentSnapshot .getString("date");
 
-
                                                     DateTimeFormatter f = new DateTimeFormatterBuilder().parseCaseInsensitive()
-                                                            .append(DateTimeFormatter.ofPattern("dd/MMM/yyyy")).toFormatter();
+                                                            .append(DateTimeFormatter.ofPattern("dd/MMM/yyyy")).toFormatter(Locale.ENGLISH);
 
                                                     LocalDate datetime = LocalDate.parse(tempdate, f);
 

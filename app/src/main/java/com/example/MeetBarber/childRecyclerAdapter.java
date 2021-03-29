@@ -55,10 +55,9 @@ public class childRecyclerAdapter extends RecyclerView.Adapter<childRecyclerAdap
         String temp = items.get(position).getServiceDate();
         temp2 = temp.replaceAll("/" ,"");
 
-        ////Log.i("beforecheckcancel",documentid);
 
         if(items.get(position).getServiceType().equalsIgnoreCase("Normal")){
-            holder.HPtypeTV.setVisibility(View.INVISIBLE);
+            holder.HPtypeTV.setVisibility(View.GONE);
         }
 
         if(items.get(position).getServicestatus().equalsIgnoreCase("On hold")){

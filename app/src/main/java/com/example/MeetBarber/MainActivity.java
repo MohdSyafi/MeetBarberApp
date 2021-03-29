@@ -19,10 +19,13 @@ public class MainActivity extends AppCompatActivity {
 
             Intent i = new Intent(MainActivity.this, HomePage.class);
             startActivity(i);
+            finish();
 
         }else{
+
             Intent i = new Intent(MainActivity.this,Login.class);
             startActivity(i);
+            finish();
         }
         
     }
