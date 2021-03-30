@@ -36,6 +36,7 @@ import com.example.MeetBarber.SendNotificationPack.MyResponse;
 import com.example.MeetBarber.SendNotificationPack.NotificationSender;
 import com.example.MeetBarber.SendNotificationPack.Token;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -51,6 +52,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -60,10 +62,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -78,7 +82,7 @@ private Button SignoutButton,addServicesB, yesbutton,nobutton,acceptbutton,rejec
 private FirebaseAuth mAuth;
 private FirebaseFirestore db = FirebaseFirestore.getInstance();
 public FirebaseStorage storageRef;
-public String UserId,placeholder,userType,lang;
+public String UserId,placeholder,userType,lang,keyword;
 private RecyclerView MainRecyclerView;
 private ArrayList<Section> sectionList = new ArrayList<>();
 private ArrayList<String> Datelist  = new ArrayList<>();
@@ -182,6 +186,126 @@ private TextView pagetitle , drawer_logout,drawer_language,drawer_history;
             drawer_language.setText(resources.getString(R.string.sidebar_language));
             drawer_history.setText(resources.getString(R.string.sidebar_history));
         }
+
+
+    }
+
+    private void createKeyWord() {
+
+        String coll;
+        if(userType.equalsIgnoreCase("Users")){
+            Log.i("Keyword", "No keyword needed ");
+
+        }else{
+            coll = "Barbers";
+
+            DocumentReference ref = db.collection(coll).document(UserId);
+            ref.get()
+                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document != null) {
+
+                                    String name, shopname, email, city, address, postcode, rating;
+
+                                    name = document.getString("username").toLowerCase();
+                                    shopname = document.getString("shopname").toLowerCase();
+                                    email = mAuth.getCurrentUser().getEmail().toLowerCase();
+                                    city = document.getString("city").toLowerCase();
+                                    address = document.getString("address").toLowerCase();
+                                    postcode = document.get("postcode").toString();
+                                    rating = document.getString("rating").toLowerCase();
+
+                                    keyword = name + " " + shopname + " " + email+ " " + city+ " " + address+ " " + postcode+ " " + rating;
+
+                                    keyword.toLowerCase();
+
+                                    Query query = db.collection("servicesCollection").document(UserId).collection("services");
+
+                                    query.get()
+                                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                    for (DocumentSnapshot querysnapshot: task.getResult()){
+
+                                                        String temp = keyword;
+                                                        String holder = querysnapshot.getString("name").toLowerCase();
+                                                        keyword = temp + " " +  holder;
+
+                                                    }
+                                                    keyword.toLowerCase();
+
+                                                    Query query = db.collection("servicesCollection").document(UserId).collection("Homeservices");
+
+                                                    query.get()
+                                                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                                    for (DocumentSnapshot querysnapshot: task.getResult()){
+
+                                                                        String temp = keyword;
+                                                                        String holder = querysnapshot.getString("name").toLowerCase();
+                                                                        keyword = temp + " " +  holder;
+                                                                    }
+
+                                                                    keyword.toLowerCase();
+
+                                                                    String str[] = keyword.split(" ");
+                                                                    List<String> al = new ArrayList<String>();
+                                                                    al = Arrays.asList(str);
+
+                                                                    String placeholder = "";
+                                                                    
+                                                                    List<String> KWlist = new ArrayList<String>();
+
+                                                                    for (int i = 0 ;i< al.size() ; i++){
+
+                                                                        placeholder = "";
+
+                                                                        for(int j = 0; j<al.get(i).length();j++){
+
+                                                                            placeholder += al.get(i).charAt(j);
+                                                                            KWlist.add(placeholder);
+                                                                        }
+
+                                                                    }
+
+                                                                    Map<String, Object> keywordupdate = new HashMap<>();
+                                                                    keywordupdate.put("keyword", KWlist);
+
+                                                                    DocumentReference documentReference = db.collection("Barbers").document(UserId);
+
+                                                                    documentReference.update(keywordupdate);
+
+                                                                }
+                                                            }).addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            Toast.makeText(HomePage.this,"error: ",Toast.LENGTH_SHORT);
+                                                        }
+                                                    });
+
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(HomePage.this,"error: ",Toast.LENGTH_SHORT);
+                                        }
+                                    });
+
+                                } else {
+                                    Toast.makeText(HomePage.this,"Failed to create keywords",Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(HomePage.this,"Failed to create keywords",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+        }
+
+
     }
 
     public  void ClickLanguage(View view ){
@@ -454,8 +578,10 @@ private TextView pagetitle , drawer_logout,drawer_language,drawer_history;
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 if (value.exists()) {
                     userType = "Users";
+                    createKeyWord();
                 } else {
                     userType = "Barbers";
+                    createKeyWord();
                 }
             }
         });
@@ -473,16 +599,6 @@ private TextView pagetitle , drawer_logout,drawer_language,drawer_history;
     @Override
     public void onStatusClick(int position,String documentId,String documentDate,String targetID, String finish) {
 
-        ///direct user to different dialog according to their type
-        if(userType.equalsIgnoreCase("Users")){
-
-            ///for customers
-            openUserDialog(documentId,documentDate, targetID);
-        }else{
-
-            ///for Barbers
-            openBarberDialog(documentId,documentDate,targetID,finish);
-        }
     }
 
     @Override
@@ -501,16 +617,235 @@ private TextView pagetitle , drawer_logout,drawer_language,drawer_history;
         this.startActivity(a);
     }
 
-    private void openBarberDialog(String documentid,String documentDate, String customerID, String finish){
+    @Override
+    public void onCancelClick(int position,String documentid,String documentDate,String targetID,String finish) {
 
-        ////if appointments status is "accepted"
-        if(finish.equalsIgnoreCase("yes")){
+           openCancelDialog(documentid,documentDate, targetID);
+    }
 
-            ///open dialog for finishing apppointments
-            UserStatusDialog.setContentView(R.layout.finishstatuspopup);
+    @Override
+    public void onAcceptClick(int position, String documentid, String documentDate, String targetID, String finish) {
+        UserStatusDialog.setContentView(R.layout.barberstatuspopup);
+        UserStatusDialog.show();
+        acceptbutton = UserStatusDialog.findViewById(R.id.AcceptHPbutton);
+        rejectbutton = UserStatusDialog.findViewById(R.id.RejectHPbutton);
+
+        rejectbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserStatusDialog.dismiss();
+            }
+        });
+
+        acceptbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Map<String, Object> updateStatus= new HashMap<>();
+                updateStatus.put("status","Accepted" );
+
+                ///change appointment status
+                DocumentReference docref =   db.collection("appointmentsColl").document(UserId)
+                        .collection("Date").document(documentDate)
+                        .collection("appointmentsID").document(documentid);
+
+                docref.update(updateStatus);
+
+                ///do the same for the customer side
+                DocumentReference docrefB =   db.collection("appointmentsColl").document(targetID)
+                        .collection("Date").document(documentDate)
+                        .collection("appointmentsID").document(documentid);
+
+                docrefB.update(updateStatus);
+
+                ///notify the acceptence of appointments
+                FirebaseDatabase.getInstance().getReference().child("Tokens").child(targetID).child("token").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String usertoken=snapshot.getValue(String.class);
+                        sendNotifications(usertoken, "Appointment accepted","Please be ready for your appointment");
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+                updateDialog.setContentView(R.layout.updatepopup);
+                updateDialog.show();
+
+                ////refresh activity
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        updateDialog.dismiss();
+
+                        finish();
+                        overridePendingTransition(0, 0);
+                        startActivity(getIntent());
+                        overridePendingTransition(0, 0);
+
+                    }
+                },2000L);
+            }
+        });
+    }
+
+    @Override
+    public void onCompleteClick(int position, String documentid, String documentDate, String targetID, String finish) {
+        ///open dialog for finishing apppointments
+        UserStatusDialog.setContentView(R.layout.finishstatuspopup);
+        UserStatusDialog.show();
+        yesbutton = UserStatusDialog.findViewById(R.id.FinishYesButton);
+        nobutton = UserStatusDialog.findViewById(R.id.FinishNOButton);
+
+        nobutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserStatusDialog.dismiss();
+            }
+        });
+
+        yesbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                UserStatusDialog.dismiss();
+
+                DocumentReference docref =   db.collection("appointmentsColl").document(UserId)
+                        .collection("Date").document(documentDate)
+                        .collection("appointmentsID").document(documentid);
+
+                docref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                        DocumentSnapshot documentSnapshot = task.getResult();
+
+                        Map<String, Object> HistoryDetails = new HashMap<>();
+
+                        ///get the appointment details and save into a hash map
+                        HistoryDetails.put("name",documentSnapshot.get("name"));
+                        HistoryDetails.put("price",documentSnapshot.get("price"));
+                        HistoryDetails.put("time slot",documentSnapshot.get("time slot"));
+                        HistoryDetails.put("date",documentSnapshot.get("date"));
+                        HistoryDetails.put("barberID",documentSnapshot.get("barberID"));
+                        HistoryDetails.put("customerID",documentSnapshot.get("customerID"));
+                        HistoryDetails.put("status","Completed");
+                        HistoryDetails.put("type",documentSnapshot.get("type"));
+                        HistoryDetails.put("customer name",documentSnapshot.get("customer name"));
+                        HistoryDetails.put("shop name",documentSnapshot.get("shop name"));
+                        HistoryDetails.put("review",documentSnapshot.get("review"));
+
+                        Map<String, Object> HistoryDate = new HashMap<>();
+
+                        HistoryDate.put("date",documentSnapshot.get("date"));
+
+                        ////save the current appointment into History collection
+                        db.collection("HistoryColl").document(UserId)
+                                .collection("Date").document(documentDate)
+                                .collection("appointmentsID").document(documentid)
+                                .set(HistoryDetails);
+
+                        ///save the date field in date document in the History collection
+                        db.collection("HistoryColl").document(UserId)
+                                .collection("Date").document(documentDate)
+                                .set(HistoryDate);
+
+                        ///delete the current appointment from the active collection
+                        docref.delete();
+                    }
+                });
+
+                ////do the same for the corresponding customers
+                DocumentReference docrefB =   db.collection("appointmentsColl").document(targetID)
+                        .collection("Date").document(documentDate)
+                        .collection("appointmentsID").document(documentid);
+
+                docrefB.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                        DocumentSnapshot documentSnapshot = task.getResult();
+
+                        Map<String, Object> HistoryDetails = new HashMap<>();
+
+                        HistoryDetails.put("name",documentSnapshot.get("name"));
+                        HistoryDetails.put("price",documentSnapshot.get("price"));
+                        HistoryDetails.put("time slot",documentSnapshot.get("time slot"));
+                        HistoryDetails.put("date",documentSnapshot.get("date"));
+                        HistoryDetails.put("barberID",documentSnapshot.get("barberID"));
+                        HistoryDetails.put("customerID",documentSnapshot.get("customerID"));
+                        HistoryDetails.put("status","Completed");
+                        HistoryDetails.put("type",documentSnapshot.get("type"));
+                        HistoryDetails.put("customer name",documentSnapshot.get("customer name"));
+                        HistoryDetails.put("shop name",documentSnapshot.get("shop name"));
+                        HistoryDetails.put("review",documentSnapshot.get("review"));
+
+                        Map<String, Object> HistoryDate = new HashMap<>();
+
+                        HistoryDate.put("date",documentSnapshot.get("date"));
+
+                        db.collection("HistoryColl").document(targetID)
+                                .collection("Date").document(documentDate)
+                                .collection("appointmentsID").document(documentid)
+                                .set(HistoryDetails);
+
+                        db.collection("HistoryColl").document(targetID)
+                                .collection("Date").document(documentDate)
+                                .set(HistoryDate);
+
+                        docrefB.delete();
+
+                        updateDialog.setContentView(R.layout.updatepopup);
+                        updateDialog.show();
+
+                        ////refresh the activity
+                        mHandler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                ///send notification to notify the completed appointments
+                                FirebaseDatabase.getInstance().getReference().child("Tokens").child(targetID).child("token").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        String usertoken=snapshot.getValue(String.class);
+                                        sendNotifications(usertoken, "Appointment completed","Open your app to leave a review");
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+
+                                updateDialog.dismiss();
+
+                                finish();
+                                overridePendingTransition(0, 0);
+                                startActivity(getIntent());
+                                overridePendingTransition(0, 0);
+
+                            }
+                        },2000L);
+                    }
+                });
+
+            }
+        });
+    }
+
+    private void openCancelDialog(String documentid, String documentDate, String targetID) {
+
+        if(userType.equalsIgnoreCase("Users")){
+
+            UserStatusDialog.setContentView(R.layout.statuspopup);
             UserStatusDialog.show();
-            yesbutton = UserStatusDialog.findViewById(R.id.FinishYesButton);
-            nobutton = UserStatusDialog.findViewById(R.id.FinishNOButton);
+            yesbutton = UserStatusDialog.findViewById(R.id.YesHPButton);
+            nobutton = UserStatusDialog.findViewById(R.id.NoHPButton);
+
+            ///Toast.makeText(HomePage.this," id: "+ documentid,Toast.LENGTH_LONG).show();
 
             nobutton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -525,6 +860,9 @@ private TextView pagetitle , drawer_logout,drawer_language,drawer_history;
 
                     UserStatusDialog.dismiss();
 
+                    Map<String, Object> updateStatus= new HashMap<>();
+                    updateStatus.put("status","Cancelled" );
+
                     DocumentReference docref =   db.collection("appointmentsColl").document(UserId)
                             .collection("Date").document(documentDate)
                             .collection("appointmentsID").document(documentid);
@@ -537,14 +875,13 @@ private TextView pagetitle , drawer_logout,drawer_language,drawer_history;
 
                             Map<String, Object> HistoryDetails = new HashMap<>();
 
-                            ///get the appointment details and save into a hash map
                             HistoryDetails.put("name",documentSnapshot.get("name"));
                             HistoryDetails.put("price",documentSnapshot.get("price"));
                             HistoryDetails.put("time slot",documentSnapshot.get("time slot"));
                             HistoryDetails.put("date",documentSnapshot.get("date"));
                             HistoryDetails.put("barberID",documentSnapshot.get("barberID"));
                             HistoryDetails.put("customerID",documentSnapshot.get("customerID"));
-                            HistoryDetails.put("status","Completed");
+                            HistoryDetails.put("status","Cancelled");
                             HistoryDetails.put("type",documentSnapshot.get("type"));
                             HistoryDetails.put("customer name",documentSnapshot.get("customer name"));
                             HistoryDetails.put("shop name",documentSnapshot.get("shop name"));
@@ -554,24 +891,20 @@ private TextView pagetitle , drawer_logout,drawer_language,drawer_history;
 
                             HistoryDate.put("date",documentSnapshot.get("date"));
 
-                            ////save the current appointment into History collection
                             db.collection("HistoryColl").document(UserId)
                                     .collection("Date").document(documentDate)
                                     .collection("appointmentsID").document(documentid)
                                     .set(HistoryDetails);
 
-                            ///save the date field in date document in the History collection
                             db.collection("HistoryColl").document(UserId)
                                     .collection("Date").document(documentDate)
                                     .set(HistoryDate);
 
-                            ///delete the current appointment from the active collection
                             docref.delete();
                         }
                     });
 
-                    ////do the same for the corresponding customers
-                    DocumentReference docrefB =   db.collection("appointmentsColl").document(customerID)
+                    DocumentReference docrefB =   db.collection("appointmentsColl").document(targetID)
                             .collection("Date").document(documentDate)
                             .collection("appointmentsID").document(documentid);
 
@@ -589,7 +922,7 @@ private TextView pagetitle , drawer_logout,drawer_language,drawer_history;
                             HistoryDetails.put("date",documentSnapshot.get("date"));
                             HistoryDetails.put("barberID",documentSnapshot.get("barberID"));
                             HistoryDetails.put("customerID",documentSnapshot.get("customerID"));
-                            HistoryDetails.put("status","Completed");
+                            HistoryDetails.put("status","Cancelled");
                             HistoryDetails.put("type",documentSnapshot.get("type"));
                             HistoryDetails.put("customer name",documentSnapshot.get("customer name"));
                             HistoryDetails.put("shop name",documentSnapshot.get("shop name"));
@@ -599,31 +932,25 @@ private TextView pagetitle , drawer_logout,drawer_language,drawer_history;
 
                             HistoryDate.put("date",documentSnapshot.get("date"));
 
-                            db.collection("HistoryColl").document(customerID)
+                            db.collection("HistoryColl").document(targetID)
                                     .collection("Date").document(documentDate)
                                     .collection("appointmentsID").document(documentid)
                                     .set(HistoryDetails);
 
-                            db.collection("HistoryColl").document(customerID)
+                            db.collection("HistoryColl").document(targetID)
                                     .collection("Date").document(documentDate)
                                     .set(HistoryDate);
 
-                            docrefB.delete();
-
-                            updateDialog.setContentView(R.layout.updatepopup);
-                            updateDialog.show();
-
-                            ////refresh the activity
-                            mHandler.postDelayed(new Runnable() {
+                            docrefB.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
-                                public void run() {
+                                public void onComplete(@NonNull Task<Void> task) {
 
-                                    ///send notification to notify the completed appointments
-                                    FirebaseDatabase.getInstance().getReference().child("Tokens").child(customerID).child("token").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    FirebaseDatabase.getInstance().getReference().child("Tokens").child(targetID)
+                                            .child("token").addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                                             String usertoken=snapshot.getValue(String.class);
-                                            sendNotifications(usertoken, "Appointment completed","Open your app to leave a review");
+                                            sendNotifications(usertoken, "Appointment cancelled","Open your app to see the details");
                                         }
 
                                         @Override
@@ -631,69 +958,18 @@ private TextView pagetitle , drawer_logout,drawer_language,drawer_history;
 
                                         }
                                     });
-
-                                    updateDialog.dismiss();
-
-                                    finish();
-                                    overridePendingTransition(0, 0);
-                                    startActivity(getIntent());
-                                    overridePendingTransition(0, 0);
-
                                 }
-                            },2000L);
+                            });
                         }
                     });
 
-                }
-            });
-        }else{
 
-            ///intialize dialog for appointments that has not been accepted
-            UserStatusDialog.setContentView(R.layout.barberstatuspopup);
-            UserStatusDialog.show();
-            acceptbutton = UserStatusDialog.findViewById(R.id.AcceptHPbutton);
-            rejectbutton = UserStatusDialog.findViewById(R.id.RejectHPbutton);
 
-            ///barber accept the appointments
-            acceptbutton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    Map<String, Object> updateStatus= new HashMap<>();
-                    updateStatus.put("status","Accepted" );
-
-                    ///change appointment status
-                    DocumentReference docref =   db.collection("appointmentsColl").document(UserId)
-                            .collection("Date").document(documentDate)
-                            .collection("appointmentsID").document(documentid);
-
-                    docref.update(updateStatus);
-
-                    ///do the same for the customer side
-                    DocumentReference docrefB =   db.collection("appointmentsColl").document(customerID)
-                            .collection("Date").document(documentDate)
-                            .collection("appointmentsID").document(documentid);
-
-                    docrefB.update(updateStatus);
-
-                    ///notify the acceptence of appointments
-                    FirebaseDatabase.getInstance().getReference().child("Tokens").child(customerID).child("token").addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            String usertoken=snapshot.getValue(String.class);
-                            sendNotifications(usertoken, "Appointment accepted","Please be ready for your appointment");
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
 
                     updateDialog.setContentView(R.layout.updatepopup);
                     updateDialog.show();
 
-                    ////refresh activity
+
                     mHandler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -705,13 +981,28 @@ private TextView pagetitle , drawer_logout,drawer_language,drawer_history;
                             startActivity(getIntent());
                             overridePendingTransition(0, 0);
 
+
                         }
                     },2000L);
+
+
+                }
+            });
+        }else{
+
+            UserStatusDialog.setContentView(R.layout.rejectstatuspopup);
+            UserStatusDialog.show();
+            yesbutton = UserStatusDialog.findViewById(R.id.BarberRejectButton);
+            nobutton = UserStatusDialog.findViewById(R.id.BarberCancelRejectButton);
+
+            nobutton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    UserStatusDialog.dismiss();
                 }
             });
 
-            ///barber reject the appointment
-            rejectbutton.setOnClickListener(new View.OnClickListener() {
+            yesbutton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     UserStatusDialog.dismiss();
@@ -760,7 +1051,7 @@ private TextView pagetitle , drawer_logout,drawer_language,drawer_history;
                         }
                     });
 
-                    DocumentReference docrefB =   db.collection("appointmentsColl").document(customerID)
+                    DocumentReference docrefB =   db.collection("appointmentsColl").document(targetID)
                             .collection("Date").document(documentDate)
                             .collection("appointmentsID").document(documentid);
 
@@ -788,30 +1079,35 @@ private TextView pagetitle , drawer_logout,drawer_language,drawer_history;
 
                             HistoryDate.put("date",documentSnapshot.get("date"));
 
-                            db.collection("HistoryColl").document(customerID)
+                            db.collection("HistoryColl").document(targetID)
                                     .collection("Date").document(documentDate)
                                     .collection("appointmentsID").document(documentid)
                                     .set(HistoryDetails);
 
-                            db.collection("HistoryColl").document(customerID)
+                            db.collection("HistoryColl").document(targetID)
                                     .collection("Date").document(documentDate)
                                     .set(HistoryDate);
 
-                            docrefB.delete();
-                        }
-                    });
+                            docrefB.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
 
-                    FirebaseDatabase.getInstance().getReference().child("Tokens").child(customerID)
-                            .child("token").addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            String usertoken=snapshot.getValue(String.class);
-                            sendNotifications(usertoken, "Appointment rejected by barber","We are sorry for the inconveniences");
-                        }
+                                    FirebaseDatabase.getInstance().getReference().child("Tokens").child(targetID)
+                                            .child("token").addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            String usertoken=snapshot.getValue(String.class);
+                                            sendNotifications(usertoken, "Appointment rejected by barber",
+                                                    "We are sorry for the inconveniences");
+                                        }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
 
+                                        }
+                                    });
+                                }
+                            });
                         }
                     });
 
@@ -835,151 +1131,6 @@ private TextView pagetitle , drawer_logout,drawer_language,drawer_history;
             });
         }
 
-    }
-
-    private void openUserDialog(String documentid,String documentDate,String barberID) {
-
-        UserStatusDialog.setContentView(R.layout.statuspopup);
-        UserStatusDialog.show();
-        yesbutton = UserStatusDialog.findViewById(R.id.YesHPButton);
-        nobutton = UserStatusDialog.findViewById(R.id.NoHPButton);
-
-        Toast.makeText(HomePage.this," id: "+ documentid,Toast.LENGTH_LONG).show();
-
-        nobutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                UserStatusDialog.dismiss();
-            }
-        });
-
-        yesbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                UserStatusDialog.dismiss();
-
-                Map<String, Object> updateStatus= new HashMap<>();
-                updateStatus.put("status","Cancelled" );
-
-                DocumentReference docref =   db.collection("appointmentsColl").document(UserId)
-                        .collection("Date").document(documentDate)
-                        .collection("appointmentsID").document(documentid);
-
-                docref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-
-                        DocumentSnapshot documentSnapshot = task.getResult();
-
-                        Map<String, Object> HistoryDetails = new HashMap<>();
-
-                        HistoryDetails.put("name",documentSnapshot.get("name"));
-                        HistoryDetails.put("price",documentSnapshot.get("price"));
-                        HistoryDetails.put("time slot",documentSnapshot.get("time slot"));
-                        HistoryDetails.put("date",documentSnapshot.get("date"));
-                        HistoryDetails.put("barberID",documentSnapshot.get("barberID"));
-                        HistoryDetails.put("customerID",documentSnapshot.get("customerID"));
-                        HistoryDetails.put("status","Cancelled");
-                        HistoryDetails.put("type",documentSnapshot.get("type"));
-                        HistoryDetails.put("customer name",documentSnapshot.get("customer name"));
-                        HistoryDetails.put("shop name",documentSnapshot.get("shop name"));
-                        HistoryDetails.put("review",documentSnapshot.get("review"));
-
-                        Map<String, Object> HistoryDate = new HashMap<>();
-
-                        HistoryDate.put("date",documentSnapshot.get("date"));
-
-                        db.collection("HistoryColl").document(UserId)
-                                .collection("Date").document(documentDate)
-                                .collection("appointmentsID").document(documentid)
-                                .set(HistoryDetails);
-
-                        db.collection("HistoryColl").document(UserId)
-                                .collection("Date").document(documentDate)
-                                .set(HistoryDate);
-
-                        docref.delete();
-                    }
-                });
-
-                DocumentReference docrefB =   db.collection("appointmentsColl").document(barberID)
-                        .collection("Date").document(documentDate)
-                        .collection("appointmentsID").document(documentid);
-
-                docrefB.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-
-                        DocumentSnapshot documentSnapshot = task.getResult();
-
-                        Map<String, Object> HistoryDetails = new HashMap<>();
-
-                        HistoryDetails.put("name",documentSnapshot.get("name"));
-                        HistoryDetails.put("price",documentSnapshot.get("price"));
-                        HistoryDetails.put("time slot",documentSnapshot.get("time slot"));
-                        HistoryDetails.put("date",documentSnapshot.get("date"));
-                        HistoryDetails.put("barberID",documentSnapshot.get("barberID"));
-                        HistoryDetails.put("customerID",documentSnapshot.get("customerID"));
-                        HistoryDetails.put("status","Cancelled");
-                        HistoryDetails.put("type",documentSnapshot.get("type"));
-                        HistoryDetails.put("customer name",documentSnapshot.get("customer name"));
-                        HistoryDetails.put("shop name",documentSnapshot.get("shop name"));
-                        HistoryDetails.put("review",documentSnapshot.get("review"));
-
-                        Map<String, Object> HistoryDate = new HashMap<>();
-
-                        HistoryDate.put("date",documentSnapshot.get("date"));
-
-                        db.collection("HistoryColl").document(barberID)
-                                .collection("Date").document(documentDate)
-                                .collection("appointmentsID").document(documentid)
-                                .set(HistoryDetails);
-
-                        db.collection("HistoryColl").document(barberID)
-                                .collection("Date").document(documentDate)
-                                .set(HistoryDate);
-
-                        docrefB.delete();
-                    }
-                });
-
-                FirebaseDatabase.getInstance().getReference().child("Tokens").child(barberID).child("token").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String usertoken=snapshot.getValue(String.class);
-                        sendNotifications(usertoken, "Appointment cancelled","Open your app to see the details");
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
-
-                updateDialog.setContentView(R.layout.updatepopup);
-                updateDialog.show();
-
-
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        updateDialog.dismiss();
-
-                        finish();
-                        overridePendingTransition(0, 0);
-                        startActivity(getIntent());
-                        overridePendingTransition(0, 0);
-
-
-                    }
-                },2000L);
-
-
-            }
-        });
     }
 
     private void sendNotifications(String usertoken, String title, String message) {

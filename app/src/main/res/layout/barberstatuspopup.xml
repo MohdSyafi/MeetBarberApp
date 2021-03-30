@@ -20,7 +20,7 @@
 
         android:background="#000000"
         android:fontFamily="@font/tienne"
-        android:text="Reject"
+        android:text="No"
         android:textColor="#F44336"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +36,7 @@
         android:layout_marginEnd="32dp"
         android:background="#000000"
         android:fontFamily="@font/tienne"
-        android:text="Do you want to accept or reject the appointment?"
+        android:text="Do you want to accept the appointment?"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,7 +54,7 @@
 
         android:background="#000000"
         android:fontFamily="@font/tienne"
-        android:text="Accept"
+        android:text="Yes"
         android:textColor="#4CAF50"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/RejectHPbutton"

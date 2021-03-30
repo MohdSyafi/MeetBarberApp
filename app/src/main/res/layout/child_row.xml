@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_marginBottom="16dp"
-    android:background="@drawable/topborder">
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/topborder"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -66,11 +66,44 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/tienne"
+                    android:text="Time:"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp"
+                    android:textStyle="italic">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/HPtime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:fontFamily="@font/tienne"
+                    android:text="00:00 - 00:00"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp"
+                    android:textStyle="italic" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -94,6 +127,7 @@
                     android:textColor="#FFFFFF"
                     android:textSize="14sp" />
             </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -120,71 +154,221 @@
                     android:fontFamily="@font/tienne"
                     android:text="Barber Name"
                     android:textColor="#FFFFFF"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/HPcustomerName" />
+                    android:textSize="14sp" />
             </LinearLayout>
 
-
-            <TextView
-                android:id="@+id/HPType"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/tienne"
-                android:text="Home Service"
-                android:textColor="#FFEB3B"
-                android:textSize="14sp" />
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/tienne"
+                    android:text="Status:"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/HPStatusTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/tienne"
+                    android:text="status"
+                    android:textColor="@color/colorYellow"
+                    android:textSize="14sp">
+
+                </TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ServicetypeLL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/tienne"
+                    android:text="Type:"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/HPType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/tienne"
+                    android:text="Home Service"
+                    android:textColor="#FFEB3B"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
 
         </LinearLayout>
 
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/HPtime"
+            <LinearLayout
+                android:id="@+id/AppCompleteLL"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="@font/tienne"
-                android:text="00:00 - 00:00"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp" />
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/thinborder"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/HPstatusbutton"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:fontFamily="@font/tienne"
+                    android:text="Complete"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="14sp">
+
+                </TextView>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:src="@drawable/ic_complete"
+                    app:tint="@color/colorGreen">
+
+                </ImageView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/AppAcceptLL"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/customborder"
-                android:fontFamily="@font/tienne"
-                android:text="Status"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp" />
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/thinborder"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:fontFamily="@font/tienne"
+                    android:text="Accept"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="14sp">
+
+                </TextView>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:src="@drawable/ic_accept">
+
+                </ImageView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/AppCancelLL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/thinborder"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/HPCancelTextTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:fontFamily="@font/tienne"
+                    android:text="Cancel"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="14sp">
+
+                </TextView>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:src="@drawable/ic_delete"
+                    app:tint="#951313">
+
+                </ImageView>
+
+            </LinearLayout>
 
 
         </LinearLayout>
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/ReviewActivityButton"
+    <LinearLayout
+        android:id="@+id/ClickReviewLL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="@font/tienne"
-        android:gravity="center"
-        android:text="Leave a review "
-        android:textAlignment="center"
-        android:textColor="#FFEB3B"
-        android:visibility="visible" />
+        android:layout_gravity="end"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/ReviewActivityButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/tienne"
+            android:text="Leave a review "
+            android:textColor="#FFEB3B"
+            android:visibility="visible" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:src="@drawable/ic_next">
+
+        </ImageView>
+    </LinearLayout>
+
 </LinearLayout>

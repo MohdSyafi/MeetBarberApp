@@ -77,58 +77,57 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:menu="@menu/bottom_nav" />
 
-            <EditText
-                android:id="@+id/SearchField"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="16dp"
+            <LinearLayout
+                android:id="@+id/SearchBarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:background="#FFFFFF"
-                android:ems="10"
-                android:fontFamily="@font/tienne"
-                android:inputType="textPersonName"
-                android:textColor="#000000"
+                android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                android:textCursorDrawable="@drawable/cursorstyle"
-                app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+                app:layout_constraintTop_toBottomOf="@id/appBarLayout">
 
-            <Button
-                android:id="@+id/SearchButton"
-                android:layout_width="57dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/searchicon"
-                app:layout_constraintBottom_toTopOf="@id/SearchContainer"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+                <EditText
+                    android:id="@+id/SearchField"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1"
+                    android:background="#FFFFFF"
+                    android:ems="10"
+                    android:fontFamily="@font/tienne"
+                    android:hint="Search for barber, shop, address or services"
+                    android:inputType="textPersonName"
+                    android:paddingStart="4dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:textColor="#000000"
+                    android:textCursorDrawable="@drawable/cursorstyle"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <ImageView
+                    android:id="@+id/SearchButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/ic_search" />
+
+            </LinearLayout>
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/SearchContainer"
                 android:layout_width="0dp"
                 android:layout_height="540dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/topborder"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/SearchField" />
-
-            <Spinner
-                android:id="@+id/catspinner"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="16dp"
-                android:background="#FFFFFF"
-                android:theme="@style/SpinnerTheme"
-                app:layout_constraintBottom_toTopOf="@+id/SearchContainer"
-                app:layout_constraintEnd_toStartOf="@+id/SearchButton"
-                app:layout_constraintStart_toEndOf="@+id/SearchField"
-                app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/SearchBarLayout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

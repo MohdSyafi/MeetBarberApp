@@ -166,6 +166,7 @@ public class register  extends AppCompatActivity  {
                     if(clicked){
 
                         updateimgtofirebase(ImageUri);
+
                         String name,address,city,id;
                         int phone,postcode;
 
@@ -188,12 +189,13 @@ public class register  extends AppCompatActivity  {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
 
-                                finishAffinity();
-                                Intent i = new Intent(register.this, HomePage.class);
+                                Intent i = new Intent(register.this, MainActivity.class);
                                 startActivity(i);
+                                finishAffinity();
 
                             }
                         });
+
                     }else{
 
                         String name,address,city,id;
@@ -217,11 +219,9 @@ public class register  extends AppCompatActivity  {
                         ref.update(userdata).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-
-                                finishAffinity();
-                                Intent i = new Intent(register.this, HomePage.class);
+                                Intent i = new Intent(register.this, MainActivity.class);
                                 startActivity(i);
-
+                                finishAffinity();
                             }
                         });
                     }

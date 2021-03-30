@@ -113,7 +113,6 @@ public class registerBarber extends AppCompatActivity {
             });
         }
 
-
         SignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

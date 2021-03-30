@@ -15,6 +15,8 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,14 +46,12 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
     private EditText searchField;
     private TextView pageTitle;
     private TextView drawer_logout,drawer_language,drawer_history;
-    private Button searchButton;
-    private String[] categoryarray;
+    private ImageView searchButton;
     private RecyclerView searchRecyclerview;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private FirestoreRecyclerAdapter<User, UsersViewHolder> adapter;
     private String searchText,lang;
     private String CatChoice;
-    private Spinner category;
     private Context context;
     private Resources resources;
     private DrawerLayout drawerLayout;
@@ -66,13 +66,10 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
         getSupportActionBar().hide();
         setContentView(R.layout.activity_search);
 
-        categoryarray = new String[]{"Shope Name","Barber","City","Address"};
-
         drawerLayout = findViewById(R.id.drawer_layout);
         searchField = findViewById(R.id.SearchField);
         searchButton = findViewById(R.id.SearchButton);
         searchRecyclerview = findViewById(R.id.SearchContainer);
-        category = findViewById(R.id.catspinner);
         pageTitle = findViewById(R.id.SearchTitle);
         drawer_history = findViewById(R.id.drawer_history);
         drawer_language = findViewById(R.id.drawer_language);
@@ -86,7 +83,6 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
         searchRecyclerview .setHasFixedSize(true);
         searchRecyclerview .setLayoutManager(manager);
 
-        setSpinnerAdapter();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.search);
@@ -137,28 +133,32 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 searchText = searchField.getText().toString();
-
-                int temp = category.getSelectedItemPosition();
-                String spinnerposition = String.valueOf(temp);
-                CatChoice = category.getItemAtPosition(temp).toString();
+                searchText.toLowerCase();
                 String attribute;
-
-                attribute = new String();
-
-                if(CatChoice.equalsIgnoreCase("Shope Name")){
-                    attribute = "shopname";
-                }else if(CatChoice.equalsIgnoreCase("Barber")){
-                    attribute = "username";
-                }else if(CatChoice.equalsIgnoreCase("City")){
-                    attribute = "city";
-                }else if(CatChoice.equalsIgnoreCase("Address")){
-                    attribute = "address";
-                }
-
+                attribute = "keyword";
                 firebaseUserSearch(searchText,attribute);
-                Toast.makeText(Search.this,"choice : " + CatChoice,Toast.LENGTH_LONG).show();
+            }
+        });
+
+        searchField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                searchText = searchField.getText().toString();
+                searchText.toLowerCase();
+                String attribute;
+                attribute = "keyword";
+                firebaseUserSearch(searchText,attribute);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
             }
         });
     }
@@ -271,12 +271,6 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
         return FirebaseAuth.getInstance().getCurrentUser() != null;
     }
 
-    private void setSpinnerAdapter() {
-        ArrayAdapter spinneradapter =new ArrayAdapter(this,android.R.layout.simple_spinner_item,categoryarray);
-        spinneradapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        category.setAdapter(spinneradapter);
-        category.setOnItemSelectedListener(this);
-    }
 
     @NonNull
     private void firebaseUserSearch(String searchText,String category){
@@ -284,8 +278,7 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
         CollectionReference sCollection =
                 FirebaseFirestore.getInstance().collection("Barbers");
 
-        Query sQuery = sCollection.orderBy(category)
-                .startAt(searchText).endAt(searchText + "\uf8ff");
+        Query sQuery = sCollection.whereArrayContains("keyword",searchText);
 
         FirestoreRecyclerOptions<User> options =
                 new FirestoreRecyclerOptions.Builder<User>()
