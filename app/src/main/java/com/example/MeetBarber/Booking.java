@@ -256,9 +256,7 @@ public class Booking extends AppCompatActivity implements BookClickInterface, Ad
 
                                         String Cname =doc.getString("username");
                                         String imgUri = doc.getString("piclink");
-
-
-
+                                        
                                         ReviewDetails reviewDetails = new ReviewDetails(
                                                 imgUri,
                                                 Cname,

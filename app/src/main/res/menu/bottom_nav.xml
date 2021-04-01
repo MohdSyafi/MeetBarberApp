@@ -3,14 +3,14 @@
 
     <item
         android:id = "@+id/appointment"
-        android:icon="@drawable/appointmenticon"
+        android:icon="@drawable/ic_calendar"
         android:title="" />
     <item
         android:id = "@+id/search"
-        android:icon="@drawable/searchicon"
+        android:icon="@drawable/ic_search"
         android:title="" />
     <item
         android:id = "@+id/profile"
-        android:icon="@drawable/profileicon"
+        android:icon="@drawable/ic_person"
         android:title="" />
 </menu>

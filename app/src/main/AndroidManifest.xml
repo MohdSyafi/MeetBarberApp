@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PickTimeSlot"></activity>
+        <activity android:name=".PickTimeSlot">
+        </activity>
         <activity android:name=".PickDate" />
         <activity android:name=".Detail" />
         <activity android:name=".Review" />

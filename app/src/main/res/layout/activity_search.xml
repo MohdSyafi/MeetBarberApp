@@ -63,6 +63,58 @@
             </com.google.android.material.appbar.AppBarLayout>
 
 
+            <LinearLayout
+                android:id="@+id/RecoomendationLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/SearchBarLayout">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#000000"
+                    android:fontFamily="@font/tienne"
+                    android:text="Recommend me:"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18dp"></TextView>
+
+                <TextView
+                    android:id="@+id/NearbyButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:background="@drawable/thinborder"
+                    android:fontFamily="@font/tienne"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:text="Nearby"
+                    android:textColor="@color/colorYellow"
+                    android:textSize="16dp">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/highstarbutton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:background="@drawable/thinborder"
+                    android:fontFamily="@font/tienne"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:text="5 stars"
+                    android:textColor="@color/colorYellow"
+                    android:textSize="16dp">
+
+                </TextView>
+
+            </LinearLayout>
+
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottomNavigationView"
                 android:layout_width="0dp"
@@ -127,7 +179,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/SearchBarLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/RecoomendationLinearLayout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

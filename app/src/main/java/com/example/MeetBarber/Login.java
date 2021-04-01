@@ -77,14 +77,14 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-
+                            PBar.setVisibility(View.INVISIBLE);
                             Toast.makeText(Login.this,"Logged in succesfully",Toast.LENGTH_SHORT).show();
                             Intent i = new Intent(Login.this, HomePage.class);
                             startActivity(i);
                             finish();
 
                         }else{
-
+                            PBar.setVisibility(View.INVISIBLE);
                             Toast.makeText(Login.this,"Error " + task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -96,6 +96,7 @@ public class Login extends AppCompatActivity {
         RegButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                finish();
                 Intent i = new Intent(Login.this, register.class);
                 startActivity(i);
             }
@@ -104,6 +105,7 @@ public class Login extends AppCompatActivity {
         regbuttonB.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                finish();
                 Intent i = new Intent(Login.this, registerBarber.class);
                 startActivity(i);
             }

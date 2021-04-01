@@ -167,13 +167,13 @@ public class Profile extends AppCompatActivity {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                         if (value.exists()) {
+                            finish();
                             Intent i = new Intent(Profile.this, register.class);
                             startActivity(i);
-                            finish();
                         } else {
+                            finish();
                             Intent i = new Intent(Profile.this, registerBarber.class);
                             startActivity(i);
-                            finish();
                         }
                     }
                 });

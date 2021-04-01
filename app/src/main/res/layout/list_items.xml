@@ -64,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="#000000"
+                android:background="@drawable/thinborder"
                 android:fontFamily="@font/tienne"
                 android:text="Edit"
                 android:textColor="#FFEB3B"
@@ -75,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="#000000"
+                android:background="@drawable/thinborder"
                 android:fontFamily="@font/tienne"
                 android:text="Book"
                 android:textColor="#FFEB3B" />

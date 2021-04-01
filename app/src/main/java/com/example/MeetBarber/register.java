@@ -245,94 +245,94 @@ public class register  extends AppCompatActivity  {
                 if (TextUtils.isEmpty(email)){
                     Remail.setError("Email is empty");
                     return;
-                }
-                if (TextUtils.isEmpty(pwd)){
+                }else if (TextUtils.isEmpty(pwd)){
                     Rpwd.setError("Password is empty");
                     return;
-                }
-                if(!Cpwd.equals(pwd)){
+                }else if(!Cpwd.equals(pwd)){
                     RCpwd.setError("Confirm password is incorrect");
-                }
-                if(pwd.length()<6){
+                }else if(pwd.length()<6){
                     Rpwd.setError("Password length must be more than 6 characters");
                     return;
-                }
-                if(TextUtils.isEmpty(username)){
+                }else if(TextUtils.isEmpty(username)){
                     Rusername.setError("Please insert your name");
                     return;
-                }
-                if(TextUtils.isEmpty(address)){
+                }else if(TextUtils.isEmpty(address)){
                     Raddress.setError("Address is empty");
                     return;
-                }
-                if(TextUtils.isEmpty(phone)){
+                }else if(TextUtils.isEmpty(phone)){
                     Rphone.setError("Phone number is empty");
                     return;
-                }
-                if(TextUtils.isEmpty(postcode)){
+                }else if(TextUtils.isEmpty(postcode)){
                     Rpostcode.setError("Postcode is empty");
                     return;
-                }
-                if(TextUtils.isEmpty(city)){
+                }else if(TextUtils.isEmpty(city)){
                     Rcity.setError("City is empty");
                     return;
-                }if(clicked == false){
+                }else if(clicked == false){
                     Toast.makeText(register.this," please choose choose your profile image ", Toast.LENGTH_LONG).show();
                     return;
+                }else if(!isPwdValid(pwd)){
+                    Rpwd.setError("Your password must be 8 char, with combination of uppercase, lowercase letter and digits");
+                }else{
+                    PBar.setVisibility(View.VISIBLE);
+
+                    mAuth.createUserWithEmailAndPassword(email,pwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){
+
+                                if(clicked == true) {
+                                    uploadimgtofirebase(ImageUri);
+
+                                    Toast.makeText(register.this,"User created succesfully",Toast.LENGTH_SHORT).show();
+
+                                    UserId = mAuth.getCurrentUser().getUid();
+                                    role = "User";
+                                    String shopname = "n/a";
+                                    DocumentReference documentReference = db.collection("Users").document(UserId);
+
+                                    Map<String, Object> user = new HashMap<>();
+                                    user.put("username",username );
+                                    user.put("shopname",shopname);
+                                    user.put("phone",phone);
+                                    user.put("address", address);
+                                    user.put("postcode",postcode);
+                                    user.put("city",city);
+                                    user.put("role",role);
+                                    user.put("email",email);
+
+                                    documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Toast.makeText(register.this,"User's data stored succesfully",Toast.LENGTH_SHORT).show();
+                                            finish();
+                                            Intent i = new Intent(register.this, HomePage.class);
+                                            startActivity(i);
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(register.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
+                                }else{
+                                    PBar.setVisibility(View.GONE);
+                                    Toast.makeText(register.this," please choose choose your profile image ", Toast.LENGTH_LONG).show();
+                                }
+
+                            }else{
+                                PBar.setVisibility(View.GONE);
+                                Toast.makeText(register.this,"Error " + task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+                    PBar.setVisibility(View.GONE);
                 }
 
-                PBar.setVisibility(View.VISIBLE);
 
-                mAuth.createUserWithEmailAndPassword(email,pwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-
-                            if(clicked == true) {
-                                uploadimgtofirebase(ImageUri);
-
-                                Toast.makeText(register.this,"User created succesfully",Toast.LENGTH_SHORT).show();
-
-                                UserId = mAuth.getCurrentUser().getUid();
-                                role = "User";
-                                String shopname = "n/a";
-                                DocumentReference documentReference = db.collection("Users").document(UserId);
-
-                                Map<String, Object> user = new HashMap<>();
-                                user.put("username",username );
-                                user.put("shopname",shopname);
-                                user.put("phone",phone);
-                                user.put("address", address);
-                                user.put("postcode",postcode);
-                                user.put("city",city);
-                                user.put("role",role);
-                                user.put("email",email);
-
-                                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Toast.makeText(register.this,"User's data stored succesfully",Toast.LENGTH_SHORT).show();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(register.this,e.getMessage(),Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-
-                                Intent i = new Intent(register.this, HomePage.class);
-                                startActivity(i);
-                            }else{
-                                Toast.makeText(register.this," please choose choose your profile image ", Toast.LENGTH_LONG).show();
-                            }
-
-                        }else{
-
-                            Toast.makeText(register.this,"Error " + task.getException().getMessage(),Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
             }
 
         });
@@ -346,6 +346,36 @@ public class register  extends AppCompatActivity  {
 
             }
         });
+    }
+
+    private boolean isPwdValid(String pwd) {
+
+        boolean status = false;
+        char [] array = pwd.toCharArray();
+        int lower=0, upper=0, digits=0;
+
+        if (pwd.length() > 7)
+            status = true;
+
+        for ( int i = 0;  i < array.length; i++) {
+            if(Character.isDigit(array[i]))
+                digits++;
+            if(Character.isLowerCase(array[i]))
+                lower++;
+            if(Character.isUpperCase(array[i]))
+                upper++;
+        }
+
+        if ( !(lower  > 0 ))
+            status = false;
+
+        if ( !(upper  > 0 ))
+            status = false;
+
+        if ( !(digits > 0 ))
+            status = false;
+
+        return status;
     }
 
     @Override

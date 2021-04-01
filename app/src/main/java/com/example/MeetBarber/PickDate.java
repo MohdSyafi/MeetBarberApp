@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -52,21 +53,28 @@ public class PickDate extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent a = new Intent(PickDate.this,PickTimeSlot.class);
-                Bundle extras = new Bundle();
+                if(PDServiceDate.getText().toString().equalsIgnoreCase("Please select a date")){
 
-                extras.putString("PTSERVICENAME",name);
-                extras.putString("PTSERVICEPRICE",price);
-                extras.putString("PTBARBERID",barber);
-                extras.putString("PTCUSTOMERID",customer);
-                extras.putString("PTSERVICESTATUS",status);
-                extras.putString("PTSERVICETYPE",servicetype);
-                extras.putString("PTSERVICEDATE",date);
-                extras.putString("PTSSHOPNAME",shopname);
-                extras.putString("PTSCUSTOMERNAME",customername);
+                    Toast.makeText(PickDate.this,"Please select a date first",Toast.LENGTH_LONG).show();
 
-                a.putExtras(extras);
-                PickDate.this.startActivity(a);
+                }else{
+                    Intent a = new Intent(PickDate.this,PickTimeSlot.class);
+                    Bundle extras = new Bundle();
+
+                    extras.putString("PTSERVICENAME",name);
+                    extras.putString("PTSERVICEPRICE",price);
+                    extras.putString("PTBARBERID",barber);
+                    extras.putString("PTCUSTOMERID",customer);
+                    extras.putString("PTSERVICESTATUS",status);
+                    extras.putString("PTSERVICETYPE",servicetype);
+                    extras.putString("PTSERVICEDATE",date);
+                    extras.putString("PTSSHOPNAME",shopname);
+                    extras.putString("PTSCUSTOMERNAME",customername);
+
+                    a.putExtras(extras);
+                    PickDate.this.startActivity(a);
+                }
+
             }
         });
 
@@ -109,7 +117,7 @@ public class PickDate extends AppCompatActivity {
         PickDateCalendar.setDate(cal.getTimeInMillis());
 
         date = day + "/" + MonthName + "/" + year;
-        PDServiceDate.setText(day + "/" + MonthName + "/" + year);
+        PDServiceDate.setText("Please select a date");
         PDServiceName.setText(name);
         PDServicePrice.setText("RM" + price);
         PDServiceType.setText(servicetype + " service");

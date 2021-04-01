@@ -58,6 +58,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.storage.FirebaseStorage;
 
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -99,6 +100,7 @@ private Resources resources;
 private Handler mHandler;
 private Boolean lang_selected;
 private TextView pagetitle , drawer_logout,drawer_language,drawer_history;
+List<String> KWlist = new ArrayList<String>();
 
 
     @Override
@@ -211,16 +213,19 @@ private TextView pagetitle , drawer_logout,drawer_language,drawer_history;
                                     String name, shopname, email, city, address, postcode, rating;
 
                                     name = document.getString("username").toLowerCase();
+                                    splitString(name);
                                     shopname = document.getString("shopname").toLowerCase();
+                                    splitString(shopname);
                                     email = mAuth.getCurrentUser().getEmail().toLowerCase();
+                                    splitString(email);
                                     city = document.getString("city").toLowerCase();
+                                    splitString(city);
                                     address = document.getString("address").toLowerCase();
+                                    splitString(address);
                                     postcode = document.get("postcode").toString();
+                                    splitString(postcode);
                                     rating = document.getString("rating").toLowerCase();
-
-                                    keyword = name + " " + shopname + " " + email+ " " + city+ " " + address+ " " + postcode+ " " + rating;
-
-                                    keyword.toLowerCase();
+                                    splitString(rating);
 
                                     Query query = db.collection("servicesCollection").document(UserId).collection("services");
 
@@ -230,12 +235,10 @@ private TextView pagetitle , drawer_logout,drawer_language,drawer_history;
                                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                     for (DocumentSnapshot querysnapshot: task.getResult()){
 
-                                                        String temp = keyword;
                                                         String holder = querysnapshot.getString("name").toLowerCase();
-                                                        keyword = temp + " " +  holder;
+                                                        splitString(holder);
 
                                                     }
-                                                    keyword.toLowerCase();
 
                                                     Query query = db.collection("servicesCollection").document(UserId).collection("Homeservices");
 
@@ -245,31 +248,8 @@ private TextView pagetitle , drawer_logout,drawer_language,drawer_history;
                                                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                                     for (DocumentSnapshot querysnapshot: task.getResult()){
 
-                                                                        String temp = keyword;
                                                                         String holder = querysnapshot.getString("name").toLowerCase();
-                                                                        keyword = temp + " " +  holder;
-                                                                    }
-
-                                                                    keyword.toLowerCase();
-
-                                                                    String str[] = keyword.split(" ");
-                                                                    List<String> al = new ArrayList<String>();
-                                                                    al = Arrays.asList(str);
-
-                                                                    String placeholder = "";
-                                                                    
-                                                                    List<String> KWlist = new ArrayList<String>();
-
-                                                                    for (int i = 0 ;i< al.size() ; i++){
-
-                                                                        placeholder = "";
-
-                                                                        for(int j = 0; j<al.get(i).length();j++){
-
-                                                                            placeholder += al.get(i).charAt(j);
-                                                                            KWlist.add(placeholder);
-                                                                        }
-
+                                                                        splitString(holder);
                                                                     }
 
                                                                     Map<String, Object> keywordupdate = new HashMap<>();
@@ -305,6 +285,48 @@ private TextView pagetitle , drawer_logout,drawer_language,drawer_history;
                     });
         }
 
+
+    }
+
+    private void splitString(String input) {
+
+        String str[] = input.split(" ");
+        List<String> al = new ArrayList<String>();
+        al = Arrays.asList(str);
+
+        List<String> al2 = new ArrayList<String>();
+        al2 = Arrays.asList(input);
+
+        String placeholder = "";
+
+        for (int i = 0 ;i< al.size() ; i++){
+
+            placeholder = "";
+
+            for(int j = 0; j<al.get(i).length();j++){
+
+                placeholder += al.get(i).charAt(j);
+                if(!KWlist.contains(placeholder)){
+                    KWlist.add(placeholder);
+                }
+
+            }
+
+        }
+
+        for (int i = 0 ;i< al2.size() ; i++){
+
+            placeholder = "";
+
+            for(int j = 0; j<al2.get(i).length();j++){
+
+                placeholder += al2.get(i).charAt(j);
+                if(!KWlist.contains(placeholder)){
+                    KWlist.add(placeholder);
+                }
+            }
+
+        }
 
     }
 
@@ -598,7 +620,6 @@ private TextView pagetitle , drawer_logout,drawer_language,drawer_history;
     ///handle users click on status button
     @Override
     public void onStatusClick(int position,String documentId,String documentDate,String targetID, String finish) {
-
     }
 
     @Override

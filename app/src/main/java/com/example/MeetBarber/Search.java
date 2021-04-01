@@ -1,6 +1,7 @@
 package com.example.MeetBarber;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -33,28 +34,39 @@ import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.squareup.picasso.Picasso;
 
 public class Search extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private EditText searchField;
-    private TextView pageTitle;
+    private TextView pageTitle,nearbyButton,highstarButton;
     private TextView drawer_logout,drawer_language,drawer_history;
     private ImageView searchButton;
     private RecyclerView searchRecyclerview;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private FirestoreRecyclerAdapter<User, UsersViewHolder> adapter;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String searchText,lang;
+    private String UserId = firebaseAuth.getCurrentUser().getUid();
     private String CatChoice;
     private Context context;
     private Resources resources;
     private DrawerLayout drawerLayout;
+    private Query sQuery;
+    private CollectionReference sCollection =
+            FirebaseFirestore.getInstance().collection("Barbers");
     static {
         FirebaseFirestore.setLoggingEnabled(true);
     }
@@ -74,12 +86,12 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
         drawer_history = findViewById(R.id.drawer_history);
         drawer_language = findViewById(R.id.drawer_language);
         drawer_logout = findViewById(R.id.drawer_logout);
-
+        nearbyButton = findViewById(R.id.NearbyButton);
+        highstarButton = findViewById(R.id.highstarbutton);
 
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setReverseLayout(true);
         manager.setStackFromEnd(true);
-
         searchRecyclerview .setHasFixedSize(true);
         searchRecyclerview .setLayoutManager(manager);
 
@@ -107,6 +119,9 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
         });
 
 
+        sQuery = sCollection.orderBy("shopname");
+        firebaseUserSearch("search","search");
+
         SharedPreferences sh = PreferenceManager.getDefaultSharedPreferences(this);
 
         lang = sh.getString("Locale.Helper.Selected.Language","");
@@ -133,11 +148,14 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                searchText = searchField.getText().toString();
+                searchText = searchField.getText().toString().toLowerCase();
                 searchText.toLowerCase();
                 String attribute;
                 attribute = "keyword";
-                firebaseUserSearch(searchText,attribute);
+
+                String temp = searchText.toLowerCase();
+                sQuery = sCollection.whereArrayContains("keyword",temp);
+                firebaseUserSearch(searchText.toLowerCase(),attribute);
             }
         });
 
@@ -150,9 +168,11 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 searchText = searchField.getText().toString();
-                searchText.toLowerCase();
                 String attribute;
                 attribute = "keyword";
+
+                String temp = searchText.toLowerCase();
+                sQuery = sCollection.whereArrayContains("keyword",temp);
                 firebaseUserSearch(searchText,attribute);
             }
 
@@ -161,12 +181,80 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
 
             }
         });
+
+        nearbyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String KW = "nearby";
+                checkUserType(KW);
+
+            }
+        });
+
+        highstarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                sQuery = sCollection.whereArrayContains("keyword","5.0");
+                firebaseUserSearch("5.0","keyword");
+            }
+        });
+    }
+
+    private void checkUserType(String KW) {
+        DocumentReference docRef = db.collection("Users").document(UserId);
+        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (value.exists()) {
+                    String userType = "Users";
+
+                    if(KW.equalsIgnoreCase("nearby")){
+                        getCity(userType);
+                    }
+
+                } else {
+                   String userType = "Barbers";
+
+                    if(KW.equalsIgnoreCase("nearby")){
+                        getCity(userType);
+                    }
+                }
+            }
+        });
+
+    }
+
+    private void getCity(String userType) {
+
+        DocumentReference ref = db.collection(userType).document(UserId);
+        ref.get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document != null) {
+                                String kw = document.getString("city");
+                                String attribute;
+                                attribute = "keyword";
+                                String temp = kw.toLowerCase();
+                                sQuery = sCollection.whereArrayContains("keyword",temp);
+                                firebaseUserSearch(kw,attribute);
+                            } else {
+                               Toast.makeText(Search.this,"No nearby barber could be found",Toast.LENGTH_LONG).show();
+                            }
+                        } else {
+                            Toast.makeText(Search.this,"No nearby barber could be found",Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
     }
 
     public  void ClickLanguage(View view ){
         final String[] Language = {"ENGLISH", "MELAYU"};
         final int checkedItem;
-
 
         Dialog languageDialog = new Dialog(this);
         Button english, melayu;
@@ -273,12 +361,9 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
 
 
     @NonNull
-    private void firebaseUserSearch(String searchText,String category){
+    private void firebaseUserSearch(String searchText,String call){
 
-        CollectionReference sCollection =
-                FirebaseFirestore.getInstance().collection("Barbers");
 
-        Query sQuery = sCollection.whereArrayContains("keyword",searchText);
 
         FirestoreRecyclerOptions<User> options =
                 new FirestoreRecyclerOptions.Builder<User>()

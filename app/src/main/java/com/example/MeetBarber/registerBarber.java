@@ -130,105 +130,104 @@ public class registerBarber extends AppCompatActivity {
                 if (TextUtils.isEmpty(email)){
                     Remail.setError("Email is empty");
                     return;
-                }
-                if (TextUtils.isEmpty(pwd)){
+                }else if (TextUtils.isEmpty(pwd)){
                     Rpwd.setError("Password is empty");
                     return;
-                }
-                if(!Cpwd.equals(pwd)){
+                }else if(!Cpwd.equals(pwd)){
                     RCpwd.setError("Confirm password is incorrect");
-                }
-                if(pwd.length()<6){
+                }else if(pwd.length()<6){
                     Rpwd.setError("Password length must be more than 6 characters");
                     return;
-                }
-                if(TextUtils.isEmpty(username)){
+                }else if(TextUtils.isEmpty(username)){
                     Rusername.setError("Please insert your name");
                     return;
-                }
-                if(TextUtils.isEmpty(address)){
+                }else if(TextUtils.isEmpty(address)){
                     Raddress.setError("Address is empty");
                     return;
-                }
-                if(Rphone.getText().toString().trim().isEmpty()){
+                }else if(Rphone.getText().toString().trim().isEmpty()){
                     Rphone.setError("Phone number is empty");
                     return;
-                }
-                if(TextUtils.isEmpty(postcode)){
+                }else if(TextUtils.isEmpty(postcode)){
                     Rpostcode.setError("Postcode is empty");
                     return;
-                }
-                if(TextUtils.isEmpty(city)){
+                }else if(TextUtils.isEmpty(city)){
                     Rcity.setError("City is empty");
                     return;
-                }if(clickable == false){
+                }else if(clickable == false){
                     Toast.makeText(registerBarber.this," please choose choose your profile image ", Toast.LENGTH_LONG).show();
                     return;
+                }else if(!isPwdValid(pwd)){
+                    Rpwd.setError("Your password must be 8 char, with combination of uppercase, lowercase letter and digits");
+                }else{
+                    PBar.setVisibility(View.VISIBLE);
+
+                    mAuth.createUserWithEmailAndPassword(email,pwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){
+
+                                if(clickable == true){
+
+                                    PBar.setVisibility(View.GONE);
+                                    Toast.makeText(registerBarber.this,"User created succesfully",Toast.LENGTH_SHORT).show();
+
+                                    UserId = mAuth.getCurrentUser().getUid();
+                                    role = "Barber";
+
+                                    DocumentReference documentReference = db.collection("Barbers").document(UserId);
+
+                                    uploadimgtofirebase(ImageUri);
+
+                                    Map<String, Object> user = new HashMap<>();
+                                    user.put("username",username );
+                                    user.put("shopname",Shopename);
+                                    user.put("phone",phone);
+                                    user.put("address", address);
+                                    user.put("postcode",postcode);
+                                    user.put("city",city);
+                                    user.put("role",role);
+                                    user.put("email",email);
+                                    user.put("rating","unrated");
+
+                                    int h = Integer.parseInt(Rphone.getText().toString());
+                                    int j = Integer.parseInt(Rpostcode.getText().toString());
+
+                                    Map<String , Object > upphone = new HashMap<>();
+                                    upphone.put("phone", h);
+                                    upphone.put("postcode", j);
+
+                                    documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            PBar.setVisibility(View.GONE);
+                                            documentReference.update(upphone);
+
+                                            Toast.makeText(registerBarber.this,"User's data stored succesfully",Toast.LENGTH_SHORT).show();
+
+                                            Intent i = new Intent(registerBarber.this, registerServices.class);
+                                            i.putExtra("EDIT","FALSE");
+                                            startActivity(i);
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            PBar.setVisibility(View.GONE);
+                                            Toast.makeText(registerBarber.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }else{
+                                    PBar.setVisibility(View.GONE);
+                                    Toast.makeText(registerBarber.this," please choose choose your profile image ", Toast.LENGTH_LONG).show();
+                                }
+                            }else{
+                                PBar.setVisibility(View.GONE);
+                                Toast.makeText(registerBarber.this,"Error " + task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 }
 
-               PBar.setVisibility(View.VISIBLE);
-
-                mAuth.createUserWithEmailAndPassword(email,pwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-
-                            if(clickable == true){
-
-                                Toast.makeText(registerBarber.this,"User created succesfully",Toast.LENGTH_SHORT).show();
-
-                                UserId = mAuth.getCurrentUser().getUid();
-                                role = "Barber";
-
-                                DocumentReference documentReference = db.collection("Barbers").document(UserId);
-
-                                uploadimgtofirebase(ImageUri);
-
-                                Map<String, Object> user = new HashMap<>();
-                                user.put("username",username );
-                                user.put("shopname",Shopename);
-                                user.put("phone",phone);
-                                user.put("address", address);
-                                user.put("postcode",postcode);
-                                user.put("city",city);
-                                user.put("role",role);
-                                user.put("email",email);
-                                user.put("rating","unrated");
-
-                                int h = Integer.parseInt(Rphone.getText().toString());
-                                int j = Integer.parseInt(Rpostcode.getText().toString());
-
-                                Map<String , Object > upphone = new HashMap<>();
-                                upphone.put("phone", h);
-                                upphone.put("postcode", j);
-
-                                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        documentReference.update(upphone);
-                                        Toast.makeText(registerBarber.this,"User's data stored succesfully",Toast.LENGTH_SHORT).show();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(registerBarber.this,e.getMessage(),Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                                Intent i = new Intent(registerBarber.this, registerServices.class);
-                                i.putExtra("EDIT","FALSE");
-                                startActivity(i);
-
-                            }else{
-                                Toast.makeText(registerBarber.this," please choose choose your profile image ", Toast.LENGTH_LONG).show();
-                            }
-
-                        }else{
-
-                            Toast.makeText(registerBarber.this,"Error " + task.getException().getMessage(),Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
             }
         });
 
@@ -242,6 +241,36 @@ public class registerBarber extends AppCompatActivity {
         });
 
 
+    }
+
+    private boolean isPwdValid(String pwd) {
+
+        boolean status = false;
+        char [] array = pwd.toCharArray();
+        int lower=0, upper=0, digits=0;
+
+        if (pwd.length() > 7)
+            status = true;
+
+        for ( int i = 0;  i < array.length; i++) {
+            if(Character.isDigit(array[i]))
+                digits++;
+            if(Character.isLowerCase(array[i]))
+                lower++;
+            if(Character.isUpperCase(array[i]))
+                upper++;
+        }
+
+        if ( !(lower  > 0 ))
+            status = false;
+
+        if ( !(upper  > 0 ))
+            status = false;
+
+        if ( !(digits > 0 ))
+            status = false;
+
+        return status;
     }
 
     private void getUserPic(String id) {
