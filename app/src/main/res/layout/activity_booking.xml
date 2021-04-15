@@ -24,15 +24,15 @@
             android:src="@drawable/ic_back"/>
 
         <TextView
+            android:id="@+id/PTBooking"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/tienne"
             android:paddingStart="120dp"
             android:paddingTop="16dp"
-            android:textColor="#FFFFFF"
             android:text="Booking"
-            android:textSize="24sp"
-            android:fontFamily="@font/tienne">
-        </TextView>
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"></TextView>
 
     </LinearLayout>
 

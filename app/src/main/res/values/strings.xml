@@ -4,18 +4,31 @@
     <string name="page_title_Appointments">Appointments</string>
     <string name="page_title_Search">Search</string>
     <string name="page_title_profile">Profile</string>
+    <string name="page_title_booking">Booking</string>
+    <string name="page_title_details">Details</string>
+
+
     <string name="sidebar_signout">Sign out</string>
     <string name="sidebar_language">Language</string>
     <string name="sidebar_history">History</string>
     <string name="normal_services_title">Normal Services</string>
     <string name="home_services_title">Home Services</string>
+    <string name="review_title">Review</string>
     <string name="LogIn_button">Log In</string>
     <string name="Confirm_button">Confirm</string>
     <string name="SignUp_button">Sign Up</string>
+    <string name="Continue_button">Continue</string>
+    <string name="ConfirmBook_button">Confirm</string>
+
     <string name="LogIn_message">Do not have an account? register as:</string>
+
     <string name="LogIn_or">or</string>
     <string name="user">User</string>
+
     <string name="hint_password">Password...</string>
+    <string name="hint_search">Search for barber, shop, address or services</string>
+
+
     <string name="page_title_register">Register</string>
     <string name="title_password">Password:</string>
     <string name="title_confirm_password">Confirm Password:</string>
@@ -24,6 +37,34 @@
     <string name="title_address">Address:</string>
     <string name="title_postcode">Postcode:</string>
     <string name="title_city">City:</string>
+    <string name="title_timeslot">Time:</string>
+    <string name="title_customer">Cust:</string>
+    <string name="title_customercomplete">Customer</string>
+    <string name="title_status">Status:</string>
+    <string name="title_type">Type:</string>
+    <string name="title_service">Services:</string>
+    <string name="title_price">Price:</string>
+    <string name="title_timeselected">Time selected:</string>
+    <string name="title_dateselected">Date selected:</string>
+    <string name="title_date">Date:</string>
+
+    <string name="status_complete">Complete</string>
+    <string name="status_onhold">On Hold</string>
+    <string name="status_accept">Accept</string>
+    <string name="status_accepted">Accepted</string>
+    <string name="status_reject">Reject</string>
+    <string name="status_cancel">Cancel</string>
+
+    <string name="title_reviewbutton">Leave a review</string>
+    <string name="title_recommendme">Recommend me:</string>
+    <string name="title_highstar">5 Stars</string>
+    <string name="title_nearbyme">Nearby</string>
+
+    <string name="intsr_pickdate">Pick a date:</string>
+    <string name="intsr_picktime">Pick a time slot:</string>
+
+    <string name="popup_booksucces">Booking Succesful!</string>
+
 
 
 </resources>

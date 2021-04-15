@@ -167,11 +167,10 @@ public class Profile extends AppCompatActivity {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                         if (value.exists()) {
-                            finish();
                             Intent i = new Intent(Profile.this, register.class);
                             startActivity(i);
                         } else {
-                            finish();
+
                             Intent i = new Intent(Profile.this, registerBarber.class);
                             startActivity(i);
                         }
@@ -180,9 +179,8 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-
-
     }
+
 
     public  void ClickLanguage(View view ){
         final String[] Language = {"ENGLISH", "MELAYU"};

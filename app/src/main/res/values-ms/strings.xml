@@ -4,18 +4,28 @@
     <string name="page_title_Appointments">Temu Janji</string>
     <string name="page_title_Search">Carian</string>
     <string name="page_title_profile">Profil</string>
+    <string name="page_title_booking">Tempahan</string>
+    <string name="page_title_details">Butiran</string>
+
     <string name="sidebar_signout">Log keluar</string>
     <string name="sidebar_language">Bahasa</string>
     <string name="sidebar_history">Temu janji lepas</string>
     <string name="normal_services_title">Servis Normal</string>
     <string name="home_services_title">Servis Rumah</string>
+    <string name="review_title">Komen</string>
     <string name="LogIn_button">Log Masuk</string>
     <string name="Confirm_button">Kemas kini</string>
     <string name="SignUp_button">Daftar Masuk</string>
+    <string name="Continue_button">Seterusnya</string>
+    <string name="ConfirmBook_button">Tempah</string>
+
     <string name="LogIn_message">Tiada akaun? daftar sebagai:</string>
     <string name="LogIn_or">atau</string>
     <string name="user">Pelanggan</string>
+
     <string name="hint_password">Kata laluan...</string>
+    <string name="hint_search">Cari barber, kedai, alamat atau servis</string>
+
     <string name="page_title_register">Daftar</string>
     <string name="title_password">Kata laluan:</string>
     <string name="title_confirm_password">Sahkan kata laluan:</string>
@@ -24,5 +34,30 @@
     <string name="title_address">Alamat:</string>
     <string name="title_postcode">Poskod:</string>
     <string name="title_city">Bandar:</string>
+    <string name="title_timeslot">Masa:</string>
+    <string name="title_customer">Pelanggan:</string>
+    <string name="title_customercomplete">Pelanggan</string>
+    <string name="title_status">Status:</string>
+    <string name="title_type">Jenis:</string>
+    <string name="title_service">Servis:</string>
+    <string name="title_price">Harga:</string>
+    <string name="title_timeselected">Masa dipilih:</string>
+    <string name="title_dateselected">Tarikh dipilih:</string>
+    <string name="title_date">Tarikh:</string>
 
+    <string name="status_complete">Selesai</string>
+    <string name="status_onhold">Belum diterima</string>
+    <string name="status_accept">Terima</string>
+    <string name="status_accepted">Diterima</string>
+    <string name="status_reject">Buang</string>
+    <string name="status_cancel">Batal</string>
+
+    <string name="title_reviewbutton">Komen servis</string>
+    <string name="title_recommendme">Cadangan:</string>
+    <string name="title_highstar">5 Bintang</string>
+    <string name="title_nearbyme">Berdekatan</string>
+    <string name="intsr_pickdate">Pilih tarikh:</string>
+    <string name="intsr_picktime">Pilih slot masa:</string>
+
+    <string name="popup_booksucces">Tempahan berjaya!</string>
 </resources>

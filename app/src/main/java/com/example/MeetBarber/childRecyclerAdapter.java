@@ -1,6 +1,9 @@
 package com.example.MeetBarber;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +26,9 @@ public class childRecyclerAdapter extends RecyclerView.Adapter<childRecyclerAdap
     private Button statusButton;
     private String documentid,barberID;
     String temp2,clickable;
+    private Context context;
+    private String lang;
+
 
     public childRecyclerAdapter(ArrayList<apnmtDetails> items, StatusClickInterface statusClickInterface, String clickable) {
         this.items = items;
@@ -45,6 +51,12 @@ public class childRecyclerAdapter extends RecyclerView.Adapter<childRecyclerAdap
     }
 
     @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        context = recyclerView.getContext();
+    }
+
+    @Override
     public void onBindViewHolder(@NonNull childViewHolder holder, int position) {
 
         holder.HPtimeTV.setText(items.get(position).getServiceTime());
@@ -57,6 +69,35 @@ public class childRecyclerAdapter extends RecyclerView.Adapter<childRecyclerAdap
         String temp = items.get(position).getServiceDate();
         temp2 = temp.replaceAll("/" ,"");
 
+        SharedPreferences sh = PreferenceManager.getDefaultSharedPreferences(context);
+
+        lang = sh.getString("Locale.Helper.Selected.Language","");
+
+        if(lang.equalsIgnoreCase("ms")){
+
+            holder.TimeTitle.setText("Masa:");
+            holder.CustTitle .setText("Pelanggan:");
+            holder.TypeTitle.setText("Jenis:");
+            holder.AccptBttn.setText("Terima");
+            holder.CMPBtn.setText("Selesai");
+            holder.ReviewBttn.setText("Komen");
+
+            if(items.get(position).getServicestatus().equalsIgnoreCase("On hold")){
+                holder.HPStatusTV.setText("Belum Diterima");
+                holder.completeLL.setVisibility(View.GONE);
+            }else if (items.get(position).getServicestatus().equalsIgnoreCase("Accepted")){
+                holder.acceptLL.setVisibility(View.GONE);
+                holder.HPStatusTV.setText("Diterima");
+            }else if(items.get(position).getServicestatus().equalsIgnoreCase("Completed")) {
+                holder.HPStatusTV.setText("Selesai");
+            }else if(items.get(position).getServicestatus().equalsIgnoreCase("Cancelled")) {
+                holder.HPStatusTV.setText("Dibatalkan");
+            }else if(items.get(position).getServicestatus().equalsIgnoreCase("Rejected")) {
+                holder.HPStatusTV.setText("Ditolak");
+            }
+
+        }
+
         if(clickable.equalsIgnoreCase("no")){
             holder.acceptLL.setVisibility(View.GONE);
             holder.completeLL.setVisibility(View.GONE);
@@ -66,18 +107,29 @@ public class childRecyclerAdapter extends RecyclerView.Adapter<childRecyclerAdap
         if(items.get(position).getServiceType().equalsIgnoreCase("Normal")){
             holder.HPtypeTV.setVisibility(View.GONE);
             holder.serviceTypeLL.setVisibility(View.GONE);
+        }else{
+
+            if(lang.equalsIgnoreCase("ms")){
+                holder.HPtypeTV.setText("Servis Rumah");
+            }else{
+                holder.HPtypeTV.setText("Home Service");
+            }
         }
 
         if(items.get(position).getServicestatus().equalsIgnoreCase("On hold")){
             holder.completeLL.setVisibility(View.GONE);
+        }
 
-        }else if (items.get(position).getServicestatus().equalsIgnoreCase("Accepted")){
+        if (items.get(position).getServicestatus().equalsIgnoreCase("Accepted")){
             holder.acceptLL.setVisibility(View.GONE);
         }
 
         if(items.get(position).getCurrentusertype().equalsIgnoreCase("Users")){
             holder.acceptLL.setVisibility(View.GONE);
             holder.completeLL.setVisibility(View.GONE);
+            if(lang.equalsIgnoreCase("ms")){
+                holder.CancelBttn.setText("Batal");
+            }
             if(items.get(position).getServicestatus().equalsIgnoreCase("Completed")){
                 if(items.get(position).getReview().equalsIgnoreCase("no")){
                     holder.ReviewTV.setVisibility(View.VISIBLE);
@@ -88,7 +140,12 @@ public class childRecyclerAdapter extends RecyclerView.Adapter<childRecyclerAdap
                 }
             }
         }else{
-            holder.HPCancelTextTV.setText("Reject");
+            if(lang.equalsIgnoreCase("ms")){
+                holder.CancelBttn.setText("Batal");
+            }else{
+                holder.HPCancelTextTV.setText("Reject");
+
+            }
             holder.ReviewTV.setVisibility(View.GONE);
             holder.ClickReviewLL.setVisibility(View.GONE);
         }
@@ -106,11 +163,17 @@ public class childRecyclerAdapter extends RecyclerView.Adapter<childRecyclerAdap
 
         TextView HPBarbershopTV,HPservicenameTV,HPservicepriceTV,
                 HPtimeTV,HPstatusTV,HPcustomernameTV,HPtypeTV,ReviewTV,HPStatusTV,HPCancelTextTV;
+        TextView CMPBtn,AccptBttn, CancelBttn, ReviewBttn;
         LinearLayout acceptLL,cancelLL,completeLL,serviceTypeLL,ClickReviewLL;
+        TextView TimeTitle,CustTitle,TypeTitle;
 
         public childViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            CMPBtn = itemView.findViewById(R.id.HPCompleteBttn);
+            AccptBttn = itemView.findViewById(R.id.HPAcceptBttn);
+            ReviewBttn = itemView.findViewById(R.id.ReviewActivityButton);
+            CancelBttn = itemView.findViewById(R.id.HPCancelTextTV);
             HPBarbershopTV = itemView.findViewById(R.id.HPBarberName);
             HPservicenameTV =itemView.findViewById(R.id.HPServiceName);
             HPservicepriceTV = itemView.findViewById(R.id.HPServicePrice);
@@ -125,6 +188,9 @@ public class childRecyclerAdapter extends RecyclerView.Adapter<childRecyclerAdap
             HPCancelTextTV = itemView.findViewById(R.id.HPCancelTextTV);
             serviceTypeLL = itemView.findViewById(R.id.ServicetypeLL);
             ClickReviewLL = itemView.findViewById(R.id.ClickReviewLL);
+            TimeTitle = itemView.findViewById(R.id.HPTimeTitle);
+            CustTitle = itemView.findViewById(R.id.HPCustTitle);
+            TypeTitle = itemView.findViewById(R.id.HPTypeTitle);
 
             ReviewTV.setVisibility(View.GONE);
             ClickReviewLL.setVisibility(View.GONE);

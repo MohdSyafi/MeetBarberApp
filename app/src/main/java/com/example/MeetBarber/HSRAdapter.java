@@ -26,6 +26,7 @@ public class HSRAdapter extends RecyclerView.Adapter<HSRAdapter.MyViewHolder> {
     int from;
     private BookClickInterface bookClickInterface;
     private  Button bookButton;
+    private String language;
 
     public HSRAdapter(Profile profile, ArrayList<HSservice> serviceList,int from){
         this.from = from;
@@ -33,11 +34,12 @@ public class HSRAdapter extends RecyclerView.Adapter<HSRAdapter.MyViewHolder> {
         this.HSserviceList = serviceList;
     }
 
-    public HSRAdapter(Booking booking, ArrayList<HSservice> serviceList, int from,BookClickInterface bookClickInterface){
+    public HSRAdapter(Booking booking, ArrayList<HSservice> serviceList, int from,BookClickInterface bookClickInterface,String language){
         this.bookClickInterface = bookClickInterface;
         this.from = from;
         this.booking= booking;
         this.HSserviceList = serviceList;
+        this.language = language;
     }
 
     public HSRAdapter(Context mcontext) {
@@ -67,6 +69,16 @@ public class HSRAdapter extends RecyclerView.Adapter<HSRAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull HSRAdapter.MyViewHolder holder, final int position) {
         if(from == 0 ){
+
+            if(language.equalsIgnoreCase("ms")){
+
+                bookButton = holder.itemView.findViewById(R.id.bookButton);
+                bookButton.setText("Tempah");
+            }else{
+                bookButton = holder.itemView.findViewById(R.id.bookButton);
+                bookButton.setText("Book");
+            }
+
             final String name = HSserviceList.get(position).getServicename();
             final String price = HSserviceList.get(position).getPrice();
 

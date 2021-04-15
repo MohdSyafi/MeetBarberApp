@@ -26,6 +26,7 @@
             android:src="@drawable/ic_back" />
 
         <TextView
+            android:id="@+id/PTSpagetitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/tienne"
@@ -33,8 +34,7 @@
             android:paddingTop="16dp"
             android:text="Booking"
             android:textColor="#FFFFFF"
-            android:textSize="24sp">
-        </TextView>
+            android:textSize="24sp"></TextView>
 
     </LinearLayout>
 
@@ -51,12 +51,13 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/InstrPTS"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:fontFamily="@font/tienne"
                 android:paddingTop="16dp"
-                android:text="Pick a timeslot:"
+                android:text="@string/intsr_picktime"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp">
 
@@ -85,12 +86,13 @@
                 app:columnCount="2">
 
                 <TextView
+                    android:id="@+id/PTSServiceTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:fontFamily="@font/tienne"
                     android:paddingTop="16dp"
-                    android:text="Service:"
+                    android:text="@string/title_service"
                     android:textColor="#FFFFFF"
                     android:textSize="18sp">
 
@@ -110,12 +112,13 @@
                 </TextView>
 
                 <TextView
+                    android:id="@+id/PTSPriceTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:fontFamily="@font/tienne"
                     android:paddingTop="16dp"
-                    android:text="Price:"
+                    android:text="@string/title_price"
                     android:textColor="#FFFFFF"
                     android:textSize="18sp">
 
@@ -135,12 +138,13 @@
                 </TextView>
 
                 <TextView
+                    android:id="@+id/PTSDateTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:fontFamily="@font/tienne"
                     android:paddingTop="16dp"
-                    android:text="Date Selected:"
+                    android:text="@string/title_dateselected"
                     android:textColor="#FFFFFF"
                     android:textSize="18sp">
 
@@ -160,12 +164,13 @@
                 </TextView>
 
                 <TextView
+                    android:id="@+id/PTSTimeTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:fontFamily="@font/tienne"
                     android:paddingTop="16dp"
-                    android:text="Time Selected:"
+                    android:text="@string/title_timeselected"
                     android:textColor="#FFFFFF"
                     android:textSize="18sp">
 
@@ -185,12 +190,13 @@
                 </TextView>
 
                 <TextView
+                    android:id="@+id/PTSTypeTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:fontFamily="@font/tienne"
                     android:paddingTop="16dp"
-                    android:text="Type:"
+                    android:text="@string/title_type"
                     android:textColor="#FFFFFF"
                     android:textSize="18sp">
 

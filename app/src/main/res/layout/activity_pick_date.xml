@@ -27,12 +27,13 @@
             android:src="@drawable/ic_back" />
 
         <TextView
+            android:id="@+id/pageTitlePD"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/tienne"
             android:paddingStart="120dp"
             android:paddingTop="16dp"
-            android:text="Booking"
+            android:text="@string/page_title_booking"
             android:textColor="#FFFFFF"
             android:textSize="24sp">
 
@@ -56,12 +57,13 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/calendarTitlePD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/tienne"
                 android:layout_marginStart="32dp"
+                android:fontFamily="@font/tienne"
                 android:paddingTop="16dp"
-                android:text="Pick a date:"
+                android:text="@string/intsr_pickdate"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp">
 
@@ -87,12 +89,13 @@
                 android:paddingBottom="16dp">
 
                 <TextView
+                    android:id="@+id/PDSServiceTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/tienne"
                     android:layout_marginStart="32dp"
+                    android:fontFamily="@font/tienne"
                     android:paddingTop="16dp"
-                    android:text="Service:"
+                    android:text="@string/title_service"
                     android:textColor="#FFFFFF"
                     android:textSize="18sp">
 
@@ -112,12 +115,13 @@
                 </TextView>
 
                 <TextView
+                    android:id="@+id/PDSPriceTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
                     android:fontFamily="@font/tienne"
                     android:paddingTop="16dp"
-                    android:layout_marginStart="32dp"
-                    android:text="Price:"
+                    android:text="@string/title_price"
                     android:textColor="#FFFFFF"
                     android:textSize="18sp">
 
@@ -137,12 +141,13 @@
                 </TextView>
 
                 <TextView
+                    android:id="@+id/PDSDateTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
                     android:fontFamily="@font/tienne"
                     android:paddingTop="16dp"
-                    android:text="Date Selected:"
-                    android:layout_marginStart="32dp"
+                    android:text="@string/title_dateselected"
                     android:textColor="#FFFFFF"
                     android:textSize="18sp">
 
@@ -162,12 +167,13 @@
                 </TextView>
 
                 <TextView
+                    android:id="@+id/PDSTypeTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
                     android:fontFamily="@font/tienne"
                     android:paddingTop="16dp"
-                    android:text="Type:"
-                    android:layout_marginStart="32dp"
+                    android:text="@string/title_type"
                     android:textColor="#FFFFFF"
                     android:textSize="18sp">
 
@@ -204,7 +210,7 @@
                     android:layout_gravity="center"
                     android:background="#000000"
                     android:fontFamily="@font/tienne"
-                    android:text="Continue"
+                    android:text="@string/Continue_button"
                     android:textColor="#FFEB3B"
                     android:textSize="18dp">
 

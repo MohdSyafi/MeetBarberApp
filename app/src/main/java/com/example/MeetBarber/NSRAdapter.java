@@ -27,6 +27,7 @@ public class NSRAdapter extends RecyclerView.Adapter<NSRAdapter.MyViewHolder> {
     int from;
     private BookClickInterface bookClickInterface;
     private Button bookButton;
+    private String language;
 
     public NSRAdapter(Profile profile,ArrayList<services> serviceList,int from){
         this.from = from;
@@ -34,11 +35,12 @@ public class NSRAdapter extends RecyclerView.Adapter<NSRAdapter.MyViewHolder> {
         this.serviceList = serviceList;
     }
 
-    public NSRAdapter(Booking booking, ArrayList<services> serviceList, int from, BookClickInterface bookClickInterface){
+    public NSRAdapter(Booking booking, ArrayList<services> serviceList, int from, BookClickInterface bookClickInterface, String language){
         this.from = from;
         this.booking= booking;
         this.serviceList = serviceList;
         this.bookClickInterface = bookClickInterface;
+        this.language = language;
     }
 
     public NSRAdapter(Context mcontext) {
@@ -70,6 +72,16 @@ public class NSRAdapter extends RecyclerView.Adapter<NSRAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
         if(from == 0 ){
+
+            if(language.equalsIgnoreCase("ms")){
+
+                bookButton = holder.itemView.findViewById(R.id.bookButton);
+                bookButton.setText("Tempah");
+            }else{
+                bookButton = holder.itemView.findViewById(R.id.bookButton);
+                bookButton.setText("Book");
+            }
+
             final String name = serviceList.get(position).getServicename();
             final String price = serviceList.get(position).getPrice();
 

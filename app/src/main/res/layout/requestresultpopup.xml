@@ -16,7 +16,7 @@
         android:layout_marginBottom="35dp"
         android:background="#000000"
         android:fontFamily="@font/tienne"
-        android:text="Booking Succesful!"
+        android:text="@string/popup_booksucces"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/resultimageView"

@@ -10,11 +10,15 @@ import androidx.recyclerview.widget.RecyclerView;
 ///import android.app.DatePickerDialog;
 import android.app.Dialog;
 ///import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,7 +78,7 @@ public class Booking extends AppCompatActivity implements BookClickInterface, Ad
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private TextView bookEmail,bookPhone,bookAddress,bookShopName;
-    private TextView bookserviceName, bookservicePrice,bookreviewnotice;
+    private TextView bookserviceName, bookservicePrice,bookreviewnotice,pageTitle,NSTitle,HSTitle,RTitle;
     private ImageView bookpic,BookingBackButton,BAdress;
     private RecyclerView bookrecyclerView,bookHSrecyclerview,Reviewrecyclerview;
     private int from = 0;
@@ -96,6 +100,9 @@ public class Booking extends AppCompatActivity implements BookClickInterface, Ad
     int Year, Month, Day, Hour, Minute;
     Calendar calendar ;
     View rootView;
+    private Context context;
+    private Resources resources;
+    private String lang;
 
     private ArrayAdapter spinneradapter;
     @Override
@@ -142,6 +149,36 @@ public class Booking extends AppCompatActivity implements BookClickInterface, Ad
         BookEmailLayout = findViewById(R.id.BookEmailLayout);
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
+        pageTitle = findViewById(R.id.PTBooking);
+        NSTitle =findViewById(R.id.bookTitleNS);
+        HSTitle = findViewById(R.id.booktitleHS);
+        RTitle = findViewById(R.id.booktitleR);
+
+        SharedPreferences sh = PreferenceManager.getDefaultSharedPreferences(this);
+
+        lang = sh.getString("Locale.Helper.Selected.Language","");
+
+        if(lang.equalsIgnoreCase("ms")){
+
+            context = LocaleHelper.setLocale(Booking.this, "ms");
+            resources =  context.getResources();
+            pageTitle.setText(resources.getString(R.string.page_title_booking));
+            NSTitle.setText(resources.getString(R.string.normal_services_title));
+            HSTitle.setText(resources.getString(R.string.home_services_title));
+            RTitle.setText(resources.getString(R.string.review_title));
+
+
+
+        }else{
+
+            context = LocaleHelper.setLocale( Booking.this, "en");
+            resources =  context.getResources();
+            pageTitle.setText(resources.getString(R.string.page_title_booking));
+            NSTitle.setText(resources.getString(R.string.normal_services_title));
+            HSTitle.setText(resources.getString(R.string.home_services_title));
+            RTitle.setText(resources.getString(R.string.review_title));
+        }
+
 
         ////methods to initialize and fill the activity with barber details
         checkUserType();
@@ -204,6 +241,8 @@ public class Booking extends AppCompatActivity implements BookClickInterface, Ad
                 startActivity(chooser);
             }
         });
+
+
 
 
     }
@@ -403,7 +442,7 @@ public class Booking extends AppCompatActivity implements BookClickInterface, Ad
     }
 
     private void setNSRAdapter() {
-        NSRAdapter adapter= new NSRAdapter(Booking.this,serviceList,from,this);
+        NSRAdapter adapter= new NSRAdapter(Booking.this,serviceList,from,this,lang);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         bookrecyclerView.setLayoutManager(layoutManager);
         bookrecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -438,7 +477,7 @@ public class Booking extends AppCompatActivity implements BookClickInterface, Ad
     }
 
     private void setHSRAdapter() {
-        HSRAdapter adapter= new HSRAdapter(Booking.this,HSserviceList,from,this);
+        HSRAdapter adapter= new HSRAdapter(Booking.this,HSserviceList,from,this,lang);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         bookHSrecyclerview.setLayoutManager(layoutManager);
         bookHSrecyclerview.setItemAnimator(new DefaultItemAnimator());

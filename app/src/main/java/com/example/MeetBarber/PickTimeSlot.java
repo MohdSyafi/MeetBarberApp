@@ -6,9 +6,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -54,6 +58,7 @@ public class PickTimeSlot extends AppCompatActivity implements BookClickInterfac
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String name,price,barberId,customerId,status,servicetype,date,appointmentId,shopname,customername;
     private TextView PTSServiceName,PTSServicePrice,PTSServiceDate,PTSServiceType,PTSServiceTime;
+    private TextView ServiceTitle, PriceTitle, DateTitle, TypeTitle,TimeInstr,pageTitle,TimeTitle;
     private ArrayList<TimeSlot> TimeSlotList = new ArrayList<>();
     private ArrayList<String> CheckList = new ArrayList<>();
     private Button PTSConfirmButton;
@@ -63,6 +68,9 @@ public class PickTimeSlot extends AppCompatActivity implements BookClickInterfac
     private Dialog resultDialog;
     private Handler mHandler;
     private APIService apiService;
+    private Context context;
+    private Resources resources;
+    private String lang;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +101,38 @@ public class PickTimeSlot extends AppCompatActivity implements BookClickInterfac
         PTSServiceType = findViewById(R.id.PickTimeSlotServiceType);
         PTSrecyclerview = findViewById(R.id.PTScontainer);
         PTSServiceTime = findViewById(R.id.PickTimeSlotServiceTime);
+        pageTitle  = findViewById(R.id.PTSpagetitle);
+        ServiceTitle = findViewById(R.id.PTSServiceTitle);
+        PriceTitle = findViewById(R.id.PTSPriceTitle);
+        DateTitle = findViewById(R.id.PTSpagetitle);
+        TypeTitle = findViewById(R.id.PTSTypeTitle);
+        TimeInstr =findViewById(R.id.InstrPTS);
+        TimeTitle = findViewById(R.id.PTSTimeTitle);
+
+        SharedPreferences sh = PreferenceManager.getDefaultSharedPreferences(this);
+
+        lang = sh.getString("Locale.Helper.Selected.Language","");
+
+        if(lang.equalsIgnoreCase("ms")){
+
+            context = LocaleHelper.setLocale(PickTimeSlot.this, "ms");
+            resources =  context.getResources();
+            pageTitle.setText(resources.getString(R.string.page_title_booking));
+            ServiceTitle.setText(resources.getString(R.string.title_service));
+            PriceTitle.setText(resources.getString(R.string.title_price));
+            DateTitle.setText(resources.getString(R.string.title_dateselected));
+            TypeTitle.setText(resources.getString(R.string.title_type));
+            TimeTitle.setText(resources.getString(R.string.title_timeslot));
+            TimeInstr.setText(resources.getString(R.string.intsr_pickdate));
+            PTSConfirmButton.setText(resources.getString(R.string.ConfirmBook_button));
+
+        }else{
+
+            context = LocaleHelper.setLocale(PickTimeSlot.this, "en");
+            resources =  context.getResources();
+
+        }
+
 
         initActivity();
         getBarberOperationDetails();
@@ -213,15 +253,17 @@ public class PickTimeSlot extends AppCompatActivity implements BookClickInterfac
                                     resultDialog.findViewById(R.id.failTV).setVisibility(View.INVISIBLE);
                                     resultDialog.findViewById(R.id.failimageview).setVisibility(View.INVISIBLE);
                                     resultDialog.show();
+                                    if(lang.equalsIgnoreCase("ms")){
+                                        TextView temp = resultDialog.findViewById(R.id.SuccessTV);
+                                        temp.setText(resources.getString(R.string.popup_booksucces));
+                                    }
+
 
                                     mHandler.postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
                                             resultDialog.dismiss();
-
                                             Intent a = new Intent(PickTimeSlot.this,HomePage.class);
-                                            a .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                            finish();
                                             PickTimeSlot.this.startActivity(a);
                                         }
                                     },2000L);
@@ -316,8 +358,22 @@ public class PickTimeSlot extends AppCompatActivity implements BookClickInterfac
         PTSServiceDate.setText(date);
         PTSServiceName .setText(name);
         PTSServicePrice.setText(price);
-        PTSServiceType.setText(servicetype);
-        PTSServiceTime.setText("Please select a time slot");
+
+
+
+        if(lang.equalsIgnoreCase("ms")){
+            PTSServiceTime.setText("Sila pilih slot masa");
+            if(servicetype.equalsIgnoreCase("Normal")){
+                PTSServiceType.setText( "Servis Normal");
+            }else{
+                PTSServiceType.setText( "Servis Rumah");
+            }
+
+        }else{
+
+            PTSServiceType.setText(servicetype + " service");
+            PTSServiceTime.setText("Please select a time slot");
+        }
     }
 
     private void getBarberOperationDetails() {

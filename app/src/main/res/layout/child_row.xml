@@ -78,10 +78,11 @@
 
                 <TextView
 
+                    android:id="@+id/HPTimeTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/tienne"
-                    android:text="Time:"
+                    android:text="@string/title_timeslot"
                     android:textColor="#FFFFFF"
                     android:textSize="14sp"
                     android:textStyle="italic">
@@ -107,11 +108,12 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/HPCustTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:fontFamily="@font/tienne"
-                    android:text="Cust:"
+                    android:text="@string/title_customer"
                     android:textColor="#FFFFFF"
                     android:textSize="14sp">
 
@@ -167,7 +169,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/tienne"
-                    android:text="Status:"
+                    android:text="@string/title_status"
                     android:textColor="#FFFFFF"
                     android:textSize="14sp">
 
@@ -194,12 +196,13 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/HPTypeTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/tienne"
-                    android:text="Type:"
+                    android:text="@string/title_type"
                     android:textColor="#FFFFFF"
                     android:textSize="14sp">
 
@@ -212,7 +215,7 @@
                     android:layout_marginStart="4dp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/tienne"
-                    android:text="Home Service"
+                    android:text="@string/home_services_title"
                     android:textColor="#FFEB3B"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -236,6 +239,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/HPCompleteBttn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -243,7 +247,7 @@
                     android:layout_marginTop="4dp"
                     android:layout_marginBottom="4dp"
                     android:fontFamily="@font/tienne"
-                    android:text="Complete"
+                    android:text="@string/status_complete"
                     android:textColor="@color/colorAccent"
                     android:textSize="14sp">
 
@@ -274,6 +278,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/HPAcceptBttn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -281,7 +286,7 @@
                     android:layout_marginTop="4dp"
                     android:layout_marginBottom="4dp"
                     android:fontFamily="@font/tienne"
-                    android:text="Accept"
+                    android:text="@string/status_accept"
                     android:textColor="@color/colorAccent"
                     android:textSize="14sp">
 
@@ -319,7 +324,7 @@
                     android:layout_marginTop="4dp"
                     android:layout_marginBottom="4dp"
                     android:fontFamily="@font/tienne"
-                    android:text="Cancel"
+                    android:text="@string/status_cancel"
                     android:textColor="@color/colorAccent"
                     android:textSize="14sp">
 

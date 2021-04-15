@@ -4,10 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -41,10 +45,14 @@ public class Detail extends AppCompatActivity {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private String DocID, DocDate, BarberID, CustomerID, UserId, userType, collection;
     private TextView serviceName, servicePrice, serviceDate, serviceStatus, serviceType, serviceTime;
-    private  TextView barbershopname, barberemail, barbercontact, barberaddress;
-    private  TextView customername, customeremail,customercontact, customeraddress;
+    private TextView barbershopname, barberemail, barbercontact, barberaddress;
+    private TextView customername, customeremail,customercontact, customeraddress;
+    private TextView pageTitle,customersectiontitle;
     private CircleImageView barberprofileImage, customerprofileImage;
     private LinearLayout DetailCEmailLayout,DetailCContactLayout,DetailCAddressLayout,DetailBEmailLayout,DetailBContactLayout,DetailBAddressLayout;
+    private Context context;
+    private Resources resources;
+    private String lang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,10 +96,49 @@ public class Detail extends AppCompatActivity {
         customeremail = findViewById(R.id.detailCustomerEmail);
         customercontact = findViewById(R.id.detailCustomerPhone);
         customeraddress = findViewById(R.id.detailCustomerAddress);
+        pageTitle = findViewById(R.id.DetailTitle);
+        customersectiontitle = findViewById(R.id.DetailCustomerTitle);
+
 
         getServiceDetail();
         getBarberDetail();
         getCustomerDetail();
+
+        SharedPreferences sh = PreferenceManager.getDefaultSharedPreferences(this);
+
+        lang = sh.getString("Locale.Helper.Selected.Language","");
+
+        if(lang.equalsIgnoreCase("ms")){
+
+            TextView service,price,time,date,type,status;
+
+            service = findViewById(R.id.detailServiceNameTV);
+            price = findViewById(R.id.detailServicePriceTV);
+            time = findViewById(R.id.detailServiceTimeTV);
+            date = findViewById(R.id.detailServiceDateTV);
+            type = findViewById(R.id.detailServiceTypeTV);
+            status = findViewById(R.id.detailServiceStatusTV);
+
+            context = LocaleHelper.setLocale(Detail.this, "ms");
+            resources =  context.getResources();
+            pageTitle.setText(resources.getString(R.string.page_title_details));
+            service.setText(resources.getString(R.string.title_service));
+            price.setText(resources.getString(R.string.title_price));
+            time.setText(resources.getString(R.string.title_timeslot));
+            date.setText(resources.getString(R.string.title_date));
+            type.setText(resources.getString(R.string.title_type));
+            status.setText(resources.getString(R.string.title_status));
+            customersectiontitle.setText(resources.getString(R.string.title_customercomplete));
+
+
+
+        }else{
+
+            context = LocaleHelper.setLocale(Detail.this, "en");
+            resources =  context.getResources();
+            pageTitle.setText(resources.getString(R.string.page_title_details));
+
+        }
 
         DetailBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -256,9 +303,34 @@ public class Detail extends AppCompatActivity {
                             serviceName.setText(documentSnapshot.get("name").toString());
                             serviceDate.setText(documentSnapshot.get("date").toString());
                             servicePrice.setText("RM" + documentSnapshot.get("price").toString());
-                            serviceStatus.setText(documentSnapshot.get("status").toString());
+
                             serviceTime.setText(documentSnapshot.get("time slot").toString());
-                            serviceType.setText(documentSnapshot.get("type").toString());
+
+                            if(lang.equalsIgnoreCase("ms")){
+
+                                if(documentSnapshot.get("type").toString().equalsIgnoreCase("Home")){
+                                    serviceType.setText("Servis Rumah");
+                                }else{
+                                    serviceType.setText("Servis Normal");
+                                }
+
+                                if(documentSnapshot.get("status").toString().equalsIgnoreCase("completed")){
+                                    serviceStatus.setText("Selesai");
+                                }else if(documentSnapshot.get("status").toString().equalsIgnoreCase("accepted")){
+                                    serviceStatus.setText("Diterima");
+                                }else if(documentSnapshot.get("status").toString().equalsIgnoreCase("on hold")){
+                                    serviceStatus.setText("Belum diterima");
+                                }else if(documentSnapshot.get("status").toString().equalsIgnoreCase("cancelled")){
+                                    serviceStatus.setText("Dibatalkan");
+                                }else if(documentSnapshot.get("status").toString().equalsIgnoreCase("rejected")){
+                                    serviceStatus.setText("Ditolak");
+                                }
+
+                            }else{
+                                serviceType.setText(documentSnapshot.get("type").toString() + " service");
+                                serviceStatus.setText(documentSnapshot.get("status").toString());
+                            }
+
 
                     }
                 }).addOnFailureListener(new OnFailureListener() {

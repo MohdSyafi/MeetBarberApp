@@ -75,11 +75,12 @@
                 app:layout_constraintTop_toBottomOf="@id/SearchBarLayout">
 
                 <TextView
+                    android:id="@+id/RecommendMeTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#000000"
                     android:fontFamily="@font/tienne"
-                    android:text="Recommend me:"
+                    android:text="@string/title_recommendme"
                     android:textColor="@color/colorAccent"
                     android:textSize="18dp"></TextView>
 
@@ -92,7 +93,7 @@
                     android:fontFamily="@font/tienne"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
-                    android:text="Nearby"
+                    android:text="@string/title_nearbyme"
                     android:textColor="@color/colorYellow"
                     android:textSize="16dp">
 
@@ -107,7 +108,7 @@
                     android:fontFamily="@font/tienne"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
-                    android:text="5 stars"
+                    android:text="@string/title_highstar"
                     android:textColor="@color/colorYellow"
                     android:textSize="16dp">
 
@@ -149,7 +150,7 @@
                     android:background="#FFFFFF"
                     android:ems="10"
                     android:fontFamily="@font/tienne"
-                    android:hint="Search for barber, shop, address or services"
+                    android:hint="@string/hint_search"
                     android:inputType="textPersonName"
                     android:paddingStart="4dp"
                     android:paddingTop="4dp"

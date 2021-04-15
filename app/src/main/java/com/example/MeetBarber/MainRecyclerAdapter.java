@@ -1,6 +1,9 @@
 package com.example.MeetBarber;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +22,13 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
     private HomePage homePage;
     private  History history;
     String clickable = "yes";
+    private Context context;
+    private String lang;
 
     public MainRecyclerAdapter(ArrayList<Section> sectionList, HomePage homePage) {
         this.sectionList = sectionList;
         this.homePage = homePage;
+
 
     }
 
@@ -41,6 +47,12 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
         return new MainViewHolder(view);
     }
 
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        context = recyclerView.getContext();
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull MainViewHolder holder, int position) {
@@ -50,8 +62,18 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
             ArrayList<apnmtDetails> items = section.getSectionItem();
             holder.sectionName.setText(tempp);
 
+        SharedPreferences sh = PreferenceManager.getDefaultSharedPreferences(context);
+
+        lang = sh.getString("Locale.Helper.Selected.Language","");
+
            if(section.getSectionDate().equals(LocalDate.now())){
-               holder.sectionName.setText("Today");
+
+               if(lang.equalsIgnoreCase("ms")){
+                   holder.sectionName.setText("Hari ini");
+               }else{
+                   holder.sectionName.setText("Today");
+               }
+
            }
 
             if(clickable.equalsIgnoreCase("no")){

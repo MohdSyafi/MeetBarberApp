@@ -96,7 +96,6 @@ public class Login extends AppCompatActivity {
         RegButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                finish();
                 Intent i = new Intent(Login.this, register.class);
                 startActivity(i);
             }
@@ -105,7 +104,6 @@ public class Login extends AppCompatActivity {
         regbuttonB.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                finish();
                 Intent i = new Intent(Login.this, registerBarber.class);
                 startActivity(i);
             }

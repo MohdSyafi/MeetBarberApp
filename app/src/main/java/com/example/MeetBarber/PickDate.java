@@ -3,8 +3,12 @@ package com.example.MeetBarber;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -17,10 +21,14 @@ import java.util.Calendar;
 public class PickDate extends AppCompatActivity {
 
     private CalendarView PickDateCalendar;
-    private TextView PDServiceName,PDServicePrice,PDServiceDate,PDServiceType;
+    private TextView PDServiceName,PDServicePrice,PDServiceDate,PDServiceType,pageTitle;
+    private TextView ServiceTitle, PriceTitle, DateTitle, TypeTitle,CalendarInstr;
     private Button PDContinueButton;
     private ImageView  PDBackButton;
     private String name, price,barber,customer,status,servicetype,date,shopname,customername;
+    private Context context;
+    private Resources resources;
+    private String lang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +43,12 @@ public class PickDate extends AppCompatActivity {
         PDBackButton = findViewById(R.id.PickDateBackButton);
         PDContinueButton = findViewById(R.id.PDContinueButton);
         PDServiceType = findViewById(R.id.PickDateServiceType);
+        pageTitle = findViewById(R.id.pageTitlePD);
+        ServiceTitle = findViewById(R.id.PDSServiceTV);
+        PriceTitle = findViewById(R.id.PDSPriceTV);
+        DateTitle = findViewById(R.id.PDSDateTV);
+        TypeTitle = findViewById(R.id.PDSTypeTV);
+        CalendarInstr =findViewById(R.id.calendarTitlePD);
 
         Intent intent = getIntent();
         Bundle details = intent.getExtras();
@@ -46,6 +60,40 @@ public class PickDate extends AppCompatActivity {
         servicetype = details.getString("PDSERVICETYPE");
         shopname = details.getString("PDSHOPNAME");
         customername = details.getString("PDCUSTOMERNAME");
+
+        SharedPreferences sh = PreferenceManager.getDefaultSharedPreferences(this);
+
+        lang = sh.getString("Locale.Helper.Selected.Language","");
+
+        if(lang.equalsIgnoreCase("ms")){
+
+            context = LocaleHelper.setLocale(PickDate.this, "ms");
+            resources =  context.getResources();
+            pageTitle.setText(resources.getString(R.string.page_title_booking));
+            ServiceTitle.setText(resources.getString(R.string.page_title_booking));
+            ServiceTitle.setText(resources.getString(R.string.title_service));
+            PriceTitle.setText(resources.getString(R.string.title_price));
+            DateTitle.setText(resources.getString(R.string.title_dateselected));
+            TypeTitle.setText(resources.getString(R.string.title_type));
+            PDContinueButton.setText(resources.getString(R.string.Continue_button));
+            CalendarInstr.setText(resources.getString(R.string.intsr_pickdate));
+
+
+        }else{
+
+            context = LocaleHelper.setLocale(PickDate.this, "en");
+            resources =  context.getResources();
+            pageTitle.setText(resources.getString(R.string.page_title_booking));
+            pageTitle.setText(resources.getString(R.string.page_title_booking));
+            ServiceTitle.setText(resources.getString(R.string.page_title_booking));
+            ServiceTitle.setText(resources.getString(R.string.title_service));
+            PriceTitle.setText(resources.getString(R.string.title_price));
+            DateTitle.setText(resources.getString(R.string.title_dateselected));
+            TypeTitle.setText(resources.getString(R.string.title_type));
+            PDContinueButton.setText(resources.getString(R.string.Continue_button));
+            CalendarInstr.setText(resources.getString(R.string.intsr_pickdate));
+
+        }
 
         initActivity();
 
@@ -115,12 +163,24 @@ public class PickDate extends AppCompatActivity {
 
         PickDateCalendar.setMinDate(cal.getTimeInMillis());
         PickDateCalendar.setDate(cal.getTimeInMillis());
-
         date = day + "/" + MonthName + "/" + year;
-        PDServiceDate.setText("Please select a date");
         PDServiceName.setText(name);
         PDServicePrice.setText("RM" + price);
-        PDServiceType.setText(servicetype + " service");
+
+        if(lang.equalsIgnoreCase("ms")){
+            PDServiceDate.setText("Sila pilih tarikh");
+            if(servicetype.equalsIgnoreCase("Normal")){
+                PDServiceType.setText( "Servis Normal");
+            }else{
+                PDServiceType.setText( "Servis Rumah");
+            }
+
+        }else{
+
+            PDServiceDate.setText("Please select a date");
+            PDServiceType.setText(servicetype + " service");
+        }
+
     }
 
     private String getMonthName(int month) {

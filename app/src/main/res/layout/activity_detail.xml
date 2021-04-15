@@ -23,161 +23,171 @@
             android:layout_height="wrap_content">
 
 
-            <TextView
-                android:id="@+id/DetailServiceName"
-                android:layout_width="0dp"
+            <LinearLayout
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="68dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/tienne"
-                android:text="Service Name"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/detailServiceNameTV"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:id="@+id/LLdetail"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/detailServicePrice"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="88dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/tienne"
-                android:text="RM 0.00"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/detailServicePriceTV"
-                app:layout_constraintTop_toBottomOf="@+id/DetailServiceName" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/detailServiceTime"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="88dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/tienne"
-                android:text="00:00 - 00:00"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/detailServiceTimeTV"
-                app:layout_constraintTop_toBottomOf="@+id/detailServicePrice" />
+                    <TextView
+                        android:id="@+id/detailServiceNameTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/tienne"
+                        android:text="@string/title_service"
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/detailServiceDate"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="92dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/tienne"
-                android:text="00/00/0000"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/detailServiceDateTV"
-                app:layout_constraintTop_toBottomOf="@+id/detailServiceTime" />
+                    <TextView
+                        android:id="@+id/DetailServiceName"
+                        android:layout_marginStart="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/tienne"
+                        android:text="Service Name"
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp" />
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/detailServiceType"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="88dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/tienne"
-                android:text="Normal/Home"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/detailServiceTypeTV"
-                app:layout_constraintTop_toBottomOf="@+id/detailServiceDate" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/detailServicePriceTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/tienne"
+                        android:text="@string/title_price"
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp" />
+                    <TextView
+                        android:layout_marginStart="8dp"
+                        android:id="@+id/detailServicePrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/tienne"
+                        android:text="RM 0.00"
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp"
+                       />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/detailServiceStatus"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="80dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/tienne"
-                android:text="On Hold/Accepted"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/detailServiceStatusTV"
-                app:layout_constraintTop_toBottomOf="@+id/detailServiceType" />
+                    <TextView
+                        android:id="@+id/detailServiceTimeTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/tienne"
+                        android:text="@string/title_timeslot"
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp" />
+                    <TextView
+                        android:layout_marginStart="8dp"
+                        android:id="@+id/detailServiceTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/tienne"
+                        android:text="00:00 - 00:00"
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp" />
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/detailServiceStatusTV"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/tienne"
-                android:text="Status"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detailServiceTypeTV" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/detailServiceTypeTV"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/tienne"
-                android:text="Type:"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detailServiceDateTV" />
+                    <TextView
+                        android:id="@+id/detailServiceDateTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/tienne"
+                        android:text="@string/title_date"
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp" />
+                    <TextView
+                        android:layout_marginStart="8dp"
+                        android:id="@+id/detailServiceDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/tienne"
+                        android:text="00/00/0000"
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp" />
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/detailServiceDateTV"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/tienne"
-                android:text="Date:"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detailServiceTimeTV" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/detailServiceTimeTV"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/tienne"
-                android:text="Time:"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detailServicePriceTV" />
+                    <TextView
+                        android:id="@+id/detailServiceTypeTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/tienne"
+                        android:text="@string/title_type"
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp" />
+                    <TextView
+                        android:layout_marginStart="8dp"
+                        android:id="@+id/detailServiceType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/tienne"
+                        android:text="Normal/Home"
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp" />
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/detailServicePriceTV"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/tienne"
-                android:text="Price:"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detailServiceNameTV" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/detailServiceStatusTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/tienne"
+                        android:text="@string/title_status"
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp" />
+                    <TextView
+                        android:layout_marginStart="8dp"
+                        android:id="@+id/detailServiceStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/tienne"
+                        android:text="On Hold/Accepted"
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp" />
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/detailServiceNameTV"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/tienne"
-                android:text="Service:"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+
+            </LinearLayout>
+
 
             <TextView
                 android:id="@+id/DetailBarberTitle"
@@ -194,7 +204,7 @@
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detailServiceStatus" />
+                app:layout_constraintTop_toBottomOf="@+id/LLdetail" />
 
             <TextView
                 android:id="@+id/DetailCustomerTitle"
@@ -205,7 +215,7 @@
                 android:fontFamily="@font/tienne"
                 android:paddingStart="32dp"
                 android:paddingTop="8dp"
-                android:text="Customer"
+                android:text="@string/title_customercomplete"
                 android:textAlignment="viewStart"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp"

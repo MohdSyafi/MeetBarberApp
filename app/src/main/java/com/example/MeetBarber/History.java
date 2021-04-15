@@ -7,12 +7,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -46,6 +51,10 @@ public class History extends AppCompatActivity implements reviewClickInterface{
     private Section section = new Section();
     private String UserId,userType;
     private Button backButton;
+    private Context context;
+    private Resources resources;
+    private String lang;
+    private TextView pageTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,12 +67,24 @@ public class History extends AppCompatActivity implements reviewClickInterface{
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         UserId = mAuth.getCurrentUser().getUid();
+        pageTitle = findViewById(R.id.HistoryTitle);
 
         LinearLayoutManager manager = new LinearLayoutManager(History.this);
         HistoryRecyclerView.setLayoutManager(manager);
         HistoryRecyclerView.setAdapter(HistorymainRecyclerAdapter);
         initdata();
         checkUserType();
+
+        SharedPreferences sh = PreferenceManager.getDefaultSharedPreferences(this);
+
+        lang = sh.getString("Locale.Helper.Selected.Language","");
+
+        if(lang.equalsIgnoreCase("ms")){
+
+            context = LocaleHelper.setLocale(History.this, "ms");
+            resources =  context.getResources();
+            pageTitle.setText(resources.getString(R.string.sidebar_history));
+        }
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -51,7 +51,7 @@ import com.squareup.picasso.Picasso;
 public class Search extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private EditText searchField;
-    private TextView pageTitle,nearbyButton,highstarButton;
+    private TextView pageTitle,nearbyButton,highstarButton,recommendmetextview;
     private TextView drawer_logout,drawer_language,drawer_history;
     private ImageView searchButton;
     private RecyclerView searchRecyclerview;
@@ -78,6 +78,7 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
         getSupportActionBar().hide();
         setContentView(R.layout.activity_search);
 
+        recommendmetextview = findViewById(R.id.RecommendMeTV);
         drawerLayout = findViewById(R.id.drawer_layout);
         searchField = findViewById(R.id.SearchField);
         searchButton = findViewById(R.id.SearchButton);
@@ -134,6 +135,10 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
             drawer_logout.setText(resources.getString(R.string.sidebar_signout));
             drawer_language.setText(resources.getString(R.string.sidebar_language));
             drawer_history.setText(resources.getString(R.string.sidebar_history));
+            recommendmetextview.setText(resources.getString(R.string.title_recommendme));
+            nearbyButton.setText(resources.getString(R.string.title_nearbyme));
+            highstarButton.setText(resources.getString(R.string.title_highstar));
+            searchField.setHint(resources.getString(R.string.hint_search));
 
         }else{
 
@@ -143,6 +148,9 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
             drawer_logout.setText(resources.getString(R.string.sidebar_signout));
             drawer_language.setText(resources.getString(R.string.sidebar_language));
             drawer_history.setText(resources.getString(R.string.sidebar_history));
+            recommendmetextview.setText(resources.getString(R.string.title_recommendme));
+            nearbyButton.setText(resources.getString(R.string.title_nearbyme));
+            highstarButton.setText(resources.getString(R.string.title_highstar));
         }
 
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -240,7 +248,7 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
                                 attribute = "keyword";
                                 String temp = kw.toLowerCase();
                                 sQuery = sCollection.whereArrayContains("keyword",temp);
-                                firebaseUserSearch(kw,attribute);
+                                firebaseUserSearch(temp,attribute);
                             } else {
                                Toast.makeText(Search.this,"No nearby barber could be found",Toast.LENGTH_LONG).show();
                             }

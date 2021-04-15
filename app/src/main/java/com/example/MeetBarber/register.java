@@ -221,7 +221,7 @@ public class register  extends AppCompatActivity  {
                             public void onComplete(@NonNull Task<Void> task) {
                                 Intent i = new Intent(register.this, MainActivity.class);
                                 startActivity(i);
-                                finishAffinity();
+                                finish();
                             }
                         });
                     }
@@ -346,6 +346,19 @@ public class register  extends AppCompatActivity  {
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if(mAuth.getCurrentUser()!=null){
+            finish();
+            Intent i = new Intent(register.this, Profile.class);
+            startActivity(i);
+        }else{
+            super.onBackPressed();
+        }
+
     }
 
     private boolean isPwdValid(String pwd) {

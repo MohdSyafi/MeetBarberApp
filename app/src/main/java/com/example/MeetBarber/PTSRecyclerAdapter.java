@@ -38,7 +38,6 @@ public class PTSRecyclerAdapter extends RecyclerView.Adapter<PTSRecyclerAdapter.
     public void onBindViewHolder(@NonNull PTSRecyclerAdapter.PTSViewHolder holder, int position) {
         holder.TimeSlotTV.setText(timeSlotList.get(position).getTimeslot());
 
-
         if(timeSlotList.get(position).isSelected()){
 
             if(timeSlotList.get(position).isBooked()){
